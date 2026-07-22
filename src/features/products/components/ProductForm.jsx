@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function ProductForm({
   categories,
-  onAdd
+  onAdd,
+  onEdit,
+  editingProduct,
+  cancelEdit
 }) {
 
 
@@ -21,6 +24,36 @@ function ProductForm({
 
   const [form, setForm] = useState(initialState);
   const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(()=>{
+
+  if(editingProduct){
+
+    setForm({
+
+      name: editingProduct.name || "",
+      brand: editingProduct.brand || "",
+      categoryId: editingProduct.categoryId || "",
+      type: editingProduct.type || "",
+      price: editingProduct.price || "",
+      description: editingProduct.description || "",
+      image: editingProduct.image || null
+
+    });
+
+
+    if(editingProduct.image){
+
+      setImagePreview(
+        URL.createObjectURL(editingProduct.image)
+      );
+
+    }
+
+  }
+
+
+},[editingProduct]);
 
 
 
@@ -74,15 +107,48 @@ function ProductForm({
     if(!form.name.trim()) return;
 
 
-    await onAdd({
+    const productData = {
 
   ...form,
 
-  price:Number(form.price),
+  price:Number(form.price)
 
-  createdAt:new Date()
+};
 
-});
+
+if(editingProduct){
+
+  await onEdit(
+    editingProduct.id,
+    {
+      ...productData,
+      updatedAt:new Date()
+    }
+  );
+
+
+  cancelEdit();
+
+
+}
+else{
+
+
+  await onAdd({
+
+    ...productData,
+
+    createdAt:new Date()
+
+  });
+
+
+}
+
+
+setForm(initialState);
+
+setImagePreview(null);
 
 
     setForm(initialState);
@@ -230,9 +296,15 @@ function ProductForm({
 
       <button type="submit">
 
-        Crear producto
+{
+  editingProduct
+  ?
+  "Actualizar producto"
+  :
+  "Crear producto"
+}
 
-      </button>
+</button>
 
 
 

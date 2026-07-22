@@ -5,21 +5,25 @@ import { useProducts } from "../hooks/useProducts";
 
 import { useCategories } from "../../categories/hooks/useCategories";
 
+import { useState } from "react";
+
 
 function Products() {
 
 
   const {
 
-    products,
+  products,
 
-    addProduct,
+  addProduct,
 
-    removeProduct
+  editProduct,
 
-  } = useProducts();
+  removeProduct
 
+} = useProducts();
 
+const [editingProduct, setEditingProduct] = useState(null);
 
   const {
 
@@ -42,21 +46,31 @@ function Products() {
 
       <ProductForm
 
-        categories={categories}
+  categories={categories}
 
-        onAdd={addProduct}
+  onAdd={addProduct}
 
-      />
+  onEdit={editProduct}
+
+  editingProduct={editingProduct}
+
+  cancelEdit={()=>
+    setEditingProduct(null)
+  }
+
+/>
 
 
 
       <ProductList
 
-        products={products}
+  products={products}
 
-        onDelete={removeProduct}
+  onDelete={removeProduct}
 
-      />
+  onEdit={setEditingProduct}
+
+/>
 
 
     </section>

@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 function ProductList({
   products,
-  onDelete
+  onDelete,
+  onEdit
 }) {
 
 
@@ -140,13 +141,24 @@ function ProductList({
 
                   <button
 
-                    onClick={()=>
-                      onDelete(product.id)
-                    }
+  onClick={()=>
+    onEdit(product)
+  }
 
-                  >
-                    Eliminar
-                  </button>
+>
+  Editar
+</button>
+
+
+<button
+
+  onClick={()=>
+    onDelete(product.id)
+  }
+
+>
+  Eliminar
+</button>
 
 
                 </li>
