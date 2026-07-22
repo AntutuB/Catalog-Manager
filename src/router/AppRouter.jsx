@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../features/catalog/pages/Home";
 import Categories from "../features/categories/pages/Categories";
 import Products from "../features/products/pages/Products";
+import Templates from "../features/templates/pages/Templates";
 
 
 function AppRouter() {
@@ -17,25 +18,30 @@ function AppRouter() {
 
         <Routes>
 
-          <Route
-            path="/"
-            element={<Home />}
-          />
+  <Route
+    path="/"
+    element={<Home />}
+  />
 
-          <Route
-            path="/categories"
-            element={<Categories />}
-          />
 
-          <Route
+  <Route
+    path="/categories"
+    element={<Categories />}
+  />
 
-            path="/products"
 
-            element={<Products />}
+  <Route
+    path="/products"
+    element={<Products />}
+  />
 
-          />
 
-        </Routes>
+  <Route
+    path="/templates"
+    element={<Templates />}
+  />
+
+</Routes>
 
       </MainLayout>
 
