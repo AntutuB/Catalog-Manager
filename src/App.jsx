@@ -1,15 +1,11 @@
+import AppRouter from "./router/AppRouter";
+import AppProvider from "./app/AppProvider";
+
 function App() {
   return (
-    <main
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh"
-      }}
-    >
-      <h1>Catalog Manager</h1>
-    </main>
+    <AppProvider>
+      <AppRouter />
+    </AppProvider>
   );
 }
 
