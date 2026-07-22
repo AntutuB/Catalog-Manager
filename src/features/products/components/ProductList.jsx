@@ -1,7 +1,72 @@
+import { useEffect, useState } from "react";
+
+
 function ProductList({
   products,
   onDelete
 }) {
+
+
+  const [productsWithImages, setProductsWithImages] = useState([]);
+
+
+
+  useEffect(()=>{
+
+    const loadImages = async()=>{
+
+
+      const data = products.map(product=>{
+
+
+        let imageUrl = null;
+
+
+        if(product.image){
+
+          imageUrl = URL.createObjectURL(product.image);
+
+        }
+
+
+        return {
+
+          ...product,
+
+          imageUrl
+
+        };
+
+
+      });
+
+
+      setProductsWithImages(data);
+
+
+    };
+
+
+    loadImages();
+
+
+    return ()=>{
+
+      productsWithImages.forEach(product=>{
+
+        if(product.imageUrl){
+
+          URL.revokeObjectURL(product.imageUrl);
+
+        }
+
+      });
+
+    };
+
+
+  },[products]);
+
 
 
   return (
@@ -10,7 +75,7 @@ function ProductList({
 
 
       {
-        products.length === 0 ?
+        productsWithImages.length === 0 ?
 
         (
 
@@ -27,11 +92,26 @@ function ProductList({
           <ul>
 
             {
-              products.map(product=>(
+              productsWithImages.map(product=>(
 
-                <li
-                  key={product.id}
-                >
+                <li key={product.id}>
+
+
+                  {
+                    product.imageUrl &&
+
+                    <img
+
+                      src={product.imageUrl}
+
+                      width="150"
+
+                      alt={product.name}
+
+                    />
+
+                  }
+
 
                   <h3>
                     {product.name}
@@ -65,9 +145,7 @@ function ProductList({
                     }
 
                   >
-
                     Eliminar
-
                   </button>
 
 

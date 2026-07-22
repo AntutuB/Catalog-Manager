@@ -20,6 +20,7 @@ function ProductForm({
 
 
   const [form, setForm] = useState(initialState);
+  const [imagePreview, setImagePreview] = useState(null);
 
 
 
@@ -41,6 +42,28 @@ function ProductForm({
 
   }
 
+  function handleImageChange(e){
+
+  const file = e.target.files[0];
+
+  if(!file) return;
+
+
+  setForm({
+
+    ...form,
+
+    image:file
+
+  });
+
+
+  setImagePreview(
+    URL.createObjectURL(file)
+  );
+
+}
+
 
 
   async function handleSubmit(e){
@@ -53,13 +76,13 @@ function ProductForm({
 
     await onAdd({
 
-      ...form,
+  ...form,
 
-      price:Number(form.price),
+  price:Number(form.price),
 
-      createdAt:new Date()
+  createdAt:new Date()
 
-    });
+});
 
 
     setForm(initialState);
@@ -178,6 +201,30 @@ function ProductForm({
         onChange={handleChange}
 
       />
+
+      <input
+
+  type="file"
+
+  accept="image/*"
+
+  onChange={handleImageChange}
+
+/>
+
+
+{
+  imagePreview &&
+
+  <img
+
+    src={imagePreview}
+
+    width="150"
+
+  />
+
+}
 
 
 
