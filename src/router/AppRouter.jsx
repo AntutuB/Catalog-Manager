@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 
 import Home from "../features/catalog/pages/Home";
 import Categories from "../features/categories/pages/Categories";
+import Products from "../features/products/pages/Products";
 
 
 function AppRouter() {
@@ -24,6 +25,14 @@ function AppRouter() {
           <Route
             path="/categories"
             element={<Categories />}
+          />
+
+          <Route
+
+            path="/products"
+
+            element={<Products />}
+
           />
 
         </Routes>

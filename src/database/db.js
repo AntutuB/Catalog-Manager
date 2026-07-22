@@ -7,7 +7,7 @@ export const db = new Dexie("CatalogManagerDB");
 db.version(1).stores({
 
   products:
-    "++id, name, brand, categoryId, type, price",
+    "++id, name, brand, categoryId, type, price, createdAt",
 
   categories:
     "++id, name",
