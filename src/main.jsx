@@ -5,6 +5,10 @@ import App from "./App.jsx";
 
 import "./styles/globals.css";
 
+import { createDefaultTemplates } from "./features/templates/services/templatePreset";
+
+createDefaultTemplates();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />

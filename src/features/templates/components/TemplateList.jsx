@@ -1,6 +1,7 @@
 function TemplateList({
   templates,
-  onDelete
+  onDelete,
+  onEdit
 }) {
 
 
@@ -41,6 +42,15 @@ function TemplateList({
               Eliminar
 
             </button>
+            <button
+
+  onClick={()=>
+    onEdit(template)
+  }
+
+>
+  Editar
+</button>
 
 
           </li>

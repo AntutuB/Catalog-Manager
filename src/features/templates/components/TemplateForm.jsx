@@ -51,15 +51,17 @@ function TemplateForm({
 
     await onAdd({
 
-      ...form,
+  ...form,
 
-      width:Number(form.width),
+  width:Number(form.width),
 
-      height:Number(form.height),
+  height:Number(form.height),
 
-      createdAt:new Date()
+  elements:[],
 
-    });
+  createdAt:new Date()
+
+});
 
 
     setForm(initialState);

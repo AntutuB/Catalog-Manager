@@ -6,6 +6,7 @@ import Home from "../features/catalog/pages/Home";
 import Categories from "../features/categories/pages/Categories";
 import Products from "../features/products/pages/Products";
 import Templates from "../features/templates/pages/Templates";
+import Editor from "../features/editor/pages/Editor";
 
 
 function AppRouter() {
@@ -40,6 +41,14 @@ function AppRouter() {
     path="/templates"
     element={<Templates />}
   />
+
+  <Route
+
+  path="/editor"
+
+  element={<Editor />}
+
+/>
 
 </Routes>
 

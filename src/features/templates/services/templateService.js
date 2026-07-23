@@ -27,3 +27,17 @@ export async function deleteTemplate(id){
   return await db.templates.delete(id);
 
 }
+
+export async function updateTemplateElements(id,elements){
+
+  return await db.templates.update(
+
+    id,
+
+    {
+      elements
+    }
+
+  );
+
+}

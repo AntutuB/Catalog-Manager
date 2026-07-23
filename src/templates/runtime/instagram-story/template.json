@@ -1,0 +1,28 @@
+{
+  "id": "instagram-story",
+  "name": "Instagram Story",
+  "version": "1.0.0",
+
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+
+  "theme": {
+    "background": "#FFFFFF",
+    "text": "#000000",
+    "accent": "#000000"
+  },
+
+  "fonts": {
+    "default": "Inter"
+  },
+
+  "assets": {
+    "logo": "assets/logo.svg",
+    "background": "assets/background.png",
+    "watermark": "assets/watermark.svg"
+  },
+
+  "elements": []
+}
