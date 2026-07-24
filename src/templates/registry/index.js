@@ -1,9 +1,19 @@
-import { instagramStory } from "../runtime";
+import {
+
+    instagramStory
+
+} from "../runtime";
+
 
 const templateRegistry = {
 
-    "instagram-story": instagramStory
+
+    "instagram-story":
+
+        instagramStory
+
 
 };
+
 
 export default templateRegistry;

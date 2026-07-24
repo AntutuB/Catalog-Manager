@@ -1,26 +1,36 @@
 import { useProducts } from "../../products/hooks/useProducts";
-import { useTemplates } from "../../templates/hooks/useTemplates";
+
+
+import {
+    getTemplates
+} from "../../../templates/services/templateRegistryService";
+
 
 
 export function useEditorData(){
 
-  const {
-    products
-  } = useProducts();
 
+    const {
 
-  const {
-    templates
-  } = useTemplates();
+        products
+
+    } = useProducts();
 
 
 
-  return {
+    const templates = getTemplates();
 
-    products,
 
-    templates
 
-  };
+    return {
+
+
+        products,
+
+        templates
+
+
+    };
+
 
 }

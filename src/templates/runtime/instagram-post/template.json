@@ -1,0 +1,169 @@
+{
+  "id": "instagram-post",
+
+  "name": "Instagram Post",
+
+  "version": "1.0.0",
+
+  "canvas": {
+    "width": 1080,
+    "height": 1350
+  },
+
+  "theme": {
+    "background": "#FFFFFF",
+    "text": "#000000",
+    "accent": "#000000"
+  },
+
+  "fonts": {
+    "default": "Inter"
+  },
+
+  "assets": {
+    "logo": "logo"
+  },
+
+  "elements": [
+
+    {
+      "id": "background",
+
+      "type": "background",
+
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1350
+      },
+
+      "color": "#FFFFFF"
+    },
+
+
+    {
+      "id": "logo",
+
+      "type": "asset",
+
+      "asset": "logo",
+
+      "bounds": {
+        "x": 0,
+        "y": 105,
+        "width": 1080,
+        "height": 120
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
+      }
+    },
+
+
+    {
+      "id": "productImage",
+
+      "type": "image",
+
+      "binding": "image",
+
+      "bounds": {
+        "x": 0,
+        "y": 225,
+        "width": 1080,
+        "height": 800
+      },
+
+      "layout": {
+        "fit": "contain",
+        "horizontal": "center",
+        "vertical": "center"
+      }
+    },
+
+
+    {
+      "id": "productName",
+
+      "type": "text",
+
+      "binding": "name",
+
+      "bounds": {
+        "x": 0,
+        "y": 1025,
+        "width": 1080,
+        "height": 90
+      },
+
+      "style": {
+        "fontSize": 48,
+        "fontWeight": 700,
+        "textAlign": "center"
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
+      }
+    },
+
+
+    {
+      "id": "productCategory",
+
+      "type": "text",
+
+      "binding": "type",
+
+      "bounds": {
+        "x": 0,
+        "y": 1115,
+        "width": 1080,
+        "height": 60
+      },
+
+      "style": {
+        "fontSize": 36,
+        "fontWeight": 400,
+        "textAlign": "center"
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
+      }
+    },
+
+
+    {
+      "id": "productPrice",
+
+      "type": "text",
+
+      "binding": "price",
+
+      "bounds": {
+        "x": 0,
+        "y": 1175,
+        "width": 1080,
+        "height": 70
+      },
+
+      "style": {
+        "fontSize": 36,
+        "fontWeight": 400,
+        "textAlign": "center"
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
+      }
+    }
+
+  ]
+}

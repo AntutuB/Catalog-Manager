@@ -1,91 +1,81 @@
-import ElementRenderer from "./ElementRenderer";
+import TemplateRenderer from "../../../templates/components/TemplateRenderer";
 
 
 function Canvas({
-  template,
-  product
+
+    template,
+
+    product
+
 }) {
 
 
-  const maxWidth = 500;
-  const maxHeight = 700;
+    const maxWidth = 500;
 
-
-  const scale = Math.min(
-
-    maxWidth / template.width,
-
-    maxHeight / template.height
-
-  );
+    const maxHeight = 700;
 
 
 
-  const canvasStyle = {
+    const scale = Math.min(
 
-    position:"relative",
+        maxWidth / template.canvas.width,
 
-    width:template.width,
+        maxHeight / template.canvas.height
 
-    height:template.height,
-
-    transform:`scale(${scale})`,
-
-    transformOrigin:"top left",
-
-    background:template.background,
-
-  };
+    );
 
 
 
-  return (
+    return (
 
-    <div
+        <div
 
-      style={{
+            style={{
 
-        width:template.width * scale,
+                width:
+                    template.canvas.width * scale,
 
-        height:template.height * scale,
+                height:
+                    template.canvas.height * scale,
 
-      }}
+                overflow:"hidden"
 
-    >
+            }}
 
-      <div style={canvasStyle}>
-
-
-        {
-
-          template.elements?.map(
-
-            (element,index)=>(
-
-              <ElementRenderer
-
-                key={index}
-
-                element={element}
-
-                product={product}
-
-              />
-
-            )
-
-          )
-
-        }
+        >
 
 
-      </div>
+            <div
 
-    </div>
+                style={{
 
-  );
+                    transform:`scale(${scale})`,
+
+                    transformOrigin:"top left"
+
+                }}
+
+            >
+
+
+                <TemplateRenderer
+
+                    template={template}
+
+                    product={product}
+
+                />
+
+
+            </div>
+
+
+        </div>
+
+    );
 
 }
+
 
 
 export default Canvas;

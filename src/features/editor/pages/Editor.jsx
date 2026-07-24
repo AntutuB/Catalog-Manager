@@ -1,141 +1,211 @@
 import { useState } from "react";
 
+
 import Canvas from "../components/Canvas";
 
 import { useEditorData } from "../hooks/useEditorData";
 
 
+import TemplateLoader from "../../../templates/loader/TemplateLoader";
+
+
+
 function Editor(){
 
 
-  const {
+    const {
 
-    products,
+        products,
 
-    templates
+        templates
 
-  } = useEditorData();
-
-
-
-  const [selectedProduct,setSelectedProduct] = useState(null);
-
-  const [selectedTemplate,setSelectedTemplate] = useState(null);
+    } = useEditorData();
 
 
 
-  return (
-
-    <section>
-
-
-      <h2>
-        Editor de catálogo
-      </h2>
+    const [
+        selectedProduct,
+        setSelectedProduct
+    ] = useState(null);
 
 
 
-      <select
-
-        onChange={(e)=>{
-
-          const product =
-            products.find(
-              p=>p.id===Number(e.target.value)
-            );
-
-          setSelectedProduct(product);
-
-        }}
-
-      >
-
-        <option>
-          Seleccionar producto
-        </option>
+    const [
+        selectedTemplate,
+        setSelectedTemplate
+    ] = useState(null);
 
 
-        {
-          products.map(product=>(
 
-            <option
-              key={product.id}
-              value={product.id}
+
+    return (
+
+        <section>
+
+
+            <h2>
+
+                Editor de catálogo
+
+            </h2>
+
+
+
+
+            <select
+
+                onChange={(e)=>{
+
+
+                    const product =
+
+                        products.find(
+
+                            p =>
+
+                            p.id === Number(e.target.value)
+
+                        );
+
+
+
+                    setSelectedProduct(product);
+
+
+                }}
+
             >
 
-              {product.name}
 
-            </option>
+                <option value="">
 
-          ))
-        }
+                    Seleccionar producto
 
-
-      </select>
+                </option>
 
 
 
-      <select
+                {
 
-        onChange={(e)=>{
+                    products.map(product=>(
 
-          const template =
-            templates.find(
-              t=>t.id===Number(e.target.value)
-            );
+                        <option
 
-          setSelectedTemplate(template);
+                            key={product.id}
 
-        }}
+                            value={product.id}
 
-      >
+                        >
 
-        <option>
-          Seleccionar plantilla
-        </option>
+                            {product.name}
+
+                        </option>
+
+                    ))
+
+                }
 
 
-        {
-          templates.map(template=>(
+            </select>
 
-            <option
-              key={template.id}
-              value={template.id}
+
+
+
+
+            <select
+
+                onChange={(e)=>{
+
+
+                    if(!e.target.value){
+
+                        setSelectedTemplate(null);
+
+                        return;
+
+                    }
+
+
+
+                    const template =
+
+                        TemplateLoader.load(
+
+                            e.target.value
+
+                        );
+
+
+
+                    setSelectedTemplate(template);
+
+
+
+                }}
+
             >
 
-              {template.name}
 
-            </option>
+                <option value="">
 
-          ))
-        }
+                    Seleccionar plantilla
 
-
-      </select>
+                </option>
 
 
 
-      {
+                {
 
-        selectedProduct &&
-        selectedTemplate &&
+                    templates.map(template=>(
 
-        <Canvas
+                        <option
 
-          template={selectedTemplate}
+                            key={template.id}
 
-          product={selectedProduct}
+                            value={template.id}
 
-        />
+                        >
 
-      }
+                            {template.name}
+
+                        </option>
+
+                    ))
+
+                }
 
 
-    </section>
+            </select>
 
-  );
+
+
+
+
+            {
+
+                selectedProduct &&
+
+                selectedTemplate &&
+
+
+                <Canvas
+
+                    template={selectedTemplate}
+
+                    product={selectedProduct}
+
+                />
+
+            }
+
+
+
+        </section>
+
+    );
 
 }
+
 
 
 export default Editor;
