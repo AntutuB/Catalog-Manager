@@ -1,22 +1,19 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import {
     resolveBinding
 } from "../utils/bindingResolver";
 
-
-import logoImage from "../runtime/instagram-story/assets/logo.png";
-
+import AssetManager from "../assets/AssetManager";
 
 
-function TemplateRenderer({
-
-    template,
-
-    product
-
-}) {
-
+const TemplateRenderer = forwardRef(function TemplateRenderer(
+    {
+        template,
+        product
+    },
+    ref
+){
 
 
     function renderElement(element){
@@ -37,13 +34,13 @@ function TemplateRenderer({
 
                             position:"absolute",
 
-                            left:element.frame.x,
+                            left:element.bounds.x,
 
-                            top:element.frame.y,
+                            top:element.bounds.y,
 
-                            width:element.frame.width,
+                            width:element.bounds.width,
 
-                            height:element.frame.height,
+                            height:element.bounds.height,
 
                             backgroundColor:element.color
 
@@ -67,13 +64,13 @@ function TemplateRenderer({
 
                             position:"absolute",
 
-                            left:element.frame.x,
+                            left:element.bounds.x,
 
-                            top:element.frame.y,
+                            top:element.bounds.y,
 
-                            width:element.frame.width,
+                            width:element.bounds.width,
 
-                            height:element.frame.height,
+                            height:element.bounds.height,
 
                             display:"flex",
 
@@ -87,7 +84,11 @@ function TemplateRenderer({
 
                         <img
 
-                            src={logoImage}
+                            src={
+                                AssetManager.get(
+                                    element.asset
+                                )
+                            }
 
                             alt={element.id}
 
@@ -97,7 +98,8 @@ function TemplateRenderer({
 
                                 maxHeight:"100%",
 
-                                objectFit:"contain"
+                                objectFit:
+                                    element.layout?.fit || "contain"
 
                             }}
 
@@ -121,21 +123,19 @@ function TemplateRenderer({
 
                             position:"absolute",
 
-                            left:element.frame.x,
+                            left:element.bounds.x,
 
-                            top:element.frame.y,
+                            top:element.bounds.y,
 
-                            width:element.frame.width,
+                            width:element.bounds.width,
 
-                            height:element.frame.height,
+                            height:element.bounds.height,
 
                             display:"flex",
 
                             alignItems:"center",
 
-                            justifyContent:"center",
-
-                            background:"#ddd"
+                            justifyContent:"center"
 
                         }}
 
@@ -149,7 +149,11 @@ function TemplateRenderer({
 
                             <img
 
-                                src={URL.createObjectURL(product.image)}
+                                src={
+                                    URL.createObjectURL(
+                                        product.image
+                                    )
+                                }
 
                                 alt={product.name}
 
@@ -159,7 +163,8 @@ function TemplateRenderer({
 
                                     height:"100%",
 
-                                    objectFit:element.fit || "contain"
+                                    objectFit:
+                                        element.layout?.fit || "contain"
 
                                 }}
 
@@ -170,7 +175,6 @@ function TemplateRenderer({
                             "IMAGE"
 
                         }
-
 
                     </div>
 
@@ -190,13 +194,13 @@ function TemplateRenderer({
 
                             position:"absolute",
 
-                            left:element.frame.x,
+                            left:element.bounds.x,
 
-                            top:element.frame.y,
+                            top:element.bounds.y,
 
-                            width:element.frame.width,
+                            width:element.bounds.width,
 
-                            height:element.frame.height,
+                            height:element.bounds.height,
 
                             display:"flex",
 
@@ -204,28 +208,27 @@ function TemplateRenderer({
 
                             justifyContent:"center",
 
-                            fontSize:element.style?.fontSize,
+                            fontSize:
+                                element.style?.fontSize,
 
-                            fontWeight:element.style?.fontWeight,
+                            fontWeight:
+                                element.style?.fontWeight,
 
-                            textAlign:element.style?.textAlign,
+                            textAlign:
+                                element.style?.textAlign,
 
-                            color:"#000"
+                            color:
+                                element.style?.color || "#000"
 
                         }}
 
                     >
 
                         {
-
                             resolveBinding(
-
                                 element.binding,
-
                                 product
-
                             )
-
                         }
 
 
@@ -242,7 +245,6 @@ function TemplateRenderer({
 
         }
 
-
     }
 
 
@@ -250,6 +252,8 @@ function TemplateRenderer({
     return (
 
         <div
+
+            ref={ref}
 
             style={{
 
@@ -261,16 +265,17 @@ function TemplateRenderer({
 
                 overflow:"hidden",
 
-                background:template.theme.background
+                background:
+                    template.theme.background
 
             }}
 
         >
 
             {
-
-                template.elements.map(renderElement)
-
+                template.elements.map(
+                    renderElement
+                )
             }
 
 
@@ -279,8 +284,7 @@ function TemplateRenderer({
     );
 
 
-}
-
+});
 
 
 export default TemplateRenderer;

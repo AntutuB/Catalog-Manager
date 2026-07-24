@@ -3,7 +3,7 @@
 
   "name": "Instagram Story",
 
-  "version": "1.0.0",
+  "version": "2.0.0",
 
   "canvas": {
     "width": 1080,
@@ -33,7 +33,7 @@
 
       "type": "background",
 
-      "frame": {
+      "bounds": {
         "x": 0,
         "y": 0,
         "width": 1080,
@@ -43,6 +43,7 @@
       "color": "#FFFFFF"
     },
 
+
     {
       "id": "logo",
 
@@ -50,49 +51,50 @@
 
       "asset": "logo",
 
-      "frame": {
+      "bounds": {
         "x": 0,
         "y": 242,
         "width": 1080,
         "height": 120
       },
 
-      "align": {
+      "layout": {
         "horizontal": "center",
         "vertical": "center"
       }
     },
+
 
     {
       "id": "productImage",
 
       "type": "image",
 
-      "binding": "product.image",
+      "binding": "image",
 
-      "frame": {
+      "bounds": {
         "x": 0,
         "y": 362,
         "width": 1080,
         "height": 1080
       },
 
-      "fit": "contain",
-
-      "align": {
+      "layout": {
+        "fit": "contain",
         "horizontal": "center",
         "vertical": "center"
       }
     },
+
 
     {
       "id": "productName",
 
       "type": "text",
 
-      "binding": "product.name",
+      "binding": "name",
 
-      "frame": {
+      "bounds": {
         "x": 0,
         "y": 1442,
         "width": 1080,
@@ -104,17 +106,23 @@
         "fontWeight": 700,
         "textAlign": "center",
         "verticalAlign": "middle"
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
       }
     },
+
 
     {
       "id": "productCategory",
 
       "type": "text",
 
-      "binding": "product.type",
+      "binding": "type",
 
-      "frame": {
+      "bounds": {
         "x": 0,
         "y": 1532,
         "width": 1080,
@@ -126,17 +134,23 @@
         "fontWeight": 400,
         "textAlign": "center",
         "verticalAlign": "middle"
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
       }
     },
+
 
     {
       "id": "productPrice",
 
       "type": "text",
 
-      "binding": "product.price",
+      "binding": "price",
 
-      "frame": {
+      "bounds": {
         "x": 0,
         "y": 1607,
         "width": 1080,
@@ -148,6 +162,11 @@
         "fontWeight": 400,
         "textAlign": "center",
         "verticalAlign": "middle"
+      },
+
+      "layout": {
+        "horizontal": "center",
+        "vertical": "center"
       }
     }
 

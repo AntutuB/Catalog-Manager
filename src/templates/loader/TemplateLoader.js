@@ -1,5 +1,6 @@
 import templateRegistry from "../registry";
 import TemplateSchema from "../schema/template.schema";
+import AssetManager from "../assets/AssetManager";
 
 class TemplateLoader {
 
@@ -36,11 +37,18 @@ class TemplateLoader {
 
         this.validate(template);
 
+        AssetManager.clear();
+
+        AssetManager.register(
+
+            template.assets
+
+        );
+
         return structuredClone(template);
 
     }
 
 }
-
 
 export default new TemplateLoader();

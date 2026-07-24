@@ -1,1 +1,3 @@
-export { default as instagramStory } from "./instagram-story/template.json";
+export { default as instagramStory }
+
+from "./instagram-story/manifest";

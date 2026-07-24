@@ -1,65 +1,68 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import TemplateLoader from "../../../templates/loader/TemplateLoader";
 
-import TemplateRenderer from "../../../templates/components/TemplateRenderer";
+import PreviewRenderer from "../../../templates/components/PreviewRenderer";
+import ExportRenderer from "../../../templates/components/ExportRenderer";
 
 import { useProducts } from "../../products/hooks/useProducts";
 
-
+import { ImageExporter } from "../../../exporter";
 
 function TemplateEditor() {
 
+    const exportRef = useRef(null);
 
     const [template] = useState(
-
         () => TemplateLoader.load("instagram-story")
-
     );
 
-
-    const {
-
-        products
-
-    } = useProducts();
-
-
+    const { products } = useProducts();
 
     const [
-
         selectedProduct,
-
         setSelectedProduct
-
     ] = useState(null);
-
-
 
     function handleProductChange(e){
 
+        const id = Number(e.target.value);
 
-        const productId = Number(e.target.value);
+        setSelectedProduct(
 
+            products.find(
 
-        const product = products.find(
+                product => product.id === id
 
-            item => item.id === productId
+            ) || null
 
         );
 
-
-        setSelectedProduct(product || null);
-
-
     }
 
+    async function handleExport(){
 
+        if(!selectedProduct){
+
+            alert("Selecciona un producto.");
+
+            return;
+
+        }
+
+        await ImageExporter.exportPNG(
+
+            exportRef.current,
+
+            selectedProduct.name
+
+        );
+
+    }
 
     return (
 
         <section>
-
 
             <h2>
 
@@ -67,45 +70,31 @@ function TemplateEditor() {
 
             </h2>
 
-
-
-            <div>
-
-
-                <label>
-
-                    Seleccionar producto:
-
-                </label>
-
-
+            <div
+                style={{
+                    display:"flex",
+                    gap:12,
+                    alignItems:"center",
+                    marginBottom:20
+                }}
+            >
 
                 <select
-
-                    onChange={handleProductChange}
-
                     defaultValue=""
-
+                    onChange={handleProductChange}
                 >
 
                     <option value="">
-
-                        Seleccionar
-
+                        Seleccionar producto
                     </option>
-
-
 
                     {
 
                         products.map(product=>(
 
                             <option
-
                                 key={product.id}
-
                                 value={product.id}
-
                             >
 
                                 {product.name}
@@ -116,52 +105,41 @@ function TemplateEditor() {
 
                     }
 
-
                 </select>
 
+                <button
+                    onClick={handleExport}
+                    disabled={!selectedProduct}
+                >
+
+                    Exportar PNG
+
+                </button>
 
             </div>
 
+            <PreviewRenderer
 
+                template={template}
 
-            <div
+                product={selectedProduct}
 
-                style={{
+            />
 
-                    display:"flex",
+            <ExportRenderer
 
-                    justifyContent:"center",
+                ref={exportRef}
 
-                    transform:"scale(0.35)",
+                template={template}
 
-                    transformOrigin:"top center",
+                product={selectedProduct}
 
-                    marginTop:"30px"
-
-                }}
-
-            >
-
-
-                <TemplateRenderer
-
-                    template={template}
-
-                    product={selectedProduct}
-
-                />
-
-
-            </div>
-
+            />
 
         </section>
 
     );
 
-
 }
-
-
 
 export default TemplateEditor;

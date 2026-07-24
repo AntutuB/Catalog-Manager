@@ -13,7 +13,7 @@ export function resolveBinding(binding, product){
     let value = product;
 
 
-    for(const key of path.slice(1)){
+    for(const key of path){
 
         value = value?.[key];
 
