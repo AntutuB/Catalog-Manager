@@ -21,9 +21,7 @@
   },
 
   "assets": {
-    "logo": "assets/logo.png",
-    "background": "assets/background.png",
-    "watermark": "assets/watermark.svg"
+    "logo": "logo"
   },
 
   "elements": [

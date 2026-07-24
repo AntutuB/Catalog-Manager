@@ -52,7 +52,13 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
 
 
 
-            case "asset":
+            case "asset": {
+
+                const asset =
+                    AssetManager.get(
+                        element.asset
+                    );
+
 
                 return (
 
@@ -82,32 +88,36 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
 
                     >
 
-                        <img
+                        {
+                            asset &&
 
-                            src={
-                                AssetManager.get(
-                                    element.asset
-                                )
-                            }
+                            <img
 
-                            alt={element.id}
+                                src={asset}
 
-                            style={{
+                                alt={element.id}
 
-                                maxWidth:"100%",
+                                style={{
 
-                                maxHeight:"100%",
+                                    maxWidth:"100%",
 
-                                objectFit:
-                                    element.layout?.fit || "contain"
+                                    maxHeight:"100%",
 
-                            }}
+                                    objectFit:
+                                        element.layout?.fit || "contain"
 
-                        />
+                                }}
+
+                            />
+
+                        }
+
 
                     </div>
 
                 );
+
+            }
 
 
 
@@ -155,7 +165,9 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
                                     )
                                 }
 
-                                alt={product.name}
+                                alt={
+                                    product.name || "product"
+                                }
 
                                 style={{
 
@@ -172,9 +184,10 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
 
                             :
 
-                            "IMAGE"
+                            null
 
                         }
+
 
                     </div>
 
@@ -204,9 +217,19 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
 
                             display:"flex",
 
-                            alignItems:"center",
+                            alignItems:
+                                element.layout?.vertical === "center"
+                                ?
+                                "center"
+                                :
+                                "center",
 
-                            justifyContent:"center",
+                            justifyContent:
+                                element.layout?.horizontal === "center"
+                                ?
+                                "center"
+                                :
+                                "flex-start",
 
                             fontSize:
                                 element.style?.fontSize,
@@ -245,6 +268,7 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
 
         }
 
+
     }
 
 
@@ -273,9 +297,13 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
         >
 
             {
+
                 template.elements.map(
+
                     renderElement
+
                 )
+
             }
 
 
