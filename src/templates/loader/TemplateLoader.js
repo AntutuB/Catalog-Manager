@@ -1,3 +1,4 @@
+import templateRegistry from "../registry";
 import TemplateSchema from "../schema/template.schema";
 
 class TemplateLoader {
@@ -9,9 +10,7 @@ class TemplateLoader {
             if (!(property in template)) {
 
                 throw new Error(
-
                     `Template is missing property: ${property}`
-
                 );
 
             }
@@ -22,6 +21,26 @@ class TemplateLoader {
 
     }
 
+
+    load(templateId) {
+
+        const template = templateRegistry[templateId];
+
+        if (!template) {
+
+            throw new Error(
+                `Template "${templateId}" not found.`
+            );
+
+        }
+
+        this.validate(template);
+
+        return structuredClone(template);
+
+    }
+
 }
+
 
 export default new TemplateLoader();

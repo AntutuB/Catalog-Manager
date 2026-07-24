@@ -1,261 +1,164 @@
 import { useState } from "react";
 
+import TemplateLoader from "../../../templates/loader/TemplateLoader";
 
-import ElementEditor from "../components/ElementEditor";
-
-
-import Canvas from "../../editor/components/Canvas";
-
-
-import { useTemplateEditor } from "../hooks/useTemplateEditor";
-
+import TemplateRenderer from "../../../templates/components/TemplateRenderer";
 
 import { useProducts } from "../../products/hooks/useProducts";
 
 
 
-function TemplateEditor({
-  template
-}) {
+function TemplateEditor() {
 
 
+    const [template] = useState(
 
-  const [
-
-    elements,
-
-    setElements
-
-  ] = useState(
-
-    template.elements || []
-
-  );
-
-
-
-  const {
-
-    products
-
-  } = useProducts();
-
-
-
-  const {
-
-    saveElements
-
-  } = useTemplateEditor();
-
-
-
-  const [
-
-    selectedProduct,
-
-    setSelectedProduct
-
-  ] = useState(null);
-
-
-
-
-  const previewTemplate = {
-
-    ...template,
-
-    elements
-
-  };
-
-
-
-
-
-  async function handleSave(){
-
-
-    await saveElements(
-
-      template.id,
-
-      elements
+        () => TemplateLoader.load("instagram-story")
 
     );
 
 
-  }
+    const {
+
+        products
+
+    } = useProducts();
 
 
 
+    const [
 
-  return (
+        selectedProduct,
 
-    <section>
+        setSelectedProduct
 
-
-      <h2>
-
-        Editando:
-        {" "}
-        {template.name}
-
-      </h2>
+    ] = useState(null);
 
 
 
-      <label>
-
-        Producto:
-
-      </label>
+    function handleProductChange(e){
 
 
-
-      <select
-
-        onChange={(e)=>{
+        const productId = Number(e.target.value);
 
 
-          const product =
+        const product = products.find(
 
-            products.find(
+            item => item.id === productId
 
-              p =>
-
-              p.id === Number(
-                e.target.value
-              )
-
-            );
+        );
 
 
-          setSelectedProduct(product);
+        setSelectedProduct(product || null);
 
 
-        }}
-
-      >
-
-
-        <option>
-
-          Seleccionar producto
-
-        </option>
+    }
 
 
 
-        {
+    return (
 
-          products.map(product=>(
+        <section>
 
 
-            <option
+            <h2>
 
-              key={product.id}
+                {template.name}
 
-              value={product.id}
+            </h2>
+
+
+
+            <div>
+
+
+                <label>
+
+                    Seleccionar producto:
+
+                </label>
+
+
+
+                <select
+
+                    onChange={handleProductChange}
+
+                    defaultValue=""
+
+                >
+
+                    <option value="">
+
+                        Seleccionar
+
+                    </option>
+
+
+
+                    {
+
+                        products.map(product=>(
+
+                            <option
+
+                                key={product.id}
+
+                                value={product.id}
+
+                            >
+
+                                {product.name}
+
+                            </option>
+
+                        ))
+
+                    }
+
+
+                </select>
+
+
+            </div>
+
+
+
+            <div
+
+                style={{
+
+                    display:"flex",
+
+                    justifyContent:"center",
+
+                    transform:"scale(0.35)",
+
+                    transformOrigin:"top center",
+
+                    marginTop:"30px"
+
+                }}
 
             >
 
-              {product.name}
 
-            </option>
+                <TemplateRenderer
 
+                    template={template}
 
-          ))
+                    product={selectedProduct}
 
-        }
-
-
-      </select>
+                />
 
 
+            </div>
 
 
-      <div
+        </section>
 
-        style={{
+    );
 
-          display:"flex",
-
-          gap:"40px"
-
-        }}
-
-      >
-
-
-
-        <div>
-
-
-          <ElementEditor
-
-            elements={elements}
-
-            setElements={setElements}
-
-          />
-
-
-
-          <button
-
-            onClick={handleSave}
-
-          >
-
-            Guardar plantilla
-
-          </button>
-
-
-        </div>
-
-
-
-
-        <div>
-
-
-          <h3>
-
-            Vista previa
-
-          </h3>
-
-
-
-          {
-
-            selectedProduct &&
-
-
-            <Canvas
-
-              template={previewTemplate}
-
-              product={selectedProduct}
-
-            />
-
-
-          }
-
-
-        </div>
-
-
-
-      </div>
-
-
-    </section>
-
-  );
 
 }
 
