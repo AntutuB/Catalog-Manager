@@ -2,148 +2,132 @@ import React from "react";
 
 import TemplateRenderer from "../components/TemplateRenderer";
 
-import cover from "../runtime/catalog-a4/cover.json";
+import manifest from "../runtime/catalog-a4";
 
-import categoryPage from "../runtime/catalog-a4/category-page.json";
+import PageBuilder from "../engine/PageBuilder";
 
+import CatalogNormalizer from "../../features/catalog/utils/CatalogNormalizer";
 
 
 export default function PdfCatalogRenderer({
 
-    products=[]
+    products = []
 
-}){
-
-
-    const grouped={};
+}) {
 
 
-    products.forEach(product=>{
+    const normalizedProducts =
+
+        CatalogNormalizer.normalize(
+
+            products
+
+        );
+
+         console.log(
+    "ORIGINAL PRODUCTS:",
+    products
+);
+
+console.log(
+    "NORMALIZED PRODUCTS:",
+    normalizedProducts
+);
 
 
-        const category = product.type || "Otros";
+    const pages =
+
+        PageBuilder.build(
+
+            normalizedProducts,
+
+            manifest
+
+        );
 
 
-        if(!grouped[category]){
-
-            grouped[category]=[];
-
-        }
-
-
-        grouped[category].push(product);
-
-
-    });
-
-
-
-    let pageNumber = 2;
-
-
-
-    return(
+    return (
 
         <>
 
-            <TemplateRenderer
-
-                template={cover}
-
-                products={products}
-
-                pageNumber={1}
-
-                settings={{
-
-                    brandName:"CATÁLOGO",
-
-                    subtitle:"Mes y Año",
-
-                    description:
-                    "Una selección curada de monturas ópticas y de sol, fotografiadas sobre blanco puro para que cada silueta se sostenga por sí sola.",
-
-                    publicationDate:
-                    new Date()
-
-                    .toLocaleDateString(
-
-                        "es-ES",
-
-                        {
-
-                            month:"long",
-
-                            year:"numeric"
-
-                        }
-
-                    )
-
-                    .toUpperCase()
-
-                }}
-
-            />
-
-
-
             {
 
-                Object.entries(grouped)
-
-                .map(([category,items])=>(
-
+                pages.map(page => (
 
                     <TemplateRenderer
 
-                        key={category}
+                        key={page.pageNumber}
 
-                        template={categoryPage}
-
-                        category={{
-
-                            name:category,
-
-                            description:""
-
-                        }}
+                        template={page.template}
 
                         products={
 
-                            items.slice(
+                            page.products ||
 
-                                0,
+                            normalizedProducts
 
-                                5
+                        }
 
-                            )
+                        category={
+
+                            page.category
 
                         }
 
                         pageNumber={
 
-                            pageNumber++
+                            page.pageNumber
 
                         }
 
                         settings={{
 
-                            brandName:"EVOTEC"
+                            brandName:
+
+                                page.type === "cover"
+
+                                    ? "CATÁLOGO"
+
+                                    : "EVOTEC",
+
+                            subtitle:
+
+                                "Mes y Año",
+
+                            description:
+
+                                "Una selección curada de monturas ópticas y de sol.",
+
+                            publicationDate:
+
+                                new Date()
+
+                                    .toLocaleDateString(
+
+                                        "es-ES",
+
+                                        {
+
+                                            month:"long",
+
+                                            year:"numeric"
+
+                                        }
+
+                                    )
+
+                                    .toUpperCase()
 
                         }}
 
                     />
 
-
                 ))
 
             }
 
-
         </>
 
     );
-
 
 }
