@@ -1,4 +1,10 @@
-export function resolveBinding(binding, product){
+export function resolveBinding(
+
+    binding,
+
+    product
+
+){
 
     if(!binding || !product){
 

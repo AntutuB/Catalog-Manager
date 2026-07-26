@@ -1,0 +1,239 @@
+{
+  "id": "cover",
+
+  "type": "static",
+
+  "canvas": {
+    "width": 794,
+    "height": 1123
+  },
+
+  "background": "#FFFFFF",
+
+  "elements": [
+
+    {
+      "id": "corner-top-left-h",
+      "type": "line",
+      "bounds": {
+        "x": 40,
+        "y": 40,
+        "width": 55,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#CDBA8D"
+      }
+    },
+
+    {
+      "id": "corner-top-right-h",
+      "type": "line",
+      "bounds": {
+        "x": 699,
+        "y": 40,
+        "width": 55,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#CDBA8D"
+      }
+    },
+
+    {
+      "id": "corner-bottom-left-h",
+      "type": "line",
+      "bounds": {
+        "x": 40,
+        "y": 1082,
+        "width": 55,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#CDBA8D"
+      }
+    },
+
+    {
+      "id": "corner-bottom-right-h",
+      "type": "line",
+      "bounds": {
+        "x": 699,
+        "y": 1082,
+        "width": 55,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#CDBA8D"
+      }
+    },
+
+    {
+      "id": "date",
+      "type": "text",
+      "binding": "settings.publicationDate",
+      "bounds": {
+        "x": 60,
+        "y": 55,
+        "width": 200,
+        "height": 20
+      },
+      "style": {
+        "fontSize": 11,
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "city",
+      "type": "text",
+      "value": "HABANA, CUBA",
+      "bounds": {
+        "x": 534,
+        "y": 55,
+        "width": 200,
+        "height": 20
+      },
+      "style": {
+        "fontSize": 11,
+        "align": "right",
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "logo",
+      "type": "asset",
+      "asset": "logo",
+      "bounds": {
+        "x": 365,
+        "y": 395,
+        "width": 64,
+        "height": 64
+      }
+    },
+
+    {
+      "id": "brand",
+      "type": "text",
+      "binding": "settings.brandName",
+      "bounds": {
+        "x": 100,
+        "y": 490,
+        "width": 594,
+        "height": 90
+      },
+      "style": {
+        "fontFamily": "Fraunces",
+        "fontSize": 80,
+        "align": "center",
+        "color": "#161512"
+      }
+    },
+
+    {
+      "id": "month",
+      "type": "text",
+      "binding": "settings.publicationDate",
+      "bounds": {
+        "x": 180,
+        "y": 595,
+        "width": 434,
+        "height": 25
+      },
+      "style": {
+        "fontSize": 13,
+        "align": "center",
+        "letterSpacing": 2,
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "central-divider",
+      "type": "line",
+      "bounds": {
+        "x": 280,
+        "y": 635,
+        "width": 234,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#D8D1C5"
+      }
+    },
+
+    {
+      "id": "description",
+      "type": "text",
+      "value": "Una selección curada de monturas ópticas y de sol, fotografiadas sobre blanco puro para que cada silueta se sostenga por sí sola.",
+      "bounds": {
+        "x": 170,
+        "y": 665,
+        "width": 454,
+        "height": 90
+      },
+      "style": {
+        "fontSize": 14,
+        "align": "center",
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "footer-divider",
+      "type": "line",
+      "bounds": {
+        "x": 60,
+        "y": 1018,
+        "width": 674,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#D8D1C5"
+      }
+    },
+
+    {
+      "id": "footer-commercial",
+      "type": "text",
+      "value": "Comercial: +5354879098 +5352940219",
+      "bounds": {
+        "x": 60,
+        "y": 1042,
+        "width": 300,
+        "height": 20
+      },
+      "style": {
+        "fontFamily": "IBM Plex Mono",
+        "fontSize": 10,
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "footer-whatsapp",
+      "type": "text",
+      "value": "WhatsApp: +39 347 534 2298",
+      "bounds": {
+        "x": 434,
+        "y": 1042,
+        "width": 300,
+        "height": 20
+      },
+      "style": {
+        "fontFamily": "IBM Plex Mono",
+        "fontSize": 10,
+        "align": "right",
+        "color": "#716C63"
+      }
+    }
+
+  ]
+}

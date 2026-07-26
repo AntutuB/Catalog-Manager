@@ -8,7 +8,8 @@ import {
 import Home from "../features/catalog/pages/Home";
 import Products from "../features/products/pages/Products";
 import Editor from "../features/editor/pages/Editor";
-
+import CatalogPreview from "../features/catalog-preview/components/CatalogPreview";
+import PdfCatalogPreview from "../pages/PdfCatalogPreview";
 
 
 function AppRouter(){
@@ -38,6 +39,14 @@ function AppRouter(){
 
                 />
 
+                <Route
+
+path="/catalog-preview"
+
+element={<CatalogPreview />}
+
+/>
+
 
                 <Route
 
@@ -46,6 +55,11 @@ function AppRouter(){
                     element={<Editor />}
 
                 />
+
+                <Route
+    path="/pdf-preview"
+    element={<PdfCatalogPreview />}
+/>
 
 
             </Routes>

@@ -1,296 +1,722 @@
-import React, { forwardRef } from "react";
+import React from "react";
 
-import {
-    resolveBinding
-} from "../utils/bindingResolver";
+import logoImage from "../runtime/catalog-a4/assets/logo.png";
 
-import AssetManager from "../assets/AssetManager";
+import { resolveBinding } from "../utils/bindingResolver";
 
 
-const TemplateRenderer = forwardRef(function TemplateRenderer(
-    {
-        template,
-        product
-    },
-    ref
-){
 
+function TemplateRenderer({
 
-    function renderElement(element){
+    template,
 
+    product,
 
-        switch(element.type){
+    products,
 
+    category,
 
-            case "background":
+    settings,
 
-                return (
+    pageNumber = 1
 
-                    <div
+}){
 
-                        key={element.id}
 
-                        style={{
 
-                            position:"absolute",
+    function getImage(item){
 
-                            left:element.bounds.x,
+        if(!item){
 
-                            top:element.bounds.y,
-
-                            width:element.bounds.width,
-
-                            height:element.bounds.height,
-
-                            backgroundColor:element.color
-
-                        }}
-
-                    />
-
-                );
-
-
-
-            case "asset": {
-
-                const asset =
-                    AssetManager.get(
-                        element.asset
-                    );
-
-
-                return (
-
-                    <div
-
-                        key={element.id}
-
-                        style={{
-
-                            position:"absolute",
-
-                            left:element.bounds.x,
-
-                            top:element.bounds.y,
-
-                            width:element.bounds.width,
-
-                            height:element.bounds.height,
-
-                            display:"flex",
-
-                            alignItems:"center",
-
-                            justifyContent:"center"
-
-                        }}
-
-                    >
-
-                        {
-                            asset &&
-
-                            <img
-
-                                src={asset}
-
-                                alt={element.id}
-
-                                style={{
-
-                                    maxWidth:"100%",
-
-                                    maxHeight:"100%",
-
-                                    objectFit:
-                                        element.layout?.fit || "contain"
-
-                                }}
-
-                            />
-
-                        }
-
-
-                    </div>
-
-                );
-
-            }
-
-
-
-            case "image":
-
-                return (
-
-                    <div
-
-                        key={element.id}
-
-                        style={{
-
-                            position:"absolute",
-
-                            left:element.bounds.x,
-
-                            top:element.bounds.y,
-
-                            width:element.bounds.width,
-
-                            height:element.bounds.height,
-
-                            display:"flex",
-
-                            alignItems:"center",
-
-                            justifyContent:"center"
-
-                        }}
-
-                    >
-
-                        {
-
-                            product?.image
-
-                            ?
-
-                            <img
-
-                                src={
-                                    URL.createObjectURL(
-                                        product.image
-                                    )
-                                }
-
-                                alt={
-                                    product.name || "product"
-                                }
-
-                                style={{
-
-                                    width:"100%",
-
-                                    height:"100%",
-
-                                    objectFit:
-                                        element.layout?.fit || "contain"
-
-                                }}
-
-                            />
-
-                            :
-
-                            null
-
-                        }
-
-
-                    </div>
-
-                );
-
-
-
-            case "text":
-
-                return (
-
-                    <div
-
-                        key={element.id}
-
-                        style={{
-
-                            position:"absolute",
-
-                            left:element.bounds.x,
-
-                            top:element.bounds.y,
-
-                            width:element.bounds.width,
-
-                            height:element.bounds.height,
-
-                            display:"flex",
-
-                            alignItems:
-                                element.layout?.vertical === "center"
-                                ?
-                                "center"
-                                :
-                                "center",
-
-                            justifyContent:
-                                element.layout?.horizontal === "center"
-                                ?
-                                "center"
-                                :
-                                "flex-start",
-
-                            fontSize:
-                                element.style?.fontSize,
-
-                            fontWeight:
-                                element.style?.fontWeight,
-
-                            textAlign:
-                                element.style?.textAlign,
-
-                            color:
-                                element.style?.color || "#000"
-
-                        }}
-
-                    >
-
-                        {
-                            resolveBinding(
-                                element.binding,
-                                product
-                            )
-                        }
-
-
-                    </div>
-
-                );
-
-
-
-            default:
-
-                return null;
-
+            return null;
 
         }
 
+        if(item.imageUrl){
+
+            return item.imageUrl;
+
+        }
+
+        if(item.image){
+
+            return URL.createObjectURL(item.image);
+
+        }
+
+        return null;
 
     }
 
 
 
-    return (
+
+
+    function getContext(){
+
+        return{
+
+            product,
+
+            products,
+
+            category,
+
+            settings,
+
+            page:{
+
+                number:pageNumber
+
+            },
+
+            catalog:{
+
+                productCount:
+
+                    products?.length || 0,
+
+                categoryList:
+
+                    Array.from(
+
+                        new Set(
+
+                            (products || [])
+
+                            .map(
+
+                                p=>p.type
+
+                            )
+
+                        )
+
+                    ).join(" · ")
+
+            }
+
+        };
+
+    }
+
+
+function fitText(
+
+    text,
+
+    maxLength,
+
+    startSize,
+
+    minSize
+
+){
+
+    if(!text){
+
+        return startSize;
+
+    }
+
+    if(text.length <= maxLength){
+
+        return startSize;
+
+    }
+
+    const overflow =
+
+        text.length - maxLength;
+
+    const size =
+
+        startSize -
+
+        Math.ceil(
+
+            overflow / 4
+
+        );
+
+    return Math.max(
+
+        minSize,
+
+        size
+
+    );
+
+}
+
+
+    function renderBinding(binding){
+
+        if(!binding){
+
+            return "";
+
+        }
+
+        return resolveBinding(
+
+            binding,
+
+            getContext()
+
+        );
+
+    }
+
+
+
+
+
+    function baseStyle(element){
+
+        return{
+
+            position:"absolute",
+
+            left:
+
+                element.bounds?.x || 0,
+
+            top:
+
+                element.bounds?.y || 0,
+
+            width:
+
+                element.bounds?.width,
+
+            height:
+
+                element.bounds?.height,
+
+            boxSizing:"border-box"
+
+        };
+
+    }
+
+
+
+
+
+    function renderAsset(element){
+
+        return(
+
+            <img
+
+                key={element.id}
+
+                src={logoImage}
+
+                style={{
+
+                    ...baseStyle(element),
+
+                    objectFit:"contain"
+
+                }}
+
+            />
+
+        );
+
+    }
+
+
+
+
+
+    function renderText(element){
+
+        let value=
+
+            element.value ??
+
+            renderBinding(
+
+                element.binding
+
+            );
+
+
+
+        if(
+
+            element.binding===
+
+            "page.number"
+
+        ){
+
+            value=
+
+                String(pageNumber)
+
+                .padStart(
+
+                    2,
+
+                    "0"
+
+                );
+
+        }
+
+
+
+        if(
+
+            element.binding===
+
+            "catalog.productCount"
+
+        ){
+
+            value=
+
+                String(
+
+                    products?.length || 0
+
+                );
+
+        }
+
+
+
+        return(
+
+            <div
+
+                key={element.id}
+
+                style={{
+
+                    ...baseStyle(element),
+
+                    fontFamily:
+
+                        element.style?.fontFamily ||
+
+                        "Inter",
+
+                    fontSize:
+
+                        element.style?.fontSize,
+
+                    fontWeight:
+
+                        element.style?.fontWeight,
+
+                    color:
+
+                        element.style?.color ||
+
+                        "#161512",
+
+                    letterSpacing:
+
+                        element.style?.letterSpacing,
+
+                    textAlign:
+
+                        element.style?.align ||
+
+                        "left",
+
+                    lineHeight:
+
+                        element.style?.lineHeight
+
+                }}
+
+            >
+
+                {value}
+
+            </div>
+
+        );
+
+    }
+
+
+
+
+
+    function renderLine(element){
+
+        return(
+
+            <div
+
+                key={element.id}
+
+                style={{
+
+                    position:"absolute",
+
+                    left:
+
+                        element.bounds.x,
+
+                    top:
+
+                        element.bounds.y,
+
+                    width:
+
+                        element.bounds.width,
+
+                    borderTop:
+
+                        `${element.style?.strokeWidth || 1}px solid ${element.style?.color || "#D8D1C5"}`
+
+                }}
+
+            />
+
+        );
+
+    }
+
+
+
+
+
+    function renderProductList(element){
+
+    if(!products){
+
+        return null;
+
+    }
+
+    const layout = element.layout || {};
+
+    const image = element.image || {};
+
+    const content = element.content || {};
+
+    const brand = element.brand || {};
+
+    const name = element.name || {};
+
+    const typeLabel = element.typeLabel || {};
+
+    const price = element.price || {};
+
+    const divider = element.divider || {};
+
+    const rowHeight = layout.rowHeight || 126;
+
+    const gap = layout.gap || 0;
+
+    return products.map((item,index)=>(
 
         <div
 
-            ref={ref}
+            key={item.id || index}
+
+            style={{
+
+                position:"absolute",
+
+                left:element.bounds.x,
+
+                top:
+
+                    element.bounds.y +
+
+                    index * (rowHeight + gap),
+
+                width:element.bounds.width,
+
+                height:rowHeight,
+
+                display:"flex",
+
+                alignItems:"center",
+
+                borderBottom:
+
+                    divider.enabled === false
+
+                        ? "none"
+
+                        : `${divider.width || 1}px solid ${divider.color || "#E4E1D9"}`
+
+            }}
+
+        >
+
+            <div
+
+                style={{
+
+                    width:image.width || 110,
+
+                    height:image.height || 90,
+
+                    flexShrink:0
+
+                }}
+
+            >
+
+                {
+
+                    getImage(item) &&
+
+                    <img
+
+                        src={getImage(item)}
+
+                        style={{
+
+                            width:"100%",
+
+                            height:"100%",
+
+                            objectFit:image.fit || "contain"
+
+                        }}
+
+                    />
+
+                }
+
+            </div>
+
+            <div
+
+                style={{
+
+                    marginLeft:content.offsetX || 30,
+
+                    flex:1
+
+                }}
+
+            >
+
+                <div
+
+                    style={{
+
+                        fontFamily:
+
+                            brand.fontFamily ||
+
+                            "IBM Plex Mono",
+
+                        fontSize:
+
+                            brand.fontSize ||
+
+                            10,
+
+                        color:
+
+                            brand.color ||
+
+                            "#A98650",
+
+                        letterSpacing:
+
+                            brand.letterSpacing ||
+
+                            2
+
+                    }}
+
+                >
+
+                    {item.brand}
+
+                </div>
+
+                <div
+
+                    style={{
+
+                        fontFamily:
+
+                            name.fontFamily ||
+
+                            "Fraunces",
+
+                        fontSize:
+
+                            name.fontSize ||
+
+                            20,
+
+                        fontWeight:
+
+                            name.fontWeight ||
+
+                            400,
+
+                        color:
+
+                            name.color ||
+
+                            "#161512"
+
+                    }}
+
+                >
+
+                    {item.name}
+
+                </div>
+
+                <div
+
+                    style={{
+
+                        fontFamily:
+
+                            typeLabel.fontFamily ||
+
+                            "Inter",
+
+                        fontSize:
+
+                            typeLabel.fontSize ||
+
+                            11,
+
+                        color:
+
+                            typeLabel.color ||
+
+                            "#716C63"
+
+                    }}
+
+                >
+
+                    {item.type}
+
+                </div>
+
+            </div>
+
+            <div
+
+                style={{
+
+                    fontFamily:
+
+                        price.fontFamily ||
+
+                        "Inter",
+
+                    fontSize:
+
+                        price.fontSize ||
+
+                        15,
+
+                    fontWeight:
+
+                        price.fontWeight ||
+
+                        700,
+
+                    color:
+
+                        price.color ||
+
+                        "#161512",
+
+                    textAlign:
+
+                        price.align ||
+
+                        "right"
+
+                }}
+
+            >
+
+                ${item.price}
+
+            </div>
+
+        </div>
+
+    ));
+
+}
+
+
+
+
+
+    function renderElement(element){
+
+        switch(element.type){
+
+            case"asset":
+
+                return renderAsset(element);
+
+            case"text":
+
+                return renderText(element);
+
+            case"line":
+
+                return renderLine(element);
+
+            case"productList":
+
+                return renderProductList(element);
+
+            default:
+
+                return null;
+
+        }
+
+    }
+
+
+
+
+
+    return(
+
+        <div
 
             style={{
 
                 position:"relative",
 
-                width:template.canvas.width,
+                width:
 
-                height:template.canvas.height,
+                    template.canvas.width,
+
+                height:
+
+                    template.canvas.height,
 
                 overflow:"hidden",
 
                 background:
-                    template.theme.background
+
+                    template.background ||
+
+                    "#FFFFFF"
 
             }}
 
@@ -306,13 +732,12 @@ const TemplateRenderer = forwardRef(function TemplateRenderer(
 
             }
 
-
         </div>
 
     );
 
+}
 
-});
 
 
 export default TemplateRenderer;

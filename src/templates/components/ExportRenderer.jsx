@@ -1,40 +1,59 @@
 import { forwardRef } from "react";
 
-import TemplateRenderer from "./TemplateRenderer";
+import TemplateRenderer from "../../../templates/components/TemplateRenderer";
 
-const ExportRenderer = forwardRef(function ExportRenderer(
 
-    {
+const ExportRenderer = forwardRef(
 
-        template,
+function ExportRenderer(
 
-        product
+{
+    template,
+    product
+},
 
-    },
-
-    ref
+ref
 
 ){
+
+
+    if(!template || !product){
+
+        return null;
+
+    }
+
+
 
     return (
 
         <div
 
+            ref={ref}
+
             style={{
 
                 position:"fixed",
 
-                left:"-100000px",
+                left:"0px",
 
-                top:0
+                top:"0px",
+
+                width:`${template.canvas.width}px`,
+
+                height:`${template.canvas.height}px`,
+
+                zIndex:-9999,
+
+                overflow:"hidden",
+
+                background:"#FFFFFF"
 
             }}
 
         >
 
             <TemplateRenderer
-
-                ref={ref}
 
                 template={template}
 
@@ -46,6 +65,9 @@ const ExportRenderer = forwardRef(function ExportRenderer(
 
     );
 
-});
+}
+
+);
+
 
 export default ExportRenderer;

@@ -1,0 +1,231 @@
+{
+  "id": "category-page",
+
+  "type": "dynamic",
+
+  "canvas": {
+    "width": 794,
+    "height": 1123
+  },
+
+  "background": "#FFFFFF",
+
+  "elements": [
+
+    {
+      "id": "header-title",
+      "type": "text",
+      "value": "EVOTEC - CATÁLOGO",
+      "bounds": {
+        "x": 80,
+        "y": 45,
+        "width": 300,
+        "height": 20
+      },
+      "style": {
+        "fontFamily": "Inter",
+        "fontSize": 11,
+        "fontWeight": 600,
+        "letterSpacing": 2,
+        "color": "#161512"
+      }
+    },
+
+    {
+      "id": "page-number",
+      "type": "text",
+      "binding": "page.number",
+      "bounds": {
+        "x": 650,
+        "y": 45,
+        "width": 64,
+        "height": 20
+      },
+      "style": {
+        "fontFamily": "Inter",
+        "fontSize": 11,
+        "align": "right",
+        "color": "#161512"
+      }
+    },
+
+    {
+      "id": "header-divider",
+      "type": "line",
+      "bounds": {
+        "x": 80,
+        "y": 75,
+        "width": 634,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#D8D1C5"
+      }
+    },
+
+    {
+      "id": "category-title",
+      "type": "text",
+      "binding": "category.name",
+      "bounds": {
+        "x": 80,
+        "y": 150,
+        "width": 450,
+        "height": 60
+      },
+      "style": {
+        "fontFamily": "Fraunces",
+        "fontSize": 48,
+        "fontWeight": 400,
+        "color": "#161512"
+      }
+    },
+
+    {
+      "id": "category-description",
+      "type": "text",
+      "binding": "category.description",
+      "bounds": {
+        "x": 80,
+        "y": 220,
+        "width": 450,
+        "height": 40
+      },
+      "style": {
+        "fontFamily": "Inter",
+        "fontSize": 12,
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "category-divider",
+      "type": "line",
+      "bounds": {
+        "x": 80,
+        "y": 285,
+        "width": 634,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#D8D1C5"
+      }
+    },
+
+    {
+  "id": "products",
+
+  "type": "productList",
+
+  "bounds": {
+    "x": 60,
+    "y": 320,
+    "width": 674,
+    "height": 630
+  },
+
+  "layout": {
+    "rows": 5,
+    "rowHeight": 126,
+    "gap": 0
+  },
+
+  "image": {
+    "width": 96,
+    "height": 78,
+    "fit": "contain"
+  },
+
+  "content": {
+    "offsetX": 126
+  },
+
+  "brand": {
+    "fontFamily": "IBM Plex Mono",
+    "fontSize": 10,
+    "color": "#A98650",
+    "letterSpacing": 2
+  },
+
+  "name": {
+    "fontFamily": "Fraunces",
+    "fontSize": 24,
+    "color": "#161512",
+    "fontWeight": 400
+  },
+
+  "typeLabel": {
+    "fontFamily": "Inter",
+    "fontSize": 11,
+    "color": "#716C63"
+  },
+
+  "price": {
+    "fontFamily": "Inter",
+    "fontSize": 16,
+    "fontWeight": 700,
+    "color": "#161512",
+    "align": "right"
+  },
+
+  "divider": {
+    "enabled": true,
+    "color": "#E4E1D9",
+    "width": 1
+  }
+},
+
+    {
+      "id": "footer-divider",
+      "type": "line",
+      "bounds": {
+        "x": 80,
+        "y": 1030,
+        "width": 634,
+        "height": 1
+      },
+      "style": {
+        "strokeWidth": 1,
+        "color": "#D8D1C5"
+      }
+    },
+
+    {
+      "id": "commercial",
+      "type": "text",
+      "value": "Comercial: +5354879098  +5352940219",
+      "bounds": {
+        "x": 80,
+        "y": 1050,
+        "width": 340,
+        "height": 20
+      },
+      "style": {
+        "fontFamily": "Inter",
+        "fontSize": 10,
+        "color": "#716C63"
+      }
+    },
+
+    {
+      "id": "whatsapp",
+      "type": "text",
+      "value": "WhatsApp: +39 347 534 2298",
+      "bounds": {
+        "x": 440,
+        "y": 1050,
+        "width": 274,
+        "height": 20
+      },
+      "style": {
+        "fontFamily": "Inter",
+        "fontSize": 10,
+        "align": "right",
+        "color": "#716C63"
+      }
+    }
+
+  ]
+}

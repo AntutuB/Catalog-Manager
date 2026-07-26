@@ -1,8 +1,13 @@
 import {
 
-    instagramStory
+    instagramStory,
 
-} from "../runtime";
+    catalogA4
+
+}
+
+from "../runtime";
+
 
 
 const templateRegistry = {
@@ -10,10 +15,16 @@ const templateRegistry = {
 
     "instagram-story":
 
-        instagramStory
+        instagramStory,
+
+
+    "catalog-a4":
+
+        catalogA4
 
 
 };
+
 
 
 export default templateRegistry;
