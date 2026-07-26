@@ -234,117 +234,79 @@ function fitText(
 
     function renderText(element){
 
-        let value=
+    const theme = template.theme || {};
 
-            element.value ??
+    const colors = theme.colors || {};
 
-            renderBinding(
+    const fonts = theme.fonts || {};
 
-                element.binding
+    return(
 
-            );
+        <div
 
+            key={element.id}
 
+            style={{
 
-        if(
+                ...baseStyle(element),
 
-            element.binding===
+                fontSize:
 
-            "page.number"
+                    element.style?.fontSize,
 
-        ){
+                fontWeight:
 
-            value=
+                    element.style?.fontWeight,
 
-                String(pageNumber)
+                textAlign:
 
-                .padStart(
+                    element.style?.align || "left",
 
-                    2,
+                color:
 
-                    "0"
+                    element.style?.color ||
 
-                );
+                    colors.primary ||
 
-        }
+                    "#161512",
 
+                fontFamily:
 
+                    element.style?.fontFamily ||
 
-        if(
+                    fonts.body ||
 
-            element.binding===
+                    "Inter",
 
-            "catalog.productCount"
+                letterSpacing:
 
-        ){
+                    element.style?.letterSpacing,
 
-            value=
+                lineHeight:
 
-                String(
+                    element.style?.lineHeight
 
-                    products?.length || 0
+            }}
 
-                );
+        >
 
-        }
+            {
 
+                element.value ??
 
+                renderBinding(
 
-        return(
+                    element.binding
 
-            <div
+                )
 
-                key={element.id}
+            }
 
-                style={{
+        </div>
 
-                    ...baseStyle(element),
+    );
 
-                    fontFamily:
-
-                        element.style?.fontFamily ||
-
-                        "Inter",
-
-                    fontSize:
-
-                        element.style?.fontSize,
-
-                    fontWeight:
-
-                        element.style?.fontWeight,
-
-                    color:
-
-                        element.style?.color ||
-
-                        "#161512",
-
-                    letterSpacing:
-
-                        element.style?.letterSpacing,
-
-                    textAlign:
-
-                        element.style?.align ||
-
-                        "left",
-
-                    lineHeight:
-
-                        element.style?.lineHeight
-
-                }}
-
-            >
-
-                {value}
-
-            </div>
-
-        );
-
-    }
+}
 
 
 
