@@ -206,27 +206,31 @@ function fitText(
 
     function renderAsset(element){
 
-        return(
+    return(
 
-            <img
+        <img
 
-                key={element.id}
+            key={element.id}
 
-                src={logoImage}
+            src={logoImage}
 
-                style={{
+            style={{
 
-                    ...baseStyle(element),
+                ...baseStyle(element),
 
-                    objectFit:"contain"
+                objectFit:
 
-                }}
+                    element.fit ||
 
-            />
+                    "contain"
 
-        );
+            }}
 
-    }
+        />
+
+    );
+
+}
 
 
 
@@ -314,39 +318,39 @@ function fitText(
 
     function renderLine(element){
 
-        return(
+    const theme = template.theme || {};
 
-            <div
+    const colors = theme.colors || {};
 
-                key={element.id}
+    return(
 
-                style={{
+        <div
 
-                    position:"absolute",
+            key={element.id}
 
-                    left:
+            style={{
 
-                        element.bounds.x,
+                ...baseStyle(element),
 
-                    top:
+                height:
 
-                        element.bounds.y,
+                    element.style?.strokeWidth || 1,
 
-                    width:
+                background:
 
-                        element.bounds.width,
+                    element.style?.color ||
 
-                    borderTop:
+                    colors.divider ||
 
-                        `${element.style?.strokeWidth || 1}px solid ${element.style?.color || "#D8D1C5"}`
+                    "#D8D1C5"
 
-                }}
+            }}
 
-            />
+        />
 
-        );
+    );
 
-    }
+}
 
 
 
