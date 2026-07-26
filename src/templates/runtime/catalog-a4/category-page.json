@@ -1,5 +1,6 @@
 {
   "id": "category-page",
+  "role": "product-category",
 
   "type": "dynamic",
 
@@ -118,6 +119,8 @@
   "id": "products",
 
   "type": "productList",
+
+  "itemsPerPage": 5,
 
   "bounds": {
     "x": 60,

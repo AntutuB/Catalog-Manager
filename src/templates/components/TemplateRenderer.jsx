@@ -1,8 +1,8 @@
 import React from "react";
 
-import logoImage from "../runtime/catalog-a4/assets/logo.png";
-
 import { resolveBinding } from "../utils/bindingResolver";
+
+import AssetManager from "../assets/AssetManager";
 
 
 
@@ -206,13 +206,47 @@ function fitText(
 
     function renderAsset(element){
 
+    const assetName =
+
+        element.asset ||
+
+        element.name ||
+
+        element.value;
+
+
+    const asset =
+
+        AssetManager.get(assetName);
+
+        console.log(
+    "ASSET URL:",
+    asset
+);
+
+
+    if(!asset){
+
+        console.warn(
+
+            `Asset "${assetName}" not found.`
+
+        );
+
+        return null;
+
+    }
+
+
     return(
 
         <img
 
             key={element.id}
 
-            src={logoImage}
+            src={asset}
+
+            alt={element.id}
 
             style={{
 

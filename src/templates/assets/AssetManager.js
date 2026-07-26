@@ -1,10 +1,12 @@
 class AssetManager {
 
+
     constructor(){
 
         this.assets = {};
 
     }
+
 
     register(assets = {}){
 
@@ -18,11 +20,13 @@ class AssetManager {
 
     }
 
+
     get(name){
 
         return this.assets[name] ?? null;
 
     }
+
 
     clear(){
 
@@ -30,6 +34,8 @@ class AssetManager {
 
     }
 
+
 }
+
 
 export default new AssetManager();

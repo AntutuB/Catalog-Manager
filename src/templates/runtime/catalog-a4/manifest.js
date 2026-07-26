@@ -4,6 +4,8 @@ import categoryPage from "./category-page.json";
 
 import theme from "./theme";
 
+import logo from "./assets/logo.png";
+
 
 export default {
 
@@ -23,7 +25,7 @@ export default {
     background:"#FFFFFF",
 
     assets:{
-        logo:"./assets/logo.png"
+        logo
     },
 
     pages:[

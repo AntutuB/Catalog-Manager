@@ -1,158 +1,183 @@
+import React, {
+    useEffect,
+    useState
+} from "react";
+
+
 import PdfCatalogRenderer from "../templates/pdf/PdfCatalogRenderer";
+
+
+import {
+    getProducts
+} from "../features/products/services/productService";
+
+
+import CatalogNormalizer from "../features/catalog/utils/CatalogNormalizer";
 
 
 
 export default function PdfCatalogPreview(){
 
+
+    const [products,setProducts] = useState([]);
+
+
+    const [loading,setLoading] = useState(true);
+
+
+
+    useEffect(()=>{
+
+
+        async function loadCatalog(){
+
+
+            const data = await getProducts();
+
+
+            const normalized =
+
+                CatalogNormalizer.normalize(
+                    data
+                );
+
+
+            console.log(
+                "PDF PRODUCTS:",
+                normalized
+            );
+
+
+            setProducts(normalized);
+
+
+            setLoading(false);
+
+
+        }
+
+
+        loadCatalog();
+
+
+    },[]);
+
+
+
+
+
     const now = new Date();
 
+
     const publicationDate = now
+
         .toLocaleDateString(
+
             "es-ES",
+
             {
-                month: "long",
-                year: "numeric"
+
+                month:"long",
+
+                year:"numeric"
+
             }
+
         )
+
         .toUpperCase();
+
+
 
 
 
     const settings={
 
+
         brandName:"CATÁLOGO",
+
 
         publicationDate,
 
+
         city:"HABANA, CUBA",
 
+
         description:
+
             "Una selección curada de monturas ópticas y de sol, fotografiadas sobre blanco puro para que cada silueta se sostenga por sí sola."
 
     };
 
 
 
-    const products=[
 
-        {
 
-            id:1,
+    if(loading){
 
-            brand:"CHIMI",
 
-            name:"Aviator Classic 2",
+        return (
 
-            type:"Metal",
+            <div>
 
-            price:150
+                Cargando catálogo...
 
-        },
+            </div>
 
-        {
+        );
 
-            id:2,
+    }
 
-            brand:"RAYBAN",
 
-            name:"Classic Black",
-
-            type:"Sol",
-
-            price:120
-
-        },
-
-        {
-
-            id:3,
-
-            brand:"OAKLEY",
-
-            name:"Sport Vision",
-
-            type:"Deportivo",
-
-            price:180
-
-        },
-
-        {
-
-            id:4,
-
-            brand:"CHIMI",
-
-            name:"Silver Frame",
-
-            type:"Metal",
-
-            price:130
-
-        },
-
-        {
-
-            id:5,
-
-            brand:"GUCCI",
-
-            name:"Luxury Gold",
-
-            type:"Óptico",
-
-            price:250
-
-        },
-
-        {
-
-            id:6,
-
-            brand:"CHIMI",
-
-            name:"Urban Style",
-
-            type:"Metal",
-
-            price:160
-
-        }
-
-    ];
 
 
 
     return(
 
+
         <div
+
 
             style={{
 
+
                 background:"#DDDDDD",
+
 
                 padding:40,
 
+
                 display:"flex",
+
 
                 flexDirection:"column",
 
+
                 gap:40
+
 
             }}
 
+
         >
+
 
             <PdfCatalogRenderer
 
+
                 products={products}
+
 
                 settings={settings}
 
+
             />
+
 
         </div>
 
+
     );
+
 
 }
