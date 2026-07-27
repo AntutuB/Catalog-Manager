@@ -43,9 +43,13 @@ export default function PdfCatalogPreview(){
 
 
             console.log(
-                "PDF PRODUCTS:",
-                normalized
-            );
+    "PDF IMAGES:",
+    normalized.map(product => ({
+        id: product.id,
+        name: product.name,
+        imageUrl: product.imageUrl
+    }))
+);
 
 
             setProducts(normalized);

@@ -8,6 +8,35 @@ class CatalogNormalizer {
 
 
 
+        function resolveImage(product){
+
+            if(product.imageUrl){
+
+                return product.imageUrl;
+
+            }
+
+
+            if(product.image_url){
+
+                return product.image_url;
+
+            }
+
+
+            if(product.image){
+
+                return URL.createObjectURL(product.image);
+
+            }
+
+
+            return null;
+
+        }
+
+
+
         /*
             Caso 1:
             Ya viene como array plano
@@ -56,9 +85,7 @@ class CatalogNormalizer {
 
 
                 imageUrl:
-                    product.imageUrl ||
-                    product.image_url ||
-                    null
+                    resolveImage(product)
 
 
             }));
@@ -133,7 +160,7 @@ class CatalogNormalizer {
 
 
                     imageUrl:
-                        product.image_url || null
+                        resolveImage(product)
 
 
                 });
