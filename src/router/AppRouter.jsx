@@ -10,6 +10,7 @@ import Products from "../features/products/pages/Products";
 import Editor from "../features/editor/pages/Editor";
 import CatalogPreview from "../features/catalog-preview/components/CatalogPreview";
 import PdfCatalogPreview from "../pages/PdfCatalogPreview";
+import MainLayout from "../layouts/MainLayout";
 
 
 function AppRouter(){
@@ -22,47 +23,42 @@ function AppRouter(){
             <Routes>
 
 
-                <Route
+<Route element={<MainLayout />}>
 
-                    path="/"
-
-                    element={<Home />}
-
-                />
-
-
-                <Route
-
-                    path="/products"
-
-                    element={<Products />}
-
-                />
-
-                <Route
-
-path="/catalog-preview"
-
-element={<CatalogPreview />}
-
-/>
+    <Route
+        path="/"
+        element={<Home />}
+    />
 
 
-                <Route
-
-                    path="/editor"
-
-                    element={<Editor />}
-
-                />
-
-                <Route
-    path="/pdf-preview"
-    element={<PdfCatalogPreview />}
-/>
+    <Route
+        path="/products"
+        element={<Products />}
+    />
 
 
-            </Routes>
+    <Route
+        path="/catalog-preview"
+        element={<CatalogPreview />}
+    />
+
+
+    <Route
+        path="/editor"
+        element={<Editor />}
+    />
+
+
+    <Route
+        path="/pdf-preview"
+        element={<PdfCatalogPreview />}
+    />
+
+
+</Route>
+
+
+</Routes>
 
         </BrowserRouter>
 
