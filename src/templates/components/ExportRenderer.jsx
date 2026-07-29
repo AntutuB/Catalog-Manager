@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 
-import TemplateRenderer from "../../../templates/components/TemplateRenderer";
+import InstagramTemplateRenderer
+from "../../../templates/components/InstagramTemplateRenderer";
 
 
 const ExportRenderer = forwardRef(
@@ -53,13 +54,10 @@ ref
 
         >
 
-            <TemplateRenderer
-
-                template={template}
-
-                product={product}
-
-            />
+            <InstagramTemplateRenderer
+    template={template}
+    product={product}
+/>
 
         </div>
 
