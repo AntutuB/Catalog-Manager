@@ -26,27 +26,23 @@ function TemplateRenderer({
 
     function getImage(item){
 
-        if(!item){
-
-            return null;
-
-        }
-
-        if(item.imageUrl){
-
-            return item.imageUrl;
-
-        }
-
-        if(item.image){
-
-            return URL.createObjectURL(item.image);
-
-        }
-
+    if(!item){
         return null;
-
     }
+
+    if(item.imageUrl){
+        return item.imageUrl;
+    }
+
+    if(
+        typeof item.image === "string"
+    ){
+        return item.image;
+    }
+
+    return null;
+
+}
 
 
 
@@ -387,7 +383,47 @@ function fitText(
 }
 
 
+function renderImage(element){
 
+    const imageSource =
+        renderBinding(
+            element.binding
+        );
+
+    if(!imageSource){
+        return null;
+    }
+
+    return(
+
+        <img
+
+            key={element.id}
+
+            src={imageSource}
+
+            alt={element.id}
+
+            style={{
+
+                ...baseStyle(element),
+
+                objectFit:
+                    element.layout?.fit ||
+                    element.fit ||
+                    "contain",
+
+                objectPosition:
+                    element.layout?.position ||
+                    "center"
+
+            }}
+
+        />
+
+    );
+
+}
 
 
     function renderProductList(element){
@@ -666,27 +702,31 @@ function fitText(
 
         switch(element.type){
 
-            case"asset":
+    case "asset":
 
-                return renderAsset(element);
+        return renderAsset(element);
 
-            case"text":
+    case "image":
 
-                return renderText(element);
+        return renderImage(element);
 
-            case"line":
+    case "text":
 
-                return renderLine(element);
+        return renderText(element);
 
-            case"productList":
+    case "line":
 
-                return renderProductList(element);
+        return renderLine(element);
 
-            default:
+    case "productList":
 
-                return null;
+        return renderProductList(element);
 
-        }
+    default:
+
+        return null;
+
+}
 
     }
 

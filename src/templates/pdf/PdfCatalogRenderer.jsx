@@ -8,13 +8,13 @@ import PageBuilder from "../engine/PageBuilder";
 
 import CatalogNormalizer from "../../features/catalog/utils/CatalogNormalizer";
 
-
 export default function PdfCatalogRenderer({
 
-    products = []
+    products = [],
 
-}) {
+    settings = {}
 
+}){
 
     const normalizedProducts =
 
@@ -23,17 +23,6 @@ export default function PdfCatalogRenderer({
             products
 
         );
-
-         console.log(
-    "ORIGINAL PRODUCTS:",
-    products
-);
-
-console.log(
-    "NORMALIZED PRODUCTS:",
-    normalizedProducts
-);
-
 
     const pages =
 
@@ -45,14 +34,13 @@ console.log(
 
         );
 
-
-    return (
+    return(
 
         <>
 
             {
 
-                pages.map(page => (
+                pages.map(page=>(
 
                     <TemplateRenderer
 
@@ -80,45 +68,11 @@ console.log(
 
                         }
 
-                        settings={{
+                        settings={
 
-                            brandName:
+                            settings
 
-                                page.type === "cover"
-
-                                    ? "CATÁLOGO"
-
-                                    : "EVOTEC",
-
-                            subtitle:
-
-                                "Mes y Año",
-
-                            description:
-
-                                "Una selección curada de monturas ópticas y de sol.",
-
-                            publicationDate:
-
-                                new Date()
-
-                                    .toLocaleDateString(
-
-                                        "es-ES",
-
-                                        {
-
-                                            month:"long",
-
-                                            year:"numeric"
-
-                                        }
-
-                                    )
-
-                                    .toUpperCase()
-
-                        }}
+                        }
 
                     />
 

@@ -8,13 +8,9 @@ import { useCategories } from "../../categories/hooks/useCategories";
 
 import { useState } from "react";
 
-
 import { useExporter } from "../../export/hooks/useExporter";
 
-
-
 function Products(){
-
 
     const {
 
@@ -28,16 +24,11 @@ function Products(){
 
     } = useProducts();
 
-
-
     const {
 
         categories
 
     } = useCategories();
-
-
-
 
     const [
 
@@ -47,9 +38,6 @@ function Products(){
 
     ] = useState(false);
 
-
-
-
     const [
 
         editingProduct,
@@ -58,24 +46,61 @@ function Products(){
 
     ] = useState(null);
 
-
-
-
     const {
 
         exportRef,
 
+        pdfRef,
+
         exportData,
+
+        pdfData,
 
         exportProductPNG,
 
-        ExportRenderer
+        exportCatalogPDF,
+
+        ExportRenderer,
+
+        PdfExportRenderer
 
     } = useExporter();
 
+    const now = new Date();
 
+    const publicationDate =
 
+        now
 
+            .toLocaleDateString(
+
+                "es-ES",
+
+                {
+
+                    month:"long",
+
+                    year:"numeric"
+
+                }
+
+            )
+
+            .toUpperCase();
+
+    const pdfSettings={
+
+        brandName:"CATÁLOGO",
+
+        publicationDate,
+
+        city:"HABANA, CUBA",
+
+        description:
+
+            "Una selección curada de monturas ópticas y de sol, fotografiadas sobre blanco puro para que cada silueta se sostenga por sí sola."
+
+    };
 
     function openCreate(){
 
@@ -85,10 +110,6 @@ function Products(){
 
     }
 
-
-
-
-
     function openEdit(product){
 
         setEditingProduct(product);
@@ -96,10 +117,6 @@ function Products(){
         setIsModalOpen(true);
 
     }
-
-
-
-
 
     function closeModal(){
 
@@ -109,23 +126,15 @@ function Products(){
 
     }
 
-
-
-
-
-    return (
+    return(
 
         <section>
-
 
             <h2>
 
                 Productos
 
             </h2>
-
-
-
 
             <button
 
@@ -137,9 +146,25 @@ function Products(){
 
             </button>
 
+            <button
 
+                onClick={()=>
 
+                    exportCatalogPDF(
 
+                        products,
+
+                        pdfSettings
+
+                    )
+
+                }
+
+            >
+
+                Exportar PDF
+
+            </button>
 
             <ProductTable
 
@@ -163,10 +188,6 @@ function Products(){
 
             />
 
-
-
-
-
             <ProductModal
 
                 isOpen={isModalOpen}
@@ -185,10 +206,6 @@ function Products(){
 
             />
 
-
-
-
-
             {
 
                 exportData &&
@@ -205,14 +222,26 @@ function Products(){
 
             }
 
+            {
 
+                pdfData &&
+
+                <PdfExportRenderer
+
+                    ref={pdfRef}
+
+                    products={pdfData.products}
+
+                    settings={pdfData.settings}
+
+                />
+
+            }
 
         </section>
 
     );
 
 }
-
-
 
 export default Products;

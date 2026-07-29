@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
 
-
 import TemplateLoader from "../../../templates/loader/TemplateLoader";
 
 import { exportToPNG } from "../services/pngExporter";
 
+import { exportToPDF } from "../services/pdfExporter";
+
 import ExportRenderer from "../components/ExportRenderer";
+
+import PdfExportRenderer from "../components/PdfExportRenderer";
 
 import { imageToDataURL } from "../utils/imageToDataURL";
 
@@ -17,6 +20,9 @@ export function useExporter(){
     const exportRef = useRef(null);
 
 
+    const pdfRef = useRef(null);
+
+
 
     const [
 
@@ -25,6 +31,17 @@ export function useExporter(){
         setExportData
 
     ] = useState(null);
+
+
+
+    const [
+
+        pdfData,
+
+        setPdfData
+
+    ] = useState(null);
+
 
 
 
@@ -48,26 +65,31 @@ export function useExporter(){
 
 
 
-        const imageData =
+        let imageData = null;
 
-            await imageToDataURL(
+if(product.image instanceof File){
 
-                product.image
+    imageData =
+        await imageToDataURL(
+            product.image
+        );
 
-            );
+}else{
 
+    imageData =
+        product.imageUrl ||
+        product.image ||
+        null;
 
+}
 
-        const exportProduct = {
+const exportProduct = {
 
+    ...product,
 
-            ...product,
+    imageUrl:imageData
 
-
-            imageUrl:imageData
-
-
-        };
+};
 
 
 
@@ -83,7 +105,7 @@ export function useExporter(){
 
         await new Promise(
 
-            resolve=>
+            resolve =>
 
                 setTimeout(resolve,500)
 
@@ -105,7 +127,63 @@ export function useExporter(){
 
 
 
+
+    async function exportCatalogPDF(
+
+    products,
+
+    settings
+
+){
+
+    setPdfData({
+
+        products,
+
+        settings
+
+    });
+
+    await new Promise(
+
+        resolve =>
+
+            setTimeout(resolve,500)
+
+    );
+
+    const pages =
+
+        Array.from(
+
+            pdfRef.current.children
+
+        );
+
+    console.log(
+
+        "PDF PAGES:",
+
+        pages.length
+
+    );
+
+    await exportToPDF(
+
+        pages,
+
+        "catalogo.pdf"
+
+    );
+
+}
+
+
+
+
+
     return {
+
 
         exportRef,
 
@@ -113,7 +191,17 @@ export function useExporter(){
 
         exportProductPNG,
 
-        ExportRenderer
+        ExportRenderer,
+
+
+        pdfRef,
+
+        pdfData,
+
+        exportCatalogPDF,
+
+        PdfExportRenderer
+
 
     };
 

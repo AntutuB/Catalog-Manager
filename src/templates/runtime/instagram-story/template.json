@@ -68,7 +68,7 @@
 
       "type": "image",
 
-      "binding": "image",
+      "binding": "imageUrl",
 
       "bounds": {
         "x": 0,
