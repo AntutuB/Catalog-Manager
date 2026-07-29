@@ -1,20 +1,15 @@
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route,
+    Navigate
 } from "react-router-dom";
 
 
-import Home from "../features/catalog/pages/Home";
 import Products from "../features/products/pages/Products";
-import Editor from "../features/editor/pages/Editor";
-import CatalogPreview from "../features/catalog-preview/components/CatalogPreview";
-import PdfCatalogPreview from "../pages/PdfCatalogPreview";
-import MainLayout from "../layouts/MainLayout";
 
 
 function AppRouter(){
-
 
     return (
 
@@ -22,43 +17,24 @@ function AppRouter(){
 
             <Routes>
 
+                <Route
+                    path="/"
+                    element={
+                        <Navigate
+                            to="/products"
+                            replace
+                        />
+                    }
+                />
 
-<Route element={<MainLayout />}>
+                <Route
+                    path="/products"
+                    element={
+                        <Products />
+                    }
+                />
 
-    <Route
-        path="/"
-        element={<Home />}
-    />
-
-
-    <Route
-        path="/products"
-        element={<Products />}
-    />
-
-
-    <Route
-        path="/catalog-preview"
-        element={<CatalogPreview />}
-    />
-
-
-    <Route
-        path="/editor"
-        element={<Editor />}
-    />
-
-
-    <Route
-        path="/pdf-preview"
-        element={<PdfCatalogPreview />}
-    />
-
-
-</Route>
-
-
-</Routes>
+            </Routes>
 
         </BrowserRouter>
 

@@ -10,6 +10,13 @@ import { useState } from "react";
 
 import { useExporter } from "../../export/hooks/useExporter";
 
+import PageHeader from "../../catalog/components/PageHeader";
+
+import SectionTabs from "../../catalog/components/SectionTabs";
+
+import Categories from "../../categories/pages/Categories";
+
+
 function Products(){
 
     const {
@@ -24,11 +31,22 @@ function Products(){
 
     } = useProducts();
 
+
     const {
 
         categories
 
     } = useCategories();
+
+
+    const [
+
+        activeTab,
+
+        setActiveTab
+
+    ] = useState("products");
+
 
     const [
 
@@ -38,6 +56,7 @@ function Products(){
 
     ] = useState(false);
 
+
     const [
 
         editingProduct,
@@ -45,6 +64,8 @@ function Products(){
         setEditingProduct
 
     ] = useState(null);
+
+
 
     const {
 
@@ -66,7 +87,10 @@ function Products(){
 
     } = useExporter();
 
+
+
     const now = new Date();
+
 
     const publicationDate =
 
@@ -88,6 +112,8 @@ function Products(){
 
             .toUpperCase();
 
+
+
     const pdfSettings={
 
         brandName:"CATÁLOGO",
@@ -102,6 +128,8 @@ function Products(){
 
     };
 
+
+
     function openCreate(){
 
         setEditingProduct(null);
@@ -109,6 +137,8 @@ function Products(){
         setIsModalOpen(true);
 
     }
+
+
 
     function openEdit(product){
 
@@ -118,6 +148,8 @@ function Products(){
 
     }
 
+
+
     function closeModal(){
 
         setEditingProduct(null);
@@ -126,67 +158,132 @@ function Products(){
 
     }
 
+
+
     return(
 
-        <section>
+        <section className="p-8">
 
-            <h2>
 
-                Productos
+            <PageHeader
 
-            </h2>
+                title="Catalog Manager"
 
-            <button
+                actions={
 
-                onClick={openCreate}
+                    <>
 
-            >
+                        {
 
-                Nuevo producto
+                            activeTab==="products" &&
 
-            </button>
+                            <button
 
-            <button
+                                onClick={openCreate}
 
-                onClick={()=>
+                                className="px-4 py-2 bg-black text-white rounded"
 
-                    exportCatalogPDF(
+                            >
 
-                        products,
+                                Nuevo producto
 
-                        pdfSettings
+                            </button>
 
-                    )
+                        }
 
-                }
 
-            >
 
-                Exportar PDF
+                        {
 
-            </button>
+                            activeTab==="products" &&
 
-            <ProductTable
+                            <button
 
-                products={products}
+                                onClick={()=>
 
-                onDelete={removeProduct}
 
-                onEdit={openEdit}
+                                    exportCatalogPDF(
 
-                onExportStory={(product)=>
+                                        products,
 
-                    exportProductPNG(
+                                        pdfSettings
 
-                        product,
+                                    )
 
-                        "instagram-story"
 
-                    )
+                                }
+
+                                className="px-4 py-2 border rounded"
+
+                            >
+
+                                Exportar PDF
+
+                            </button>
+
+                        }
+
+                    </>
 
                 }
 
             />
+
+
+
+            <SectionTabs
+
+                active={activeTab}
+
+                onChange={setActiveTab}
+
+            />
+
+
+
+            {
+
+                activeTab==="products"
+
+                &&
+
+                <ProductTable
+
+                    products={products}
+
+                    onDelete={removeProduct}
+
+                    onEdit={openEdit}
+
+                    onExportStory={(product)=>
+
+                        exportProductPNG(
+
+                            product,
+
+                            "instagram-story"
+
+                        )
+
+                    }
+
+                />
+
+            }
+
+
+
+            {
+
+                activeTab==="categories"
+
+                &&
+
+                <Categories />
+
+            }
+
+
 
             <ProductModal
 
@@ -206,6 +303,8 @@ function Products(){
 
             />
 
+
+
             {
 
                 exportData &&
@@ -221,6 +320,8 @@ function Products(){
                 />
 
             }
+
+
 
             {
 
@@ -238,10 +339,12 @@ function Products(){
 
             }
 
+
         </section>
 
     );
 
 }
+
 
 export default Products;
