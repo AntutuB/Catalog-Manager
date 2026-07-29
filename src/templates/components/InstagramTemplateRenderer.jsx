@@ -8,6 +8,7 @@ import AssetManager from "../assets/AssetManager";
 
 function InstagramTemplateRenderer({
 
+    
     template,
 
     product,
@@ -22,7 +23,7 @@ function InstagramTemplateRenderer({
 
 }){
 
-
+    console.log("USING INSTAGRAM TEMPLATE RENDERER");
 
     function getImage(item){
 
@@ -268,77 +269,65 @@ function fitText(
 
     function renderText(element){
 
+        console.log("TEXT ELEMENT", element);
+
     const theme = template.theme || {};
 
     const colors = theme.colors || {};
 
     const fonts = theme.fonts || {};
 
-    return(
+    return (
+    <div
+        key={element.id}
+        style={{
+    ...baseStyle(element),
 
-        <div
+    display: "flex",
 
-            key={element.id}
+    justifyContent:
+        element.layout?.horizontal === "center"
+            ? "center"
+            : element.layout?.horizontal === "right"
+            ? "flex-end"
+            : "flex-start",
 
-            style={{
+    alignItems:
+        element.layout?.vertical === "center"
+            ? "center"
+            : element.layout?.vertical === "bottom"
+            ? "flex-end"
+            : "flex-start",
 
-                ...baseStyle(element),
+    fontSize: element.style?.fontSize,
 
-                fontSize:
+    fontWeight: element.style?.fontWeight,
 
-                    element.style?.fontSize,
+    textAlign:
+        element.style?.textAlign ||
+        element.style?.align ||
+        "left",
 
-                fontWeight:
+    color:
+        element.style?.color ||
+        colors.primary ||
+        "#161512",
 
-                    element.style?.fontWeight,
+    fontFamily:
+        element.style?.fontFamily ||
+        fonts.body ||
+        "Inter",
 
-                textAlign:
+    letterSpacing:
+        element.style?.letterSpacing,
 
-                    element.style?.align || "left",
-
-                color:
-
-                    element.style?.color ||
-
-                    colors.primary ||
-
-                    "#161512",
-
-                fontFamily:
-
-                    element.style?.fontFamily ||
-
-                    fonts.body ||
-
-                    "Inter",
-
-                letterSpacing:
-
-                    element.style?.letterSpacing,
-
-                lineHeight:
-
-                    element.style?.lineHeight
-
-            }}
-
-        >
-
-            {
-
-                element.value ??
-
-                renderBinding(
-
-                    element.binding
-
-                )
-
-            }
-
-        </div>
-
-    );
+    lineHeight:
+        element.style?.lineHeight
+}}
+    >
+        {element.value ?? renderBinding(element.binding)}
+    </div>
+);
 
 }
 
