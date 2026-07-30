@@ -1,19 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
 
+import ProductToolbar from "./ProductToolbar";
+
 
 function ProductTable({
 
     products,
 
+    selectedProducts,
+
+    setSelectedProducts,
+
     onDelete,
+
+    onDeleteSelected,
 
     onEdit,
 
-    onExportStory,
-
-    selectedProducts,
-
-    onSelectionChange
+    onExportStory
 
 }){
 
@@ -28,6 +32,7 @@ function ProductTable({
 
 
 
+
     const [
 
         search,
@@ -35,6 +40,7 @@ function ProductTable({
         setSearch
 
     ] = useState("");
+
 
 
 
@@ -48,6 +54,7 @@ function ProductTable({
 
 
 
+
     const [
 
         typeFilter,
@@ -55,6 +62,7 @@ function ProductTable({
         setTypeFilter
 
     ] = useState("all");
+
 
 
 
@@ -66,47 +74,82 @@ function ProductTable({
 
     ] = useState("name");
 
+
+
+
+
     function toggleProductSelection(id){
 
-    if(selectedProducts.includes(id)){
 
-        onSelectionChange(
-            selectedProducts.filter(
-                productId => productId !== id
-            )
-        );
+        if(selectedProducts.includes(id)){
 
-    }else{
 
-        onSelectionChange([
-            ...selectedProducts,
-            id
-        ]);
+            setSelectedProducts(
+
+                selectedProducts.filter(
+
+                    productId => productId !== id
+
+                )
+
+            );
+
+
+        }else{
+
+
+            setSelectedProducts([
+
+                ...selectedProducts,
+
+                id
+
+            ]);
+
+
+        }
+
 
     }
 
-}
+
+
 
 
     function toggleAllProducts(){
 
+
         if(
+
             selectedProducts.length === filteredProducts.length
+
         ){
 
-            onSelectionChange([]);
+
+            setSelectedProducts([]);
+
 
         }else{
 
-            onSelectionChange(
+
+            setSelectedProducts(
+
                 filteredProducts.map(
+
                     product => product.id
+
                 )
+
             );
+
 
         }
 
+
     }
+
+
+
 
 
     useEffect(()=>{
@@ -118,13 +161,19 @@ function ProductTable({
             let imageUrl = null;
 
 
+
             if(product.image){
 
+
                 imageUrl = URL.createObjectURL(
+
                     product.image
+
                 );
 
+
             }
+
 
 
             return {
@@ -144,6 +193,7 @@ function ProductTable({
 
 
 
+
         return ()=>{
 
 
@@ -152,9 +202,13 @@ function ProductTable({
 
                 if(product.imageUrl){
 
+
                     URL.revokeObjectURL(
+
                         product.imageUrl
+
                     );
+
 
                 }
 
@@ -296,9 +350,7 @@ function ProductTable({
 
             data.sort((a,b)=>
 
-                Number(a.price) -
-
-                Number(b.price)
+                Number(a.price)-Number(b.price)
 
             );
 
@@ -335,167 +387,48 @@ function ProductTable({
 
     ]);
 
-
-
-
-
-    return(
-
+        return(
 
         <div className="w-full space-y-4">
 
 
+            <ProductToolbar
 
-            <div className="flex flex-wrap gap-3">
+                search={search}
 
+                setSearch={setSearch}
 
-                <input
 
-                    value={search}
+                categoryFilter={categoryFilter}
 
-                    onChange={e=>
+                setCategoryFilter={setCategoryFilter}
 
-                        setSearch(e.target.value)
 
-                    }
+                typeFilter={typeFilter}
 
-                    placeholder="Buscar producto..."
+                setTypeFilter={setTypeFilter}
 
-                    className="border rounded px-3 py-2"
 
-                />
+                sortBy={sortBy}
 
+                setSortBy={setSortBy}
 
 
-                <select
+                categories={categories}
 
-                    value={categoryFilter}
+                types={types}
 
-                    onChange={e=>
 
-                        setCategoryFilter(e.target.value)
+                selectedCount={selectedProducts.length}
 
-                    }
 
-                    className="border rounded px-3 py-2"
+                onDeleteSelected={onDeleteSelected}
 
-                >
-
-                    {
-
-                        categories.map(category=>(
-
-                            <option
-
-                                key={category}
-
-                                value={category}
-
-                            >
-
-                                {
-                                    category === "all"
-                                    ?
-                                    "Todas las categorías"
-                                    :
-                                    category
-                                }
-
-                            </option>
-
-                        ))
-
-                    }
-
-                </select>
-
-
-
-
-                <select
-
-                    value={typeFilter}
-
-                    onChange={e=>
-
-                        setTypeFilter(e.target.value)
-
-                    }
-
-                    className="border rounded px-3 py-2"
-
-                >
-
-                    {
-
-                        types.map(type=>(
-
-                            <option
-
-                                key={type}
-
-                                value={type}
-
-                            >
-
-                                {
-                                    type === "all"
-                                    ?
-                                    "Todos los tipos"
-                                    :
-                                    type
-                                }
-
-                            </option>
-
-                        ))
-
-                    }
-
-                </select>
-
-
-
-
-                <select
-
-                    value={sortBy}
-
-                    onChange={e=>
-
-                        setSortBy(e.target.value)
-
-                    }
-
-                    className="border rounded px-3 py-2"
-
-                >
-
-                    <option value="name">
-
-                        Ordenar por nombre
-
-                    </option>
-
-
-                    <option value="price">
-
-                        Ordenar por precio
-
-                    </option>
-
-
-                </select>
-
-
-            </div>
-
-
+            />
 
 
 
             <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
-
 
 
                 {
@@ -523,7 +456,9 @@ function ProductTable({
 
                             <thead className="bg-gray-50">
 
+
                                 <tr>
+
 
                                     <th className="w-16 px-5 py-4">
 
@@ -545,11 +480,15 @@ function ProductTable({
 
                                     </th>
 
+
+
                                     <th className="w-28 px-5 py-4 text-left font-semibold">
 
                                         Imagen
 
                                     </th>
+
+
 
                                     <th className="px-5 py-4 text-left font-semibold">
 
@@ -557,11 +496,15 @@ function ProductTable({
 
                                     </th>
 
+
+
                                     <th className="w-40 px-5 py-4 text-left font-semibold">
 
                                         Marca
 
                                     </th>
+
+
 
                                     <th className="w-40 px-5 py-4 text-left font-semibold">
 
@@ -569,11 +512,15 @@ function ProductTable({
 
                                     </th>
 
+
+
                                     <th className="w-32 px-5 py-4 text-left font-semibold">
 
                                         Precio
 
                                     </th>
+
+
 
                                     <th className="w-64 px-5 py-4 text-left font-semibold">
 
@@ -581,7 +528,9 @@ function ProductTable({
 
                                     </th>
 
+
                                 </tr>
+
 
                             </thead>
 
@@ -591,197 +540,279 @@ function ProductTable({
 
                             <tbody>
 
-    {
 
-        filteredProducts.map(product=>(
+                                {
 
-            <tr
+                                    filteredProducts.map(product=>(
 
-                key={product.id}
 
-                className="hover:bg-gray-50 transition-colors"
+                                        <tr
 
-            >
+                                            key={product.id}
 
-                <td className="px-5 py-4 border-t border-gray-100">
+                                            className="hover:bg-gray-50 transition-colors"
 
-                    <input
+                                        >
 
-                        type="checkbox"
 
-                        checked={
 
-                            selectedProducts.includes(product.id)
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                        }
 
-                        onChange={()=>
+                                                <input
 
-                            toggleProductSelection(product.id)
+                                                    type="checkbox"
 
-                        }
+                                                    checked={
 
-                    />
+                                                        selectedProducts.includes(product.id)
 
-                </td>
+                                                    }
 
-                <td className="px-5 py-4 border-t border-gray-100">
+                                                    onChange={()=>
 
-                    {
 
-                        product.imageUrl &&
+                                                        toggleProductSelection(product.id)
 
-                        (
 
-                            <div
+                                                    }
 
-                                style={{
+                                                />
 
-                                    width:"80px",
 
-                                    height:"80px",
+                                            </td>
 
-                                    display:"flex",
 
-                                    alignItems:"center",
 
-                                    justifyContent:"center",
 
-                                    overflow:"hidden",
 
-                                    background:"#F9FAFB",
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                                    borderRadius:"8px",
 
-                                    border:"1px solid #E5E7EB"
+                                                {
 
-                                }}
+                                                    product.imageUrl &&
 
-                            >
 
-                                <img
+                                                    (
 
-                                    src={product.imageUrl}
+                                                        <div
 
-                                    alt={product.name}
+                                                            style={{
 
-                                    style={{
 
-                                        maxWidth:"100%",
+                                                                width:"80px",
 
-                                        maxHeight:"100%",
 
-                                        width:"auto",
+                                                                height:"80px",
 
-                                        height:"auto",
 
-                                        objectFit:"contain",
+                                                                display:"flex",
 
-                                        display:"block"
 
-                                    }}
+                                                                alignItems:"center",
 
-                                />
 
-                            </div>
+                                                                justifyContent:"center",
 
-                        )
 
-                    }
+                                                                overflow:"hidden",
 
-                </td>
 
-                <td className="px-5 py-4 border-t border-gray-100">
+                                                                background:"#F9FAFB",
 
-                    <div className="truncate font-medium">
 
-                        {product.name}
+                                                                borderRadius:"8px",
 
-                    </div>
 
-                </td>
+                                                                border:"1px solid #E5E7EB"
 
-                <td className="px-5 py-4 border-t border-gray-100">
 
-                    {product.brand}
+                                                            }}
 
-                </td>
+                                                        >
 
-                <td className="px-5 py-4 border-t border-gray-100">
 
-                    {product.type}
+                                                            <img
 
-                </td>
+                                                                src={product.imageUrl}
 
-                <td className="px-5 py-4 border-t border-gray-100">
+                                                                alt={product.name}
 
-                    ${product.price}
+                                                                style={{
 
-                </td>
 
-                <td className="px-5 py-4 border-t border-gray-100">
+                                                                    maxWidth:"100%",
 
-                    <div className="flex flex-wrap gap-2">
 
-                        <button
+                                                                    maxHeight:"100%",
 
-                            onClick={()=>
 
-                                onEdit(product)
+                                                                    width:"auto",
 
-                            }
 
-                        >
+                                                                    height:"auto",
 
-                            Editar
 
-                        </button>
+                                                                    objectFit:"contain",
 
-                        <button
 
-                            onClick={()=>
+                                                                    display:"block"
 
-                                onDelete(product.id)
 
-                            }
+                                                                }}
 
-                        >
+                                                            />
 
-                            Eliminar
 
-                        </button>
+                                                        </div>
 
-                        <button
 
-                            onClick={()=>
+                                                    )
 
-                                onExportStory(product)
+                                                }
 
-                            }
 
-                        >
+                                            </td>
 
-                            PNG Story
 
-                        </button>
 
-                        <button>
 
-                            PNG Post
 
-                        </button>
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                    </div>
 
-                </td>
+                                                <div className="truncate font-medium">
 
-            </tr>
+                                                    {product.name}
 
-        ))
+                                                </div>
 
-    }
 
-</tbody>
+                                            </td>
+
+
+
+
+
+                                            <td className="px-5 py-4 border-t border-gray-100">
+
+                                                {product.brand}
+
+                                            </td>
+
+
+
+
+
+                                            <td className="px-5 py-4 border-t border-gray-100">
+
+                                                {product.type}
+
+                                            </td>
+
+
+
+
+
+                                            <td className="px-5 py-4 border-t border-gray-100">
+
+                                                ${product.price}
+
+                                            </td>
+
+
+
+
+
+                                            <td className="px-5 py-4 border-t border-gray-100">
+
+
+                                                <div className="flex flex-wrap gap-2">
+
+
+                                                    <button
+
+                                                        onClick={()=>
+
+
+                                                            onEdit(product)
+
+
+                                                        }
+
+                                                    >
+
+                                                        Editar
+
+                                                    </button>
+
+
+
+
+
+                                                    <button
+
+                                                        onClick={()=>
+
+
+                                                            onDelete(product.id)
+
+
+                                                        }
+
+                                                    >
+
+                                                        Eliminar
+
+                                                    </button>
+
+
+
+
+
+                                                    <button
+
+                                                        onClick={()=>
+
+
+                                                            onExportStory(product)
+
+
+                                                        }
+
+                                                    >
+
+                                                        PNG Story
+
+                                                    </button>
+
+
+
+
+
+                                                    <button>
+
+                                                        PNG Post
+
+                                                    </button>
+
+
+                                                </div>
+
+
+                                            </td>
+
+
+                                        </tr>
+
+
+                                    ))
+
+                                }
+
+
+                            </tbody>
 
 
                         </table>

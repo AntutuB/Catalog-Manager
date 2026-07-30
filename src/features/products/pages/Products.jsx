@@ -13,14 +13,18 @@ import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../../categories/hooks/useCategories";
 import { useExporter } from "../../export/hooks/useExporter";
 
-function Products() {
 
-    const [activeTab, setActiveTab] = useState("products");
+function Products(){
+
+    const [activeTab,setActiveTab] = useState("products");
+
 
     const [
-    selectedProducts,
-    setSelectedProducts
-] = useState([]);
+        selectedProducts,
+        setSelectedProducts
+    ] = useState([]);
+
+
 
     const {
         products,
@@ -29,19 +33,27 @@ function Products() {
         removeProduct
     } = useProducts();
 
+
+
     const {
         categories
     } = useCategories();
+
+
 
     const [
         isModalOpen,
         setIsModalOpen
     ] = useState(false);
 
+
+
     const [
         editingProduct,
         setEditingProduct
     ] = useState(null);
+
+
 
     const {
         exportRef,
@@ -54,148 +66,248 @@ function Products() {
         PdfExportRenderer
     } = useExporter();
 
+
+
+
     const now = new Date();
 
+
     const publicationDate = now
-        .toLocaleDateString("es-ES", {
-            month: "long",
-            year: "numeric"
+        .toLocaleDateString("es-ES",{
+            month:"long",
+            year:"numeric"
         })
         .toUpperCase();
 
+
+
     const pdfSettings = {
-        brandName: "CATÁLOGO",
+
+        brandName:"CATÁLOGO",
+
         publicationDate,
-        city: "HABANA, CUBA",
+
+        city:"HABANA, CUBA",
+
         description:
             "Una selección curada de monturas ópticas y de sol, fotografiadas sobre blanco puro para que cada silueta se sostenga por sí sola."
+
     };
 
-    function openCreate() {
+
+
+
+    function openCreate(){
+
         setEditingProduct(null);
+
         setIsModalOpen(true);
+
     }
 
-    function openEdit(product) {
+
+
+    function openEdit(product){
+
         setEditingProduct(product);
+
         setIsModalOpen(true);
+
     }
 
-    function closeModal() {
+
+
+    function closeModal(){
+
         setEditingProduct(null);
+
         setIsModalOpen(false);
+
     }
+
+
+
+
+    async function deleteSelectedProducts(){
+
+        for(const id of selectedProducts){
+
+            await removeProduct(id);
+
+        }
+
+
+        setSelectedProducts([]);
+
+    }
+
+
+
+
 
     return (
 
-    <PageContainer className="h-screen">
+        <PageContainer className="h-screen">
 
-        <section className="flex h-full flex-col">
 
-            <ProductHeader
-                onCreate={openCreate}
-                onExport={() =>
-                    exportCatalogPDF(
-                        products,
-                        pdfSettings
-                    )
-                }
-            />
+            <section className="flex h-full flex-col">
 
-            <Tabs
-                tabs={[
-                    {
-                        id: "products",
-                        label: "Productos"
-                    },
-                    {
-                        id: "categories",
-                        label: "Categorías"
+
+                <ProductHeader
+
+                    onCreate={openCreate}
+
+                    onExport={()=>
+                        exportCatalogPDF(
+                            products,
+                            pdfSettings
+                        )
                     }
-                ]}
-                active={activeTab}
-                onChange={setActiveTab}
-            />
 
-            <div className="mt-6 flex-1">
+                />
+
+
+
+                <Tabs
+
+                    tabs={[
+                        {
+                            id:"products",
+                            label:"Productos"
+                        },
+                        {
+                            id:"categories",
+                            label:"Categorías"
+                        }
+                    ]}
+
+                    active={activeTab}
+
+                    onChange={setActiveTab}
+
+                />
+
+
+
+                <div className="mt-6 flex-1">
+
+
+                    {
+                        activeTab==="products" && (
+
+                            <ProductTable
+
+                                products={products}
+
+                                selectedProducts={selectedProducts}
+
+                                setSelectedProducts={setSelectedProducts}
+
+                                onDelete={removeProduct}
+
+                                onDeleteSelected={deleteSelectedProducts}
+
+                                onEdit={openEdit}
+
+                                onExportStory={(product)=>
+
+                                    exportProductPNG(
+                                        product,
+                                        "instagram-story"
+                                    )
+
+                                }
+
+                            />
+
+                        )
+                    }
+
+
+
+
+                    {
+                        activeTab==="categories" && (
+
+                            <Categories />
+
+                        )
+                    }
+
+
+                </div>
+
+
+
+
+                <ProductModal
+
+                    isOpen={isModalOpen}
+
+                    onClose={closeModal}
+
+                    categories={categories}
+
+                    onAdd={addProduct}
+
+                    onEdit={editProduct}
+
+                    editingProduct={editingProduct}
+
+                    cancelEdit={closeModal}
+
+                />
+
+
+
+
 
                 {
-                    activeTab === "products" && (
+                    exportData && (
 
-                        <ProductTable
+                        <ExportRenderer
 
-    products={products}
+                            ref={exportRef}
 
-    selectedProducts={selectedProducts}
+                            template={exportData.template}
 
-    onSelectionChange={setSelectedProducts}
+                            product={exportData.product}
 
-    onDelete={removeProduct}
-
-    onEdit={openEdit}
-
-    onExportStory={(product)=>
-        exportProductPNG(
-            product,
-            "instagram-story"
-        )
-    }
-
-/>
+                        />
 
                     )
                 }
 
-                {
-                    activeTab === "categories" && (
 
-                        <Categories />
+
+
+
+                {
+                    pdfData && (
+
+                        <PdfExportRenderer
+
+                            ref={pdfRef}
+
+                            products={pdfData.products}
+
+                            settings={pdfData.settings}
+
+                        />
 
                     )
                 }
 
-            </div>
 
-            <ProductModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                categories={categories}
-                onAdd={addProduct}
-                onEdit={editProduct}
-                editingProduct={editingProduct}
-                cancelEdit={closeModal}
-            />
 
-            {
-                exportData && (
+            </section>
 
-                    <ExportRenderer
-                        ref={exportRef}
-                        template={exportData.template}
-                        product={exportData.product}
-                    />
 
-                )
-            }
+        </PageContainer>
 
-            {
-                pdfData && (
-
-                    <PdfExportRenderer
-                        ref={pdfRef}
-                        products={pdfData.products}
-                        settings={pdfData.settings}
-                    />
-
-                )
-            }
-
-        </section>
-
-    </PageContainer>
-
-);
+    );
 
 }
+
 
 export default Products;
