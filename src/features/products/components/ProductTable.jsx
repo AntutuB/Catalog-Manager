@@ -394,37 +394,40 @@ function ProductTable({
 
             <ProductToolbar
 
-                search={search}
+    search={search}
 
-                setSearch={setSearch}
-
-
-                categoryFilter={categoryFilter}
-
-                setCategoryFilter={setCategoryFilter}
+    setSearch={setSearch}
 
 
-                typeFilter={typeFilter}
+    categoryFilter={categoryFilter}
 
-                setTypeFilter={setTypeFilter}
-
-
-                sortBy={sortBy}
-
-                setSortBy={setSortBy}
+    setCategoryFilter={setCategoryFilter}
 
 
-                categories={categories}
+    typeFilter={typeFilter}
 
-                types={types}
-
-
-                selectedCount={selectedProducts.length}
+    setTypeFilter={setTypeFilter}
 
 
-                onDeleteSelected={onDeleteSelected}
+    sortBy={sortBy}
 
-            />
+    setSortBy={setSortBy}
+
+
+    categories={categories}
+
+    types={types}
+
+
+    selectedCount={selectedProducts.length}
+
+
+    onDeleteSelected={onDeleteSelected}
+
+
+    onClearSelection={()=>setSelectedProducts([])}
+
+/>
 
 
 

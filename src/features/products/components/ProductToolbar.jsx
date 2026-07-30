@@ -1,6 +1,7 @@
 import {
     Search,
-    Trash2
+    Trash2,
+    X
 } from "lucide-react";
 
 
@@ -23,7 +24,9 @@ function ProductToolbar({
 
     selectedCount,
 
-    onDeleteSelected
+    onDeleteSelected,
+
+    onClearSelection
 
 }){
 
@@ -44,7 +47,6 @@ function ProductToolbar({
                 items-center
                 gap-3
             ">
-
 
 
                 <div className="
@@ -100,7 +102,6 @@ function ProductToolbar({
 
 
 
-
                 <select
 
                     value={categoryFilter}
@@ -146,13 +147,11 @@ function ProductToolbar({
 
                                 }
 
-
                             </option>
 
                         ))
 
                     }
-
 
                 </select>
 
@@ -205,13 +204,11 @@ function ProductToolbar({
 
                                 }
 
-
                             </option>
 
                         ))
 
                     }
-
 
                 </select>
 
@@ -255,67 +252,108 @@ function ProductToolbar({
                 </select>
 
 
-
             </div>
 
 
 
 
 
-            <div className="
-                flex
-                items-center
-                justify-between
-                rounded-lg
-                bg-gray-50
-                px-4
-                py-3
-            ">
+            {
+                selectedCount > 0 && (
 
-
-                <span className="text-sm text-gray-600">
-
-                    {selectedCount}
-
-                    {" "}
-
-                    seleccionado(s)
-
-                </span>
-
-
-
-
-                <button
-
-                    disabled={selectedCount===0}
-
-                    onClick={onDeleteSelected}
-
-                    className="
+                    <div className="
                         flex
                         items-center
-                        gap-2
+                        justify-between
                         rounded-lg
-                        bg-red-600
+                        bg-gray-50
                         px-4
-                        py-2
-                        text-white
-                        disabled:opacity-40
-                    "
-
-                >
-
-                    <Trash2 size={16}/>
+                        py-3
+                    ">
 
 
-                    Eliminar seleccionados
+                        <span className="
+                            text-sm
+                            text-gray-600
+                        ">
+
+                            {selectedCount}
+
+                            {" "}
+
+                            producto(s) seleccionado(s)
+
+                        </span>
 
 
-                </button>
 
 
-            </div>
+                        <div className="
+                            flex
+                            items-center
+                            gap-3
+                        ">
+
+
+                            <button
+
+                                onClick={onClearSelection}
+
+                                className="
+                                    flex
+                                    items-center
+                                    gap-2
+                                    rounded-lg
+                                    border
+                                    px-4
+                                    py-2
+                                "
+
+                            >
+
+                                <X size={16}/>
+
+                                Limpiar
+
+
+                            </button>
+
+
+
+
+
+                            <button
+
+                                onClick={onDeleteSelected}
+
+                                className="
+                                    flex
+                                    items-center
+                                    gap-2
+                                    rounded-lg
+                                    bg-red-600
+                                    px-4
+                                    py-2
+                                    text-white
+                                "
+
+                            >
+
+                                <Trash2 size={16}/>
+
+                                Eliminar
+
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+                )
+            }
 
 
         </div>
