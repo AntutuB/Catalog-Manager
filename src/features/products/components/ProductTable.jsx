@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 
 function ProductTable({
@@ -11,7 +11,7 @@ function ProductTable({
 
     onExportStory
 
-}) {
+}){
 
 
     const [
@@ -24,6 +24,47 @@ function ProductTable({
 
 
 
+    const [
+
+        search,
+
+        setSearch
+
+    ] = useState("");
+
+
+
+    const [
+
+        categoryFilter,
+
+        setCategoryFilter
+
+    ] = useState("all");
+
+
+
+    const [
+
+        typeFilter,
+
+        setTypeFilter
+
+    ] = useState("all");
+
+
+
+    const [
+
+        sortBy,
+
+        setSortBy
+
+    ] = useState("name");
+
+
+
+
     useEffect(()=>{
 
 
@@ -33,14 +74,13 @@ function ProductTable({
             let imageUrl = null;
 
 
-
             if(product.image){
 
-                imageUrl =
-                    URL.createObjectURL(product.image);
+                imageUrl = URL.createObjectURL(
+                    product.image
+                );
 
             }
-
 
 
             return {
@@ -69,9 +109,7 @@ function ProductTable({
                 if(product.imageUrl){
 
                     URL.revokeObjectURL(
-
                         product.imageUrl
-
                     );
 
                 }
@@ -88,221 +126,623 @@ function ProductTable({
 
 
 
-    return (
 
-        <div>
+    const categories = useMemo(()=>{
 
 
-            {
+        return [
 
-                productsWithImages.length === 0
+            "all",
 
-                ?
+            ...new Set(
 
-                (
+                productsWithImages
 
-                    <p>
+                    .map(product=>product.categoryName)
 
-                        No hay productos registrados.
+                    .filter(Boolean)
 
-                    </p>
+            )
 
-                )
+        ];
 
-                :
 
-                (
+    },[productsWithImages]);
 
-                    <table>
 
 
-                        <thead>
 
-                            <tr>
 
-                                <th>
-                                    Imagen
-                                </th>
+    const types = useMemo(()=>{
 
-                                <th>
-                                    Nombre
-                                </th>
 
-                                <th>
-                                    Marca
-                                </th>
+        return [
 
-                                <th>
-                                    Tipo
-                                </th>
+            "all",
 
-                                <th>
-                                    Precio
-                                </th>
+            ...new Set(
 
-                                <th>
-                                    Acciones
-                                </th>
+                productsWithImages
 
-                            </tr>
+                    .map(product=>product.type)
 
-                        </thead>
+                    .filter(Boolean)
 
+            )
 
+        ];
 
-                        <tbody>
 
+    },[productsWithImages]);
 
-                            {
 
-                                productsWithImages.map(product=>(
 
 
-                                    <tr
 
-                                        key={product.id}
+    const filteredProducts = useMemo(()=>{
 
-                                    >
 
+        let data = [
 
-                                        <td>
+            ...productsWithImages
 
+        ];
 
-                                            {
 
-                                                product.imageUrl &&
 
-                                                <img
+        if(search.trim()){
 
-                                                    src={product.imageUrl}
 
-                                                    width="80"
+            const value = search.toLowerCase();
 
-                                                    alt={product.name}
 
-                                                />
 
-                                            }
+            data = data.filter(product=>
 
+                product.name
+                    ?.toLowerCase()
+                    .includes(value)
 
-                                        </td>
+                ||
 
+                product.brand
+                    ?.toLowerCase()
+                    .includes(value)
 
+            );
 
-                                        <td>
 
-                                            {product.name}
+        }
 
-                                        </td>
 
 
 
-                                        <td>
+        if(categoryFilter !== "all"){
 
-                                            {product.brand}
 
-                                        </td>
+            data = data.filter(product=>
 
+                product.categoryName === categoryFilter
 
+            );
 
-                                        <td>
 
-                                            {product.type}
+        }
 
-                                        </td>
 
 
 
-                                        <td>
+        if(typeFilter !== "all"){
 
-                                            ${product.price}
 
-                                        </td>
+            data = data.filter(product=>
 
+                product.type === typeFilter
 
+            );
 
-                                        <td>
 
+        }
 
-                                            <button
 
-                                                onClick={()=>
 
-                                                    onEdit(product)
+
+        if(sortBy === "price"){
+
+
+            data.sort((a,b)=>
+
+                Number(a.price) -
+
+                Number(b.price)
+
+            );
+
+
+        }else{
+
+
+            data.sort((a,b)=>
+
+                a.name.localeCompare(b.name)
+
+            );
+
+
+        }
+
+
+
+        return data;
+
+
+
+    },[
+
+        productsWithImages,
+
+        search,
+
+        categoryFilter,
+
+        typeFilter,
+
+        sortBy
+
+    ]);
+
+
+
+
+
+    return(
+
+
+        <div className="w-full space-y-4">
+
+
+
+            <div className="flex flex-wrap gap-3">
+
+
+                <input
+
+                    value={search}
+
+                    onChange={e=>
+
+                        setSearch(e.target.value)
+
+                    }
+
+                    placeholder="Buscar producto..."
+
+                    className="border rounded px-3 py-2"
+
+                />
+
+
+
+                <select
+
+                    value={categoryFilter}
+
+                    onChange={e=>
+
+                        setCategoryFilter(e.target.value)
+
+                    }
+
+                    className="border rounded px-3 py-2"
+
+                >
+
+                    {
+
+                        categories.map(category=>(
+
+                            <option
+
+                                key={category}
+
+                                value={category}
+
+                            >
+
+                                {
+                                    category === "all"
+                                    ?
+                                    "Todas las categorías"
+                                    :
+                                    category
+                                }
+
+                            </option>
+
+                        ))
+
+                    }
+
+                </select>
+
+
+
+
+                <select
+
+                    value={typeFilter}
+
+                    onChange={e=>
+
+                        setTypeFilter(e.target.value)
+
+                    }
+
+                    className="border rounded px-3 py-2"
+
+                >
+
+                    {
+
+                        types.map(type=>(
+
+                            <option
+
+                                key={type}
+
+                                value={type}
+
+                            >
+
+                                {
+                                    type === "all"
+                                    ?
+                                    "Todos los tipos"
+                                    :
+                                    type
+                                }
+
+                            </option>
+
+                        ))
+
+                    }
+
+                </select>
+
+
+
+
+                <select
+
+                    value={sortBy}
+
+                    onChange={e=>
+
+                        setSortBy(e.target.value)
+
+                    }
+
+                    className="border rounded px-3 py-2"
+
+                >
+
+                    <option value="name">
+
+                        Ordenar por nombre
+
+                    </option>
+
+
+                    <option value="price">
+
+                        Ordenar por precio
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+
+            <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+
+
+
+                {
+
+                    filteredProducts.length === 0
+
+                    ?
+
+                    (
+
+                        <div className="p-10 text-center text-gray-500">
+
+                            No hay productos registrados.
+
+                        </div>
+
+                    )
+
+                    :
+
+                    (
+
+                        <table className="w-full table-fixed border-collapse">
+
+
+                            <thead className="bg-gray-50">
+
+
+                                <tr>
+
+
+                                    <th className="w-28 px-5 py-4 text-left font-semibold">
+
+                                        Imagen
+
+                                    </th>
+
+
+                                    <th className="px-5 py-4 text-left font-semibold">
+
+                                        Nombre
+
+                                    </th>
+
+
+                                    <th className="w-40 px-5 py-4 text-left font-semibold">
+
+                                        Marca
+
+                                    </th>
+
+
+                                    <th className="w-40 px-5 py-4 text-left font-semibold">
+
+                                        Tipo
+
+                                    </th>
+
+
+                                    <th className="w-32 px-5 py-4 text-left font-semibold">
+
+                                        Precio
+
+                                    </th>
+
+
+                                    <th className="w-64 px-5 py-4 text-left font-semibold">
+
+                                        Acciones
+
+                                    </th>
+
+
+                                </tr>
+
+
+                            </thead>
+
+
+
+
+
+                            <tbody>
+
+
+                                {
+
+                                    filteredProducts.map(product=>(
+
+
+                                        <tr
+
+                                            key={product.id}
+
+                                            className="hover:bg-gray-50 transition-colors"
+
+                                        >
+
+
+
+                                            <td className="px-5 py-4 border-t border-gray-100">
+
+
+                                                {
+
+                                                    product.imageUrl &&
+
+                                                    (
+
+                                                        <div
+
+                                                            style={{
+
+                                                                width:"80px",
+
+                                                                height:"80px",
+
+                                                                display:"flex",
+
+                                                                alignItems:"center",
+
+                                                                justifyContent:"center",
+
+                                                                overflow:"hidden",
+
+                                                                background:"#F9FAFB",
+
+                                                                borderRadius:"8px",
+
+                                                                border:"1px solid #E5E7EB"
+
+                                                            }}
+
+                                                        >
+
+                                                            <img
+
+                                                                src={product.imageUrl}
+
+                                                                alt={product.name}
+
+                                                                style={{
+
+                                                                    maxWidth:"100%",
+
+                                                                    maxHeight:"100%",
+
+                                                                    width:"auto",
+
+                                                                    height:"auto",
+
+                                                                    objectFit:"contain",
+
+                                                                    display:"block"
+
+                                                                }}
+
+                                                            />
+
+                                                        </div>
+
+                                                    )
 
                                                 }
 
-                                            >
 
-                                                Editar
-
-                                            </button>
+                                            </td>
 
 
 
-                                            <button
 
-                                                onClick={()=>
 
-                                                    onDelete(product.id)
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                                                }
+                                                <div className="truncate font-medium">
 
-                                            >
+                                                    {product.name}
 
-                                                Eliminar
+                                                </div>
 
-                                            </button>
+                                            </td>
 
 
 
-                                            <button
 
-                                                onClick={()=>
 
-                                                    onExportStory(product)
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                                                }
+                                                {product.brand}
 
-                                            >
-
-                                                PNG Story
-
-                                            </button>
+                                            </td>
 
 
 
-                                            <button>
-
-                                                PNG Post
-
-                                            </button>
 
 
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                                        </td>
+                                                {product.type}
+
+                                            </td>
 
 
 
-                                    </tr>
 
 
-                                ))
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-                            }
+                                                ${product.price}
+
+                                            </td>
 
 
-                        </tbody>
 
 
-                    </table>
 
-                )
+                                            <td className="px-5 py-4 border-t border-gray-100">
 
-            }
+
+                                                <div className="flex flex-wrap gap-2">
+
+
+                                                    <button
+
+                                                        onClick={()=>onEdit(product)}
+
+                                                    >
+
+                                                        Editar
+
+                                                    </button>
+
+
+                                                    <button
+
+                                                        onClick={()=>onDelete(product.id)}
+
+                                                    >
+
+                                                        Eliminar
+
+                                                    </button>
+
+
+                                                    <button
+
+                                                        onClick={()=>onExportStory(product)}
+
+                                                    >
+
+                                                        PNG Story
+
+                                                    </button>
+
+
+                                                    <button>
+
+                                                        PNG Post
+
+                                                    </button>
+
+
+                                                </div>
+
+
+                                            </td>
+
+
+                                        </tr>
+
+
+                                    ))
+
+                                }
+
+
+                            </tbody>
+
+
+                        </table>
+
+                    )
+
+                }
+
+
+            </div>
 
 
         </div>
+
 
     );
 

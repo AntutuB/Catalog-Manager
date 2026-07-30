@@ -1,29 +1,18 @@
-function Card({ children }){
+function Card({ children, className = "" }) {
 
-    return(
+    return (
 
         <div
-
-            className="
-
-                rounded-xl
-
-                border
-
-                border-gray-200
-
+            className={`
                 bg-white
-
-                p-6
-
+                rounded-xl
                 shadow-sm
-
-            "
-
+                border
+                border-gray-200
+                ${className}
+            `}
         >
-
             {children}
-
         </div>
 
     );

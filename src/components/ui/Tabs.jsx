@@ -1,47 +1,46 @@
-import { useState } from "react";
-
-
 function Tabs({
     tabs,
-    children
+    active,
+    onChange
 }){
-
-    const [active, setActive] = useState(
-        tabs[0].id
-    );
 
 
     return (
 
-        <div>
+        <div className="flex gap-6 border-b mb-6">
 
-            <div>
 
-                {
-                    tabs.map(tab => (
+            {
+                tabs.map(tab => (
 
-                        <button
-                            key={tab.id}
-                            onClick={() =>
-                                setActive(tab.id)
+                    <button
+
+                        key={tab.id}
+
+                        onClick={() =>
+                            onChange(tab.id)
+                        }
+
+                        className={`
+                            pb-3
+                            ${
+                                active === tab.id
+                                ?
+                                "border-b-2 border-black font-semibold"
+                                :
+                                "text-gray-500"
                             }
-                        >
-                            {tab.label}
-                        </button>
+                        `}
 
-                    ))
-                }
+                    >
 
-            </div>
+                        {tab.label}
 
+                    </button>
 
-            <div>
+                ))
+            }
 
-                {
-                    children(active)
-                }
-
-            </div>
 
         </div>
 

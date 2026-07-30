@@ -1,15 +1,13 @@
-function MainLayout({ children }) {
+function MainLayout({ children }){
 
-    return (
+    return(
 
-        <div>
+        <div className="w-full min-h-screen bg-gray-100">
 
-            <header>
-                <h1>Catalog Manager</h1>
-            </header>
+            <main className="w-full min-h-screen">
 
-            <main>
                 {children}
+
             </main>
 
         </div>
@@ -17,6 +15,5 @@ function MainLayout({ children }) {
     );
 
 }
-
 
 export default MainLayout;

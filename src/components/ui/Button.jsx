@@ -1,53 +1,36 @@
 function Button({
-
     children,
-
-    variant = "primary",
-
-    type = "button",
-
-    ...props
-
+    onClick,
+    variant="primary"
 }){
 
-    const variants = {
+    const styles = {
 
         primary:
-            "bg-gray-900 text-white hover:bg-black",
+            "bg-black text-white",
 
         secondary:
-            "bg-white border border-gray-300 hover:bg-gray-100",
+            "border border-gray-300",
 
         danger:
-            "bg-red-600 text-white hover:bg-red-700"
+            "bg-red-600 text-white"
 
     };
 
-    return(
+
+    return (
 
         <button
 
-            type={type}
+            onClick={onClick}
 
             className={`
-
                 px-4
-
                 py-2
-
-                rounded-lg
-
+                rounded
                 text-sm
-
-                font-medium
-
-                transition-colors
-
-                ${variants[variant]}
-
+                ${styles[variant]}
             `}
-
-            {...props}
 
         >
 
@@ -58,5 +41,6 @@ function Button({
     );
 
 }
+
 
 export default Button;
