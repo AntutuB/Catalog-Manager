@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 
 import ProductToolbar from "./ProductToolbar";
 
+import ProductActions from "./ProductActions";
+
 
 function ProductTable({
 
@@ -731,77 +733,17 @@ function ProductTable({
                                             <td className="px-5 py-4 border-t border-gray-100">
 
 
-                                                <div className="flex flex-wrap gap-2">
+                                                <ProductActions
 
+    product={product}
 
-                                                    <button
+    onEdit={onEdit}
 
-                                                        onClick={()=>
+    onDelete={onDelete}
 
+    onExportStory={onExportStory}
 
-                                                            onEdit(product)
-
-
-                                                        }
-
-                                                    >
-
-                                                        Editar
-
-                                                    </button>
-
-
-
-
-
-                                                    <button
-
-                                                        onClick={()=>
-
-
-                                                            onDelete(product.id)
-
-
-                                                        }
-
-                                                    >
-
-                                                        Eliminar
-
-                                                    </button>
-
-
-
-
-
-                                                    <button
-
-                                                        onClick={()=>
-
-
-                                                            onExportStory(product)
-
-
-                                                        }
-
-                                                    >
-
-                                                        PNG Story
-
-                                                    </button>
-
-
-
-
-
-                                                    <button>
-
-                                                        PNG Post
-
-                                                    </button>
-
-
-                                                </div>
+/>
 
 
                                             </td>
