@@ -9,7 +9,11 @@ function ProductTable({
 
     onEdit,
 
-    onExportStory
+    onExportStory,
+
+    selectedProducts,
+
+    onSelectionChange
 
 }){
 
@@ -62,7 +66,47 @@ function ProductTable({
 
     ] = useState("name");
 
+    function toggleProductSelection(id){
 
+    if(selectedProducts.includes(id)){
+
+        onSelectionChange(
+            selectedProducts.filter(
+                productId => productId !== id
+            )
+        );
+
+    }else{
+
+        onSelectionChange([
+            ...selectedProducts,
+            id
+        ]);
+
+    }
+
+}
+
+
+    function toggleAllProducts(){
+
+        if(
+            selectedProducts.length === filteredProducts.length
+        ){
+
+            onSelectionChange([]);
+
+        }else{
+
+            onSelectionChange(
+                filteredProducts.map(
+                    product => product.id
+                )
+            );
+
+        }
+
+    }
 
 
     useEffect(()=>{
@@ -479,9 +523,27 @@ function ProductTable({
 
                             <thead className="bg-gray-50">
 
-
                                 <tr>
 
+                                    <th className="w-16 px-5 py-4">
+
+                                        <input
+
+                                            type="checkbox"
+
+                                            checked={
+
+                                                filteredProducts.length > 0 &&
+
+                                                selectedProducts.length === filteredProducts.length
+
+                                            }
+
+                                            onChange={toggleAllProducts}
+
+                                        />
+
+                                    </th>
 
                                     <th className="w-28 px-5 py-4 text-left font-semibold">
 
@@ -489,13 +551,11 @@ function ProductTable({
 
                                     </th>
 
-
                                     <th className="px-5 py-4 text-left font-semibold">
 
                                         Nombre
 
                                     </th>
-
 
                                     <th className="w-40 px-5 py-4 text-left font-semibold">
 
@@ -503,13 +563,11 @@ function ProductTable({
 
                                     </th>
 
-
                                     <th className="w-40 px-5 py-4 text-left font-semibold">
 
                                         Tipo
 
                                     </th>
-
 
                                     <th className="w-32 px-5 py-4 text-left font-semibold">
 
@@ -517,16 +575,13 @@ function ProductTable({
 
                                     </th>
 
-
                                     <th className="w-64 px-5 py-4 text-left font-semibold">
 
                                         Acciones
 
                                     </th>
 
-
                                 </tr>
-
 
                             </thead>
 
@@ -536,199 +591,197 @@ function ProductTable({
 
                             <tbody>
 
+    {
 
-                                {
+        filteredProducts.map(product=>(
 
-                                    filteredProducts.map(product=>(
+            <tr
 
+                key={product.id}
 
-                                        <tr
+                className="hover:bg-gray-50 transition-colors"
 
-                                            key={product.id}
+            >
 
-                                            className="hover:bg-gray-50 transition-colors"
+                <td className="px-5 py-4 border-t border-gray-100">
 
-                                        >
+                    <input
 
+                        type="checkbox"
 
+                        checked={
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                            selectedProducts.includes(product.id)
 
+                        }
 
-                                                {
+                        onChange={()=>
 
-                                                    product.imageUrl &&
+                            toggleProductSelection(product.id)
 
-                                                    (
+                        }
 
-                                                        <div
+                    />
 
-                                                            style={{
+                </td>
 
-                                                                width:"80px",
+                <td className="px-5 py-4 border-t border-gray-100">
 
-                                                                height:"80px",
+                    {
 
-                                                                display:"flex",
+                        product.imageUrl &&
 
-                                                                alignItems:"center",
+                        (
 
-                                                                justifyContent:"center",
+                            <div
 
-                                                                overflow:"hidden",
+                                style={{
 
-                                                                background:"#F9FAFB",
+                                    width:"80px",
 
-                                                                borderRadius:"8px",
+                                    height:"80px",
 
-                                                                border:"1px solid #E5E7EB"
+                                    display:"flex",
 
-                                                            }}
+                                    alignItems:"center",
 
-                                                        >
+                                    justifyContent:"center",
 
-                                                            <img
+                                    overflow:"hidden",
 
-                                                                src={product.imageUrl}
+                                    background:"#F9FAFB",
 
-                                                                alt={product.name}
+                                    borderRadius:"8px",
 
-                                                                style={{
+                                    border:"1px solid #E5E7EB"
 
-                                                                    maxWidth:"100%",
+                                }}
 
-                                                                    maxHeight:"100%",
+                            >
 
-                                                                    width:"auto",
+                                <img
 
-                                                                    height:"auto",
+                                    src={product.imageUrl}
 
-                                                                    objectFit:"contain",
+                                    alt={product.name}
 
-                                                                    display:"block"
+                                    style={{
 
-                                                                }}
+                                        maxWidth:"100%",
 
-                                                            />
+                                        maxHeight:"100%",
 
-                                                        </div>
+                                        width:"auto",
 
-                                                    )
+                                        height:"auto",
 
-                                                }
+                                        objectFit:"contain",
 
+                                        display:"block"
 
-                                            </td>
+                                    }}
 
+                                />
 
+                            </div>
 
+                        )
 
+                    }
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                </td>
 
-                                                <div className="truncate font-medium">
+                <td className="px-5 py-4 border-t border-gray-100">
 
-                                                    {product.name}
+                    <div className="truncate font-medium">
 
-                                                </div>
+                        {product.name}
 
-                                            </td>
+                    </div>
 
+                </td>
 
+                <td className="px-5 py-4 border-t border-gray-100">
 
+                    {product.brand}
 
+                </td>
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                <td className="px-5 py-4 border-t border-gray-100">
 
-                                                {product.brand}
+                    {product.type}
 
-                                            </td>
+                </td>
 
+                <td className="px-5 py-4 border-t border-gray-100">
 
+                    ${product.price}
 
+                </td>
 
+                <td className="px-5 py-4 border-t border-gray-100">
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                    <div className="flex flex-wrap gap-2">
 
-                                                {product.type}
+                        <button
 
-                                            </td>
+                            onClick={()=>
 
+                                onEdit(product)
 
+                            }
 
+                        >
 
+                            Editar
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                        </button>
 
-                                                ${product.price}
+                        <button
 
-                                            </td>
+                            onClick={()=>
 
+                                onDelete(product.id)
 
+                            }
 
+                        >
 
+                            Eliminar
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                        </button>
 
+                        <button
 
-                                                <div className="flex flex-wrap gap-2">
+                            onClick={()=>
 
+                                onExportStory(product)
 
-                                                    <button
+                            }
 
-                                                        onClick={()=>onEdit(product)}
+                        >
 
-                                                    >
+                            PNG Story
 
-                                                        Editar
+                        </button>
 
-                                                    </button>
+                        <button>
 
+                            PNG Post
 
-                                                    <button
+                        </button>
 
-                                                        onClick={()=>onDelete(product.id)}
+                    </div>
 
-                                                    >
+                </td>
 
-                                                        Eliminar
+            </tr>
 
-                                                    </button>
+        ))
 
+    }
 
-                                                    <button
-
-                                                        onClick={()=>onExportStory(product)}
-
-                                                    >
-
-                                                        PNG Story
-
-                                                    </button>
-
-
-                                                    <button>
-
-                                                        PNG Post
-
-                                                    </button>
-
-
-                                                </div>
-
-
-                                            </td>
-
-
-                                        </tr>
-
-
-                                    ))
-
-                                }
-
-
-                            </tbody>
+</tbody>
 
 
                         </table>

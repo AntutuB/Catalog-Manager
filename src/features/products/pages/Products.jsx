@@ -17,6 +17,11 @@ function Products() {
 
     const [activeTab, setActiveTab] = useState("products");
 
+    const [
+    selectedProducts,
+    setSelectedProducts
+] = useState([]);
+
     const {
         products,
         addProduct,
@@ -118,16 +123,25 @@ function Products() {
                     activeTab === "products" && (
 
                         <ProductTable
-                            products={products}
-                            onDelete={removeProduct}
-                            onEdit={openEdit}
-                            onExportStory={(product)=>
-                                exportProductPNG(
-                                    product,
-                                    "instagram-story"
-                                )
-                            }
-                        />
+
+    products={products}
+
+    selectedProducts={selectedProducts}
+
+    onSelectionChange={setSelectedProducts}
+
+    onDelete={removeProduct}
+
+    onEdit={openEdit}
+
+    onExportStory={(product)=>
+        exportProductPNG(
+            product,
+            "instagram-story"
+        )
+    }
+
+/>
 
                     )
                 }
