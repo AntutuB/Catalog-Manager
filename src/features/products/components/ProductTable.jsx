@@ -687,14 +687,55 @@ function ProductTable({
                                             <td className="px-5 py-4 border-t border-gray-100">
 
 
-                                                <div className="truncate font-medium">
-
-                                                    {product.name}
-
-                                                </div>
+    <div className="space-y-1">
 
 
-                                            </td>
+        <div className="
+            truncate
+            font-semibold
+        ">
+
+            {product.name}
+
+        </div>
+
+
+
+        <div className="
+            text-sm
+            text-gray-500
+        ">
+
+            {product.brand}
+
+        </div>
+
+
+
+        {
+
+            product.categoryName &&
+
+            (
+
+                <div className="
+                    text-xs
+                    text-gray-400
+                ">
+
+                    {product.categoryName}
+
+                </div>
+
+            )
+
+        }
+
+
+    </div>
+
+
+</td>
 
 
 
