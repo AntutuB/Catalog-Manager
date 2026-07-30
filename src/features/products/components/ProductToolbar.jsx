@@ -1,3 +1,9 @@
+import {
+    Search,
+    Trash2
+} from "lucide-react";
+
+
 function ProductToolbar({
 
     search,
@@ -21,180 +27,264 @@ function ProductToolbar({
 
 }){
 
-    return(
 
-        <div
-            className="
-                mb-5
+    return (
+
+        <div className="
+            flex
+            flex-col
+            gap-4
+            mb-5
+        ">
+
+
+            <div className="
                 flex
                 flex-wrap
                 items-center
                 gap-3
-            "
-        >
+            ">
 
-            <input
 
-                type="text"
 
-                placeholder="Buscar producto..."
-
-                value={search}
-
-                onChange={(e)=>
-
-                    setSearch(e.target.value)
-
-                }
-
-                className="
-                    border
-                    rounded-lg
-                    px-3
-                    py-2
+                <div className="
+                    relative
                     w-72
-                "
+                ">
 
-            />
 
-            <select
+                    <Search
 
-                value={categoryFilter}
+                        size={18}
 
-                onChange={(e)=>
+                        className="
+                            absolute
+                            left-3
+                            top-1/2
+                            -translate-y-1/2
+                            text-gray-400
+                        "
 
-                    setCategoryFilter(e.target.value)
+                    />
 
-                }
 
-                className="
-                    border
-                    rounded-lg
-                    px-3
-                    py-2
-                "
+                    <input
 
-            >
+                        type="text"
 
-                {
+                        placeholder="Buscar producto..."
 
-                    categories.map(category=>
+                        value={search}
 
-                        <option
+                        onChange={(e)=>
 
-                            key={category}
+                            setSearch(e.target.value)
 
-                            value={category}
+                        }
 
-                        >
+                        className="
+                            w-full
+                            rounded-lg
+                            border
+                            px-10
+                            py-2
+                            outline-none
+                            focus:ring-2
+                        "
 
-                            {
+                    />
 
-                                category==="all"
 
-                                    ? "Todas las categorías"
+                </div>
 
-                                    : category
 
-                            }
 
-                        </option>
 
-                    )
 
-                }
+                <select
 
-            </select>
+                    value={categoryFilter}
 
-            <select
+                    onChange={(e)=>
 
-                value={typeFilter}
+                        setCategoryFilter(e.target.value)
 
-                onChange={(e)=>
+                    }
 
-                    setTypeFilter(e.target.value)
+                    className="
+                        rounded-lg
+                        border
+                        px-3
+                        py-2
+                    "
 
-                }
+                >
 
-                className="
-                    border
-                    rounded-lg
-                    px-3
-                    py-2
-                "
+                    {
 
-            >
+                        categories.map(category=>(
 
-                {
+                            <option
 
-                    types.map(type=>
+                                key={category}
 
-                        <option
+                                value={category}
 
-                            key={type}
+                            >
 
-                            value={type}
+                                {
 
-                        >
+                                    category==="all"
 
-                            {
+                                    ?
 
-                                type==="all"
+                                    "Todas las categorías"
 
-                                    ? "Todos los tipos"
+                                    :
 
-                                    : type
+                                    category
 
-                            }
+                                }
 
-                        </option>
 
-                    )
+                            </option>
 
-                }
+                        ))
 
-            </select>
+                    }
 
-            <select
 
-                value={sortBy}
+                </select>
 
-                onChange={(e)=>
 
-                    setSortBy(e.target.value)
 
-                }
 
-                className="
-                    border
-                    rounded-lg
-                    px-3
-                    py-2
-                "
 
-            >
+                <select
 
-                <option value="name">
+                    value={typeFilter}
 
-                    Nombre
+                    onChange={(e)=>
 
-                </option>
+                        setTypeFilter(e.target.value)
 
-                <option value="price">
+                    }
 
-                    Precio
+                    className="
+                        rounded-lg
+                        border
+                        px-3
+                        py-2
+                    "
 
-                </option>
+                >
 
-            </select>
+                    {
 
-            <div className="ml-auto flex items-center gap-4">
+                        types.map(type=>(
 
-                <span>
+                            <option
 
-                    {selectedCount} seleccionados
+                                key={type}
+
+                                value={type}
+
+                            >
+
+                                {
+
+                                    type==="all"
+
+                                    ?
+
+                                    "Todos los tipos"
+
+                                    :
+
+                                    type
+
+                                }
+
+
+                            </option>
+
+                        ))
+
+                    }
+
+
+                </select>
+
+
+
+
+
+                <select
+
+                    value={sortBy}
+
+                    onChange={(e)=>
+
+                        setSortBy(e.target.value)
+
+                    }
+
+                    className="
+                        rounded-lg
+                        border
+                        px-3
+                        py-2
+                    "
+
+                >
+
+                    <option value="name">
+
+                        Nombre
+
+                    </option>
+
+
+                    <option value="price">
+
+                        Precio
+
+                    </option>
+
+
+                </select>
+
+
+
+            </div>
+
+
+
+
+
+            <div className="
+                flex
+                items-center
+                justify-between
+                rounded-lg
+                bg-gray-50
+                px-4
+                py-3
+            ">
+
+
+                <span className="text-sm text-gray-600">
+
+                    {selectedCount}
+
+                    {" "}
+
+                    seleccionado(s)
 
                 </span>
+
+
+
 
                 <button
 
@@ -203,26 +293,36 @@ function ProductToolbar({
                     onClick={onDeleteSelected}
 
                     className="
-                        bg-red-600
-                        text-white
+                        flex
+                        items-center
+                        gap-2
                         rounded-lg
+                        bg-red-600
                         px-4
                         py-2
+                        text-white
                         disabled:opacity-40
                     "
 
                 >
 
+                    <Trash2 size={16}/>
+
+
                     Eliminar seleccionados
+
 
                 </button>
 
+
             </div>
+
 
         </div>
 
     );
 
 }
+
 
 export default ProductToolbar;
