@@ -389,472 +389,523 @@ function ProductTable({
 
     ]);
 
-        return(
+            return (
 
         <div className="
-    w-full
-    space-y-5
-">
+            w-full
+            space-y-5
+        ">
 
 
             <ProductToolbar
 
-    search={search}
+                search={search}
 
-    setSearch={setSearch}
+                setSearch={setSearch}
 
+                categoryFilter={categoryFilter}
 
-    categoryFilter={categoryFilter}
+                setCategoryFilter={setCategoryFilter}
 
-    setCategoryFilter={setCategoryFilter}
+                typeFilter={typeFilter}
 
+                setTypeFilter={setTypeFilter}
 
-    typeFilter={typeFilter}
+                sortBy={sortBy}
 
-    setTypeFilter={setTypeFilter}
+                setSortBy={setSortBy}
 
+                categories={categories}
 
-    sortBy={sortBy}
+                types={types}
 
-    setSortBy={setSortBy}
+                selectedCount={selectedProducts.length}
 
+                onDeleteSelected={onDeleteSelected}
 
-    categories={categories}
+                onClearSelection={() => setSelectedProducts([])}
 
-    types={types}
-
-
-    selectedCount={selectedProducts.length}
-
-
-    onDeleteSelected={onDeleteSelected}
-
-
-    onClearSelection={()=>setSelectedProducts([])}
-
-/>
+            />
 
 
 
             <div className="
-    overflow-hidden
-    rounded-xl
-    border
-    border-gray-200
-    bg-white
-    shadow-sm
-">
+                overflow-hidden
+                rounded-xl
+                border
+                border-[#E7E5E1]
+                bg-white
+            ">
 
 
-                {
+                <div className="
+                    overflow-x-auto
+                ">
 
-                    filteredProducts.length === 0
 
-                    ?
+                    {
+                        filteredProducts.length === 0
 
-                    (
+                        ?
 
-                        <div className="p-10 text-center text-gray-500">
+                        (
 
-                            No hay productos registrados.
+                            <div className="
+                                p-10
+                                text-center
+                                text-gray-500
+                            ">
 
-                        </div>
+                                No hay productos registrados.
 
-                    )
+                            </div>
 
-                    :
+                        )
 
-                    (
+                        :
 
-                        <table className="w-full table-fixed border-collapse">
+                        (
 
+                            <table className="
+                                min-w-[1100px]
+                                w-full
+                                border-collapse
+                            ">
 
-                            <thead className="
-    bg-gray-50
-    text-sm
-">
 
+                                <thead className="
+                                    border-b
+                                    border-[#E7E5E1]
+                                    text-xs
+                                    uppercase
+                                    tracking-wide
+                                    text-gray-500
+                                ">
 
-                                <tr>
 
+                                    <tr>
 
-                                    <th className="w-16 px-5 py-3">
 
-                                        <input
+                                        <th className="
+                                            w-16
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
-                                            type="checkbox"
+                                            <input
 
-                                            checked={
+                                                type="checkbox"
 
-                                                filteredProducts.length > 0 &&
+                                                checked={
+                                                    filteredProducts.length > 0 &&
+                                                    selectedProducts.length === filteredProducts.length
+                                                }
 
-                                                selectedProducts.length === filteredProducts.length
+                                                onChange={toggleAllProducts}
 
-                                            }
+                                            />
 
-                                            onChange={toggleAllProducts}
+                                        </th>
 
-                                        />
 
-                                    </th>
 
+                                        <th className="
+                                            w-28
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
+                                            Imagen
 
-                                    <th className="w-28 px-5 py-3 text-left font-semibold">
+                                        </th>
 
-                                        Imagen
 
-                                    </th>
 
+                                        <th className="
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
+                                            Nombre
 
-                                    <th className="px-5 py-3 text-left font-semibold">
+                                        </th>
 
-                                        Nombre
 
-                                    </th>
 
+                                        <th className="
+                                            w-40
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
+                                            Marca
 
-                                    <th className="w-40 px-5 py-3 text-left font-semibold">
+                                        </th>
 
-                                        Marca
 
-                                    </th>
 
+                                        <th className="
+                                            w-40
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
+                                            Tipo
 
-                                    <th className="w-40 px-5 py-3 text-left font-semibold">
+                                        </th>
 
-                                        Tipo
 
-                                    </th>
 
+                                        <th className="
+                                            w-32
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
+                                            Precio
 
-                                    <th className="w-32 px-5 py-3 text-left font-semibold">
+                                        </th>
 
-                                        Precio
 
-                                    </th>
 
+                                        <th className="
+                                            w-64
+                                            px-6
+                                            py-4
+                                            text-left
+                                            font-medium
+                                        ">
 
+                                            Acciones
 
-                                    <th className="w-64 px-5 py-3 text-left font-semibold">
+                                        </th>
 
-                                        Acciones
 
-                                    </th>
+                                    </tr>
 
 
-                                </tr>
+                                </thead>
 
 
-                            </thead>
 
 
+                                <tbody>
 
 
+                                    {
+                                        filteredProducts.map(product => (
 
-                            <tbody>
+                                            <tr
 
+                                                key={product.id}
 
-                                {
+                                                className="
+                                                    border-b
+                                                    border-[#F1EFEB]
+                                                    transition-colors
+                                                    hover:bg-[#FAF9F7]
+                                                "
 
-                                    filteredProducts.map(product=>(
+                                            >
 
 
-                                        <tr
 
-                                            key={product.id}
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
 
-                                            className="hover:bg-gray-50 transition-colors"
 
-                                        >
+                                                    <input
 
+                                                        type="checkbox"
 
+                                                        checked={
+                                                            selectedProducts.includes(product.id)
+                                                        }
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                                                        onChange={() =>
+                                                            toggleProductSelection(product.id)
+                                                        }
 
+                                                    />
 
-                                                <input
 
-                                                    type="checkbox"
+                                                </td>
 
-                                                    checked={
 
-                                                        selectedProducts.includes(product.id)
+
+
+
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
+
+
+                                                    {
+                                                        product.imageUrl
+
+                                                        ?
+
+                                                        (
+
+                                                            <div className="
+                                                                flex
+                                                                h-20
+                                                                w-20
+                                                                items-center
+                                                                justify-center
+                                                                overflow-hidden
+                                                                rounded-lg
+                                                                border
+                                                                border-[#E7E5E1]
+                                                                bg-[#FAF9F7]
+                                                            ">
+
+
+                                                                <img
+
+                                                                    src={product.imageUrl}
+
+                                                                    alt={product.name}
+
+                                                                    className="
+                                                                        max-h-full
+                                                                        max-w-full
+                                                                        object-contain
+                                                                    "
+
+                                                                />
+
+
+                                                            </div>
+
+                                                        )
+
+                                                        :
+
+                                                        (
+
+                                                            <div className="
+                                                                flex
+                                                                h-20
+                                                                w-20
+                                                                items-center
+                                                                justify-center
+                                                                rounded-lg
+                                                                border
+                                                                border-[#E7E5E1]
+                                                                bg-[#FAF9F7]
+                                                                text-xs
+                                                                text-gray-400
+                                                            ">
+
+                                                                Sin imagen
+
+                                                            </div>
+
+                                                        )
 
                                                     }
 
-                                                    onChange={()=>
 
-
-                                                        toggleProductSelection(product.id)
-
-
-                                                    }
-
-                                                />
-
-
-                                            </td>
+                                                </td>
 
 
 
 
 
-                                            <td className="px-5 py-4 border-t border-gray-100">
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
 
 
-                                                {
-
-                                                    product.imageUrl &&
+                                                    <div className="space-y-1">
 
 
-                                                    (
+                                                        <div className="
+                                                            truncate
+                                                            font-semibold
+                                                            text-[#1C1B1A]
+                                                        ">
 
-                                                        <div
-
-                                                            style={{
-
-
-                                                                width:"80px",
-
-
-                                                                height:"80px",
-
-
-                                                                display:"flex",
-
-
-                                                                alignItems:"center",
-
-
-                                                                justifyContent:"center",
-
-
-                                                                overflow:"hidden",
-
-
-                                                                background:"#F9FAFB",
-
-
-                                                                borderRadius:"8px",
-
-
-                                                                border:"1px solid #E5E7EB"
-
-
-                                                            }}
-
-                                                        >
-
-
-                                                            <img
-
-                                                                src={product.imageUrl}
-
-                                                                alt={product.name}
-
-                                                                style={{
-
-
-                                                                    maxWidth:"100%",
-
-
-                                                                    maxHeight:"100%",
-
-
-                                                                    width:"auto",
-
-
-                                                                    height:"auto",
-
-
-                                                                    objectFit:"contain",
-
-
-                                                                    display:"block"
-
-
-                                                                }}
-
-                                                            />
-
+                                                            {product.name}
 
                                                         </div>
 
 
-                                                    )
 
-                                                }
+                                                        <div className="
+                                                            text-sm
+                                                            text-gray-500
+                                                        ">
 
+                                                            {product.brand}
 
-                                            </td>
-
-
-
-
-
-                                            <td className="px-5 py-4 border-t border-gray-100">
-
-
-    <div className="space-y-1">
-
-
-        <div className="
-            truncate
-            font-semibold
-        ">
-
-            {product.name}
-
-        </div>
+                                                        </div>
 
 
 
-        <div className="
-            text-sm
-            text-gray-500
-        ">
+                                                        {
+                                                            product.categoryName &&
 
-            {product.brand}
+                                                            (
 
-        </div>
+                                                                <div className="
+                                                                    text-xs
+                                                                    text-gray-400
+                                                                ">
+
+                                                                    {product.categoryName}
+
+                                                                </div>
+
+                                                            )
+
+                                                        }
+
+
+                                                    </div>
+
+
+                                                </td>
 
 
 
-        {
 
-            product.categoryName &&
 
-            (
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
 
-                <div className="
-                    text-xs
-                    text-gray-400
-                ">
 
-                    {product.categoryName}
+                                                    <span className="
+                                                        text-sm
+                                                        text-gray-500
+                                                    ">
+
+                                                        {product.brand}
+
+                                                    </span>
+
+
+                                                </td>
+
+
+
+
+
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
+
+
+                                                    <span className="
+                                                        inline-flex
+                                                        rounded-full
+                                                        bg-gray-100
+                                                        px-3
+                                                        py-1
+                                                        text-xs
+                                                        font-medium
+                                                    ">
+
+                                                        {product.type}
+
+                                                    </span>
+
+
+                                                </td>
+
+
+
+
+
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
+
+
+                                                    <span className="
+                                                        font-semibold
+                                                        text-[#1C1B1A]
+                                                    ">
+
+                                                        ${product.price}
+
+                                                    </span>
+
+
+                                                </td>
+
+
+
+
+
+                                                <td className="
+                                                    px-6
+                                                    py-4
+                                                ">
+
+
+                                                    <ProductActions
+
+                                                        product={product}
+
+                                                        onEdit={onEdit}
+
+                                                        onDelete={onDelete}
+
+                                                        onExportStory={onExportStory}
+
+                                                    />
+
+
+                                                </td>
+
+
+
+                                            </tr>
+
+
+                                        ))
+                                    }
+
+
+                                </tbody>
+
+
+                            </table>
+
+                        )
+
+                    }
+
 
                 </div>
-
-            )
-
-        }
-
-
-    </div>
-
-
-</td>
-
-
-
-
-
-                                            <td className="px-5 py-4 border-t border-gray-100">
-
-    <span className="
-        text-sm
-        text-gray-500
-    ">
-
-        {product.brand}
-
-    </span>
-
-</td>
-
-
-
-
-
-                                            <td className="px-5 py-4 border-t border-gray-100">
-
-
-    <span className="
-        inline-flex
-        rounded-full
-        bg-gray-100
-        px-3
-        py-1
-        text-xs
-        font-medium
-    ">
-
-        {product.type}
-
-    </span>
-
-
-</td>
-
-
-
-
-
-                                            <td className="px-5 py-4 border-t border-gray-100">
-
-
-    <span className="
-        font-semibold
-    ">
-
-        ${product.price}
-
-    </span>
-
-
-</td>
-
-
-
-
-
-                                            <td className="px-5 py-4 border-t border-gray-100">
-
-
-                                                <ProductActions
-
-    product={product}
-
-    onEdit={onEdit}
-
-    onDelete={onDelete}
-
-    onExportStory={onExportStory}
-
-/>
-
-
-                                            </td>
-
-
-                                        </tr>
-
-
-                                    ))
-
-                                }
-
-
-                            </tbody>
-
-
-                        </table>
-
-                    )
-
-                }
 
 
             </div>
 
 
         </div>
-
 
     );
 
