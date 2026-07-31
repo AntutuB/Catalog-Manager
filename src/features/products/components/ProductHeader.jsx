@@ -1,7 +1,6 @@
 import Button from "../../../components/ui/Button";
 
-import { useProducts } from "../hooks/useProducts";
-import { useCategories } from "../../categories/hooks/useCategories";
+import ProductStats from "./stats/ProductStats";
 
 
 function ProductHeader({
@@ -11,28 +10,6 @@ function ProductHeader({
     onExport
 
 }){
-
-
-    const {
-        products
-    } = useProducts();
-
-
-
-    const {
-        categories
-    } = useCategories();
-
-
-
-    const lastUpdate = new Date()
-
-        .toLocaleDateString(
-
-            "es-ES"
-
-        );
-
 
 
     return (
@@ -50,146 +27,7 @@ function ProductHeader({
         >
 
 
-            <div
-                className="
-                    grid
-                    grid-cols-1
-                    gap-3
-                    sm:grid-cols-3
-                "
-            >
-
-
-                <div
-                    className="
-                        rounded-xl
-                        border
-                        border-[#E7E5E1]
-                        bg-white
-                        px-5
-                        py-4
-                        min-w-[180px]
-                    "
-                >
-
-                    <p
-                        className="
-                            text-xs
-                            text-[#6B6862]
-                        "
-                    >
-
-                        Total de productos
-
-                    </p>
-
-
-                    <p
-                        className="
-                            mt-1
-                            text-xl
-                            font-semibold
-                            text-[#1C1B1A]
-                        "
-                    >
-
-                        {products.length}
-
-                    </p>
-
-
-                </div>
-
-
-
-
-                <div
-                    className="
-                        rounded-xl
-                        border
-                        border-[#E7E5E1]
-                        bg-white
-                        px-5
-                        py-4
-                        min-w-[180px]
-                    "
-                >
-
-                    <p
-                        className="
-                            text-xs
-                            text-[#6B6862]
-                        "
-                    >
-
-                        Categorías
-
-                    </p>
-
-
-                    <p
-                        className="
-                            mt-1
-                            text-xl
-                            font-semibold
-                            text-[#1C1B1A]
-                        "
-                    >
-
-                        {categories.length}
-
-                    </p>
-
-
-                </div>
-
-
-
-
-                <div
-                    className="
-                        rounded-xl
-                        border
-                        border-[#E7E5E1]
-                        bg-white
-                        px-5
-                        py-4
-                        min-w-[180px]
-                    "
-                >
-
-                    <p
-                        className="
-                            text-xs
-                            text-[#6B6862]
-                        "
-                    >
-
-                        Última actualización
-
-                    </p>
-
-
-                    <p
-                        className="
-                            mt-1
-                            text-xl
-                            font-semibold
-                            text-[#1C1B1A]
-                        "
-                    >
-
-                        {lastUpdate}
-
-                    </p>
-
-
-                </div>
-
-
-            </div>
-
-
+            <ProductStats />
 
 
 
