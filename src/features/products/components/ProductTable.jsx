@@ -391,7 +391,10 @@ function ProductTable({
 
         return(
 
-        <div className="w-full space-y-4">
+        <div className="
+    w-full
+    space-y-5
+">
 
 
             <ProductToolbar
@@ -433,7 +436,14 @@ function ProductTable({
 
 
 
-            <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div className="
+    overflow-hidden
+    rounded-xl
+    border
+    border-gray-200
+    bg-white
+    shadow-sm
+">
 
 
                 {
@@ -459,13 +469,16 @@ function ProductTable({
                         <table className="w-full table-fixed border-collapse">
 
 
-                            <thead className="bg-gray-50">
+                            <thead className="
+    bg-gray-50
+    text-sm
+">
 
 
                                 <tr>
 
 
-                                    <th className="w-16 px-5 py-4">
+                                    <th className="w-16 px-5 py-3">
 
                                         <input
 
@@ -487,7 +500,7 @@ function ProductTable({
 
 
 
-                                    <th className="w-28 px-5 py-4 text-left font-semibold">
+                                    <th className="w-28 px-5 py-3 text-left font-semibold">
 
                                         Imagen
 
@@ -495,7 +508,7 @@ function ProductTable({
 
 
 
-                                    <th className="px-5 py-4 text-left font-semibold">
+                                    <th className="px-5 py-3 text-left font-semibold">
 
                                         Nombre
 
@@ -503,7 +516,7 @@ function ProductTable({
 
 
 
-                                    <th className="w-40 px-5 py-4 text-left font-semibold">
+                                    <th className="w-40 px-5 py-3 text-left font-semibold">
 
                                         Marca
 
@@ -511,7 +524,7 @@ function ProductTable({
 
 
 
-                                    <th className="w-40 px-5 py-4 text-left font-semibold">
+                                    <th className="w-40 px-5 py-3 text-left font-semibold">
 
                                         Tipo
 
@@ -519,7 +532,7 @@ function ProductTable({
 
 
 
-                                    <th className="w-32 px-5 py-4 text-left font-semibold">
+                                    <th className="w-32 px-5 py-3 text-left font-semibold">
 
                                         Precio
 
@@ -527,7 +540,7 @@ function ProductTable({
 
 
 
-                                    <th className="w-64 px-5 py-4 text-left font-semibold">
+                                    <th className="w-64 px-5 py-3 text-left font-semibold">
 
                                         Acciones
 
@@ -743,19 +756,16 @@ function ProductTable({
 
                                             <td className="px-5 py-4 border-t border-gray-100">
 
-                                                {product.brand}
+    <span className="
+        text-sm
+        text-gray-500
+    ">
 
-                                            </td>
+        {product.brand}
 
+    </span>
 
-
-
-
-                                            <td className="px-5 py-4 border-t border-gray-100">
-
-                                                {product.type}
-
-                                            </td>
+</td>
 
 
 
@@ -763,9 +773,41 @@ function ProductTable({
 
                                             <td className="px-5 py-4 border-t border-gray-100">
 
-                                                ${product.price}
 
-                                            </td>
+    <span className="
+        inline-flex
+        rounded-full
+        bg-gray-100
+        px-3
+        py-1
+        text-xs
+        font-medium
+    ">
+
+        {product.type}
+
+    </span>
+
+
+</td>
+
+
+
+
+
+                                            <td className="px-5 py-4 border-t border-gray-100">
+
+
+    <span className="
+        font-semibold
+    ">
+
+        ${product.price}
+
+    </span>
+
+
+</td>
 
 
 

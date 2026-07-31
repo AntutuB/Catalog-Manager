@@ -5,15 +5,19 @@ function PageContainer({ children }) {
         <div
             className="
                 min-h-screen
-                bg-gray-100
-                p-8
+                bg-[#FAFAF9]
+                px-6
+                py-8
+                sm:px-8
+                lg:px-10
             "
         >
 
             <div
                 className="
-                    max-w-7xl
                     mx-auto
+                    w-full
+                    max-w-7xl
                 "
             >
 

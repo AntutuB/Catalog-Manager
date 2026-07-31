@@ -2,46 +2,72 @@ import Button from "../../../components/ui/Button";
 
 
 function ProductHeader({
+
     onCreate,
+
     onExport
+
 }){
 
 
     return (
 
-        <div
+        <div className="
+            flex
+            items-center
+            justify-between
+            mb-8
+        ">
 
-            className="
-                flex
-                justify-between
-                items-center
-                mb-6
-            "
 
-        >
+            <div>
 
-            <h1
-                className="
+                <h1 className="
                     text-3xl
                     font-semibold
-                "
-            >
+                    tracking-tight
+                ">
 
-                Productos
+                    Productos
 
-            </h1>
+                </h1>
 
 
-            <div className="flex gap-3">
+
+                <p className="
+                    mt-1
+                    text-sm
+                    text-gray-500
+                ">
+
+                    Administra y organiza tu catálogo de productos.
+
+                </p>
+
+
+            </div>
+
+
+
+
+
+            <div className="
+                flex
+                gap-3
+            ">
 
 
                 <Button
+
                     onClick={onCreate}
+
                 >
 
                     Nuevo producto
 
                 </Button>
+
+
 
 
                 <Button

@@ -18,7 +18,7 @@ function ProductActions({
 
         <div className="
             flex
-            flex-wrap
+            items-center
             gap-2
         ">
 
@@ -37,7 +37,6 @@ function ProductActions({
 
 
 
-
             <Button
 
                 variant="danger"
@@ -52,10 +51,9 @@ function ProductActions({
 
 
 
-
             <Button
 
-                variant="secondary"
+                variant="ghost"
 
                 onClick={()=>onExportStory(product)}
 
@@ -64,8 +62,6 @@ function ProductActions({
                 PNG Story
 
             </Button>
-
-
 
 
             <Button
