@@ -7,6 +7,8 @@ import ProductHeader from "../components/ProductHeader";
 import Tabs from "../../../components/ui/Tabs";
 import PageContainer from "../../../components/ui/PageContainer";
 
+import Header from "../../../components/layout/Header";
+
 import Categories from "../../categories/pages/Categories";
 
 import { useProducts } from "../hooks/useProducts";
@@ -147,76 +149,153 @@ function Products(){
 
     return (
 
-        <PageContainer className="h-screen">
+        <PageContainer>
 
 
-            <section className="flex h-full flex-col">
-
-
-                <ProductHeader
-
-                    onCreate={openCreate}
-
-                    onExport={()=>
-                        exportCatalogPDF(
-                            products,
-                            pdfSettings
-                        )
-                    }
-
-                />
+            <Header />
 
 
 
-                <Tabs
+            <main
+                className="
+                    px-8
+                    py-8
+                "
+            >
 
-                    tabs={[
-                        {
-                            id:"products",
-                            label:"Productos"
-                        },
-                        {
-                            id:"categories",
-                            label:"Categorías"
+
+                <section
+                    className="
+                        flex
+                        flex-col
+                        min-h-screen
+                    "
+                >
+
+
+                    <ProductHeader
+
+                        onCreate={openCreate}
+
+                        onExport={()=>
+                            exportCatalogPDF(
+                                products,
+                                pdfSettings
+                            )
                         }
-                    ]}
 
-                    active={activeTab}
-
-                    onChange={setActiveTab}
-
-                />
+                    />
 
 
 
-                <div className="mt-6 flex-1">
+                    <Tabs
+
+                        tabs={[
+                            {
+                                id:"products",
+                                label:"Productos"
+                            },
+                            {
+                                id:"categories",
+                                label:"Categorías"
+                            }
+                        ]}
+
+                        active={activeTab}
+
+                        onChange={setActiveTab}
+
+                    />
+
+
+
+                    <div className="mt-6">
+
+
+                        {
+                            activeTab==="products" && (
+
+                                <ProductTable
+
+                                    products={products}
+
+                                    selectedProducts={selectedProducts}
+
+                                    setSelectedProducts={setSelectedProducts}
+
+                                    onDelete={removeProduct}
+
+                                    onDeleteSelected={deleteSelectedProducts}
+
+                                    onEdit={openEdit}
+
+                                    onExportStory={(product)=>
+
+                                        exportProductPNG(
+                                            product,
+                                            "instagram-story"
+                                        )
+
+                                    }
+
+                                />
+
+                            )
+                        }
+
+
+
+
+
+                        {
+                            activeTab==="categories" && (
+
+                                <Categories />
+
+                            )
+                        }
+
+
+                    </div>
+
+
+
+
+
+                    <ProductModal
+
+                        isOpen={isModalOpen}
+
+                        onClose={closeModal}
+
+                        categories={categories}
+
+                        onAdd={addProduct}
+
+                        onEdit={editProduct}
+
+                        editingProduct={editingProduct}
+
+                        cancelEdit={closeModal}
+
+                    />
+
+
+
+
+
 
 
                     {
-                        activeTab==="products" && (
+                        exportData && (
 
-                            <ProductTable
+                            <ExportRenderer
 
-                                products={products}
+                                ref={exportRef}
 
-                                selectedProducts={selectedProducts}
+                                template={exportData.template}
 
-                                setSelectedProducts={setSelectedProducts}
-
-                                onDelete={removeProduct}
-
-                                onDeleteSelected={deleteSelectedProducts}
-
-                                onEdit={openEdit}
-
-                                onExportStory={(product)=>
-
-                                    exportProductPNG(
-                                        product,
-                                        "instagram-story"
-                                    )
-
-                                }
+                                product={exportData.product}
 
                             />
 
@@ -226,81 +305,33 @@ function Products(){
 
 
 
-                    {
-                        activeTab==="categories" && (
 
-                            <Categories />
+
+
+                    {
+                        pdfData && (
+
+                            <PdfExportRenderer
+
+                                ref={pdfRef}
+
+                                products={pdfData.products}
+
+                                settings={pdfData.settings}
+
+                            />
 
                         )
                     }
 
 
-                </div>
 
 
 
-
-                <ProductModal
-
-                    isOpen={isModalOpen}
-
-                    onClose={closeModal}
-
-                    categories={categories}
-
-                    onAdd={addProduct}
-
-                    onEdit={editProduct}
-
-                    editingProduct={editingProduct}
-
-                    cancelEdit={closeModal}
-
-                />
+                </section>
 
 
-
-
-
-                {
-                    exportData && (
-
-                        <ExportRenderer
-
-                            ref={exportRef}
-
-                            template={exportData.template}
-
-                            product={exportData.product}
-
-                        />
-
-                    )
-                }
-
-
-
-
-
-                {
-                    pdfData && (
-
-                        <PdfExportRenderer
-
-                            ref={pdfRef}
-
-                            products={pdfData.products}
-
-                            settings={pdfData.settings}
-
-                        />
-
-                    )
-                }
-
-
-
-            </section>
+            </main>
 
 
         </PageContainer>
