@@ -389,525 +389,511 @@ function ProductTable({
 
     ]);
 
-            return (
+                return (
 
-        <div className="
+    <div
+        className="
             w-full
-            space-y-5
-        ">
+            space-y-6
+        "
+    >
 
 
-            <ProductToolbar
+        <ProductToolbar
 
-                search={search}
+            search={search}
 
-                setSearch={setSearch}
+            setSearch={setSearch}
 
-                categoryFilter={categoryFilter}
+            categoryFilter={categoryFilter}
 
-                setCategoryFilter={setCategoryFilter}
+            setCategoryFilter={setCategoryFilter}
 
-                typeFilter={typeFilter}
+            typeFilter={typeFilter}
 
-                setTypeFilter={setTypeFilter}
+            setTypeFilter={setTypeFilter}
 
-                sortBy={sortBy}
+            sortBy={sortBy}
 
-                setSortBy={setSortBy}
+            setSortBy={setSortBy}
 
-                categories={categories}
+            categories={categories}
 
-                types={types}
+            types={types}
 
-                selectedCount={selectedProducts.length}
+            selectedCount={selectedProducts.length}
 
-                onDeleteSelected={onDeleteSelected}
+            onDeleteSelected={onDeleteSelected}
 
-                onClearSelection={() => setSelectedProducts([])}
+            onClearSelection={() =>
+                setSelectedProducts([])
+            }
 
-            />
+        />
 
 
 
-            <div className="
+        <div
+            className="
                 overflow-hidden
                 rounded-xl
                 border
                 border-[#E7E5E1]
                 bg-white
-            ">
+            "
+        >
+
+            {
+                filteredProducts.length === 0
+
+                ?
+
+                (
+
+                    <div
+                        className="
+                            p-10
+                            text-center
+                            text-gray-500
+                        "
+                    >
+
+                        No hay productos registrados.
+
+                    </div>
+
+                )
+
+                :
+
+                (
+
+                    <table
+                        className="
+                            w-full
+                            table-fixed
+                            border-collapse
+                        "
+                    >
+
+                        <thead
+                            className="
+                                border-b
+                                border-[#E7E5E1]
+                                bg-[#FAF9F7]
+                            "
+                        >
+
+                            <tr>
+
+                                <th
+                                    className="
+                                        w-16
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
+
+                                    <input
+
+                                        type="checkbox"
+
+                                        checked={
+                                            filteredProducts.length > 0 &&
+                                            selectedProducts.length === filteredProducts.length
+                                        }
+
+                                        onChange={toggleAllProducts}
+
+                                    />
+
+                                </th>
 
 
-                <div className="
-                    overflow-x-auto
-                ">
+
+                                <th
+                                    className="
+                                        w-32
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
+
+                                    Imagen
+
+                                </th>
 
 
-                    {
-                        filteredProducts.length === 0
 
-                        ?
+                                <th
+                                    className="
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
 
-                        (
+                                    Nombre
 
-                            <div className="
-                                p-10
-                                text-center
-                                text-gray-500
-                            ">
-
-                                No hay productos registrados.
-
-                            </div>
-
-                        )
-
-                        :
-
-                        (
-
-                            <table className="
-                                min-w-[1100px]
-                                w-full
-                                border-collapse
-                            ">
+                                </th>
 
 
-                                <thead className="
-                                    border-b
-                                    border-[#E7E5E1]
-                                    text-xs
-                                    uppercase
-                                    tracking-wide
-                                    text-gray-500
-                                ">
+
+                                <th
+                                    className="
+                                        w-40
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
+
+                                    Marca
+
+                                </th>
 
 
-                                    <tr>
+
+                                <th
+                                    className="
+                                        w-40
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
+
+                                    Tipo
+
+                                </th>
 
 
-                                        <th className="
-                                            w-16
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
+
+                                <th
+                                    className="
+                                        w-32
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
+
+                                    Precio
+
+                                </th>
+
+
+
+                                <th
+                                    className="
+                                        w-72
+                                        px-6
+                                        py-5
+                                        text-left
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-wide
+                                        text-[#6B6862]
+                                    "
+                                >
+
+                                    Acciones
+
+                                </th>
+
+
+                            </tr>
+
+                        </thead>
+
+
+
+                        <tbody>
+
+                            {
+                                filteredProducts.map(product => (
+
+                                    <tr
+
+                                        key={product.id}
+
+                                        className="
+                                            border-b
+                                            border-[#F1EFEB]
+                                            transition-colors
+                                            hover:bg-[#FAF9F7]
+                                        "
+
+                                    >
+
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                            "
+                                        >
 
                                             <input
 
                                                 type="checkbox"
 
                                                 checked={
-                                                    filteredProducts.length > 0 &&
-                                                    selectedProducts.length === filteredProducts.length
+                                                    selectedProducts.includes(product.id)
                                                 }
 
-                                                onChange={toggleAllProducts}
+                                                onChange={() =>
+                                                    toggleProductSelection(product.id)
+                                                }
 
                                             />
 
-                                        </th>
+                                        </td>
 
 
 
-                                        <th className="
-                                            w-28
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                            "
+                                        >
 
-                                            Imagen
+                                            {
+                                                product.imageUrl && (
 
-                                        </th>
+                                                    <div
+                                                        className="
+                                                            flex
+                                                            h-20
+                                                            w-20
+                                                            items-center
+                                                            justify-center
+                                                            overflow-hidden
+                                                            rounded-lg
+                                                            border
+                                                            border-[#E7E5E1]
+                                                            bg-[#FAF9F7]
+                                                        "
+                                                    >
 
+                                                        <img
 
+                                                            src={product.imageUrl}
 
-                                        <th className="
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
+                                                            alt={product.name}
 
-                                            Nombre
+                                                            className="
+                                                                max-h-full
+                                                                max-w-full
+                                                                object-contain
+                                                            "
 
-                                        </th>
+                                                        />
 
+                                                    </div>
 
+                                                )
+                                            }
 
-                                        <th className="
-                                            w-40
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
-
-                                            Marca
-
-                                        </th>
-
-
-
-                                        <th className="
-                                            w-40
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
-
-                                            Tipo
-
-                                        </th>
+                                        </td>
 
 
 
-                                        <th className="
-                                            w-32
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                            "
+                                        >
 
-                                            Precio
+                                            <div className="space-y-1">
 
-                                        </th>
+                                                <div
+                                                    className="
+                                                        truncate
+                                                        font-medium
+                                                        text-[#1C1B1A]
+                                                    "
+                                                >
+
+                                                    {product.name}
+
+                                                </div>
 
 
 
-                                        <th className="
-                                            w-64
-                                            px-6
-                                            py-4
-                                            text-left
-                                            font-medium
-                                        ">
+                                                <div
+                                                    className="
+                                                        text-sm
+                                                        text-[#6B6862]
+                                                    "
+                                                >
 
-                                            Acciones
+                                                    {product.brand}
 
-                                        </th>
+                                                </div>
+
+
+
+                                                {
+                                                    product.categoryName && (
+
+                                                        <div
+                                                            className="
+                                                                text-xs
+                                                                text-[#9A958C]
+                                                            "
+                                                        >
+
+                                                            {product.categoryName}
+
+                                                        </div>
+
+                                                    )
+                                                }
+
+                                            </div>
+
+                                        </td>
+
+
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                                text-sm
+                                                text-[#6B6862]
+                                            "
+                                        >
+
+                                            {product.brand}
+
+                                        </td>
+
+
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                            "
+                                        >
+
+                                            <span
+                                                className="
+                                                    inline-flex
+                                                    rounded-full
+                                                    bg-[#F1EFEB]
+                                                    px-3
+                                                    py-1
+                                                    text-xs
+                                                    font-medium
+                                                    text-[#6B6862]
+                                                "
+                                            >
+
+                                                {product.type}
+
+                                            </span>
+
+                                        </td>
+
+
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                                font-medium
+                                                text-[#1C1B1A]
+                                            "
+                                        >
+
+                                            ${product.price}
+
+                                        </td>
+
+
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-5
+                                            "
+                                        >
+
+                                            <ProductActions
+
+                                                product={product}
+
+                                                onEdit={onEdit}
+
+                                                onDelete={onDelete}
+
+                                                onExportStory={onExportStory}
+
+                                            />
+
+                                        </td>
 
 
                                     </tr>
 
+                                ))
+                            }
 
-                                </thead>
+                        </tbody>
 
 
+                    </table>
 
+                )
 
-                                <tbody>
-
-
-                                    {
-                                        filteredProducts.map(product => (
-
-                                            <tr
-
-                                                key={product.id}
-
-                                                className="
-                                                    border-b
-                                                    border-[#F1EFEB]
-                                                    transition-colors
-                                                    hover:bg-[#FAF9F7]
-                                                "
-
-                                            >
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    <input
-
-                                                        type="checkbox"
-
-                                                        checked={
-                                                            selectedProducts.includes(product.id)
-                                                        }
-
-                                                        onChange={() =>
-                                                            toggleProductSelection(product.id)
-                                                        }
-
-                                                    />
-
-
-                                                </td>
-
-
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    {
-                                                        product.imageUrl
-
-                                                        ?
-
-                                                        (
-
-                                                            <div className="
-                                                                flex
-                                                                h-20
-                                                                w-20
-                                                                items-center
-                                                                justify-center
-                                                                overflow-hidden
-                                                                rounded-lg
-                                                                border
-                                                                border-[#E7E5E1]
-                                                                bg-[#FAF9F7]
-                                                            ">
-
-
-                                                                <img
-
-                                                                    src={product.imageUrl}
-
-                                                                    alt={product.name}
-
-                                                                    className="
-                                                                        max-h-full
-                                                                        max-w-full
-                                                                        object-contain
-                                                                    "
-
-                                                                />
-
-
-                                                            </div>
-
-                                                        )
-
-                                                        :
-
-                                                        (
-
-                                                            <div className="
-                                                                flex
-                                                                h-20
-                                                                w-20
-                                                                items-center
-                                                                justify-center
-                                                                rounded-lg
-                                                                border
-                                                                border-[#E7E5E1]
-                                                                bg-[#FAF9F7]
-                                                                text-xs
-                                                                text-gray-400
-                                                            ">
-
-                                                                Sin imagen
-
-                                                            </div>
-
-                                                        )
-
-                                                    }
-
-
-                                                </td>
-
-
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    <div className="space-y-1">
-
-
-                                                        <div className="
-                                                            truncate
-                                                            font-semibold
-                                                            text-[#1C1B1A]
-                                                        ">
-
-                                                            {product.name}
-
-                                                        </div>
-
-
-
-                                                        <div className="
-                                                            text-sm
-                                                            text-gray-500
-                                                        ">
-
-                                                            {product.brand}
-
-                                                        </div>
-
-
-
-                                                        {
-                                                            product.categoryName &&
-
-                                                            (
-
-                                                                <div className="
-                                                                    text-xs
-                                                                    text-gray-400
-                                                                ">
-
-                                                                    {product.categoryName}
-
-                                                                </div>
-
-                                                            )
-
-                                                        }
-
-
-                                                    </div>
-
-
-                                                </td>
-
-
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    <span className="
-                                                        text-sm
-                                                        text-gray-500
-                                                    ">
-
-                                                        {product.brand}
-
-                                                    </span>
-
-
-                                                </td>
-
-
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    <span className="
-                                                        inline-flex
-                                                        rounded-full
-                                                        bg-gray-100
-                                                        px-3
-                                                        py-1
-                                                        text-xs
-                                                        font-medium
-                                                    ">
-
-                                                        {product.type}
-
-                                                    </span>
-
-
-                                                </td>
-
-
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    <span className="
-                                                        font-semibold
-                                                        text-[#1C1B1A]
-                                                    ">
-
-                                                        ${product.price}
-
-                                                    </span>
-
-
-                                                </td>
-
-
-
-
-
-                                                <td className="
-                                                    px-6
-                                                    py-4
-                                                ">
-
-
-                                                    <ProductActions
-
-                                                        product={product}
-
-                                                        onEdit={onEdit}
-
-                                                        onDelete={onDelete}
-
-                                                        onExportStory={onExportStory}
-
-                                                    />
-
-
-                                                </td>
-
-
-
-                                            </tr>
-
-
-                                        ))
-                                    }
-
-
-                                </tbody>
-
-
-                            </table>
-
-                        )
-
-                    }
-
-
-                </div>
-
-
-            </div>
+            }
 
 
         </div>
 
-    );
+
+    </div>
+
+);
+
 
 }
 

@@ -8,40 +8,49 @@ function Header(){
         <header
             className="
                 h-16
-                bg-white
+                w-full
                 border-b
                 border-gray-200
-                flex
-                items-center
-                px-8
+                bg-white
             "
         >
 
             <div
                 className="
                     flex
+                    h-full
                     items-center
-                    gap-3
+                    px-20
                 "
             >
 
-                <Package2
-                    size={22}
-                    className="text-gray-700"
-                />
-
-
-                <h1
+                <div
                     className="
-                        text-lg
-                        font-semibold
-                        tracking-tight
+                        flex
+                        items-center
+                        gap-3
                     "
                 >
 
-                    Catálogo de Productos
+                    <Package2
+                        size={22}
+                        className="text-gray-700"
+                    />
 
-                </h1>
+
+                    <h1
+                        className="
+                            text-lg
+                            font-semibold
+                            tracking-tight
+                        "
+                    >
+
+                        Catálogo de Productos
+
+                    </h1>
+
+                </div>
 
             </div>
 

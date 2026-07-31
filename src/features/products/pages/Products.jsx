@@ -3,6 +3,7 @@ import { useState } from "react";
 import ProductTable from "../components/ProductTable";
 import ProductModal from "../components/ProductModal";
 import ProductHeader from "../components/ProductHeader";
+import ContentContainer from "../../../components/layout/ContentContainer";
 
 import Tabs from "../../../components/ui/Tabs";
 import PageContainer from "../../../components/ui/PageContainer";
@@ -149,194 +150,149 @@ function Products(){
 
     return (
 
-        <PageContainer>
+    <PageContainer>
+
+        <Header />
+
+        <ContentContainer>
+
+            <ProductHeader
+
+                onCreate={openCreate}
+
+                onExport={() =>
+                    exportCatalogPDF(
+                        products,
+                        pdfSettings
+                    )
+                }
+
+            />
 
 
-            <Header />
+            <Tabs
+
+                tabs={[
+                    {
+                        id:"products",
+                        label:"Productos"
+                    },
+                    {
+                        id:"categories",
+                        label:"Categorías"
+                    }
+                ]}
+
+                active={activeTab}
+
+                onChange={setActiveTab}
+
+            />
 
 
+            <div className="mt-6">
 
-            <main
-                className="
-                    px-8
-                    py-8
-                "
-            >
+                {
+                    activeTab === "products" && (
 
+                        <ProductTable
 
-                <section
-                    className="
-                        flex
-                        flex-col
-                        min-h-screen
-                    "
-                >
+                            products={products}
 
+                            selectedProducts={selectedProducts}
 
-                    <ProductHeader
+                            setSelectedProducts={setSelectedProducts}
 
-                        onCreate={openCreate}
+                            onDelete={removeProduct}
 
-                        onExport={()=>
-                            exportCatalogPDF(
-                                products,
-                                pdfSettings
-                            )
-                        }
+                            onDeleteSelected={deleteSelectedProducts}
 
-                    />
+                            onEdit={openEdit}
 
+                            onExportStory={(product) =>
 
+                                exportProductPNG(
+                                    product,
+                                    "instagram-story"
+                                )
 
-                    <Tabs
-
-                        tabs={[
-                            {
-                                id:"products",
-                                label:"Productos"
-                            },
-                            {
-                                id:"categories",
-                                label:"Categorías"
                             }
-                        ]}
 
-                        active={activeTab}
+                        />
 
-                        onChange={setActiveTab}
-
-                    />
+                    )
+                }
 
 
+                {
+                    activeTab === "categories" && (
 
-                    <div className="mt-6">
+                        <Categories />
 
+                    )
+                }
 
-                        {
-                            activeTab==="products" && (
-
-                                <ProductTable
-
-                                    products={products}
-
-                                    selectedProducts={selectedProducts}
-
-                                    setSelectedProducts={setSelectedProducts}
-
-                                    onDelete={removeProduct}
-
-                                    onDeleteSelected={deleteSelectedProducts}
-
-                                    onEdit={openEdit}
-
-                                    onExportStory={(product)=>
-
-                                        exportProductPNG(
-                                            product,
-                                            "instagram-story"
-                                        )
-
-                                    }
-
-                                />
-
-                            )
-                        }
+            </div>
 
 
+            <ProductModal
+
+                isOpen={isModalOpen}
+
+                onClose={closeModal}
+
+                categories={categories}
+
+                onAdd={addProduct}
+
+                onEdit={editProduct}
+
+                editingProduct={editingProduct}
+
+                cancelEdit={closeModal}
+
+            />
 
 
+            {
+                exportData && (
 
-                        {
-                            activeTab==="categories" && (
+                    <ExportRenderer
 
-                                <Categories />
+                        ref={exportRef}
 
-                            )
-                        }
+                        template={exportData.template}
 
-
-                    </div>
-
-
-
-
-
-                    <ProductModal
-
-                        isOpen={isModalOpen}
-
-                        onClose={closeModal}
-
-                        categories={categories}
-
-                        onAdd={addProduct}
-
-                        onEdit={editProduct}
-
-                        editingProduct={editingProduct}
-
-                        cancelEdit={closeModal}
+                        product={exportData.product}
 
                     />
 
+                )
+            }
 
 
+            {
+                pdfData && (
+
+                    <PdfExportRenderer
+
+                        ref={pdfRef}
+
+                        products={pdfData.products}
+
+                        settings={pdfData.settings}
+
+                    />
+
+                )
+            }
 
 
+        </ContentContainer>
 
+    </PageContainer>
 
-                    {
-                        exportData && (
-
-                            <ExportRenderer
-
-                                ref={exportRef}
-
-                                template={exportData.template}
-
-                                product={exportData.product}
-
-                            />
-
-                        )
-                    }
-
-
-
-
-
-
-
-                    {
-                        pdfData && (
-
-                            <PdfExportRenderer
-
-                                ref={pdfRef}
-
-                                products={pdfData.products}
-
-                                settings={pdfData.settings}
-
-                            />
-
-                        )
-                    }
-
-
-
-
-
-                </section>
-
-
-            </main>
-
-
-        </PageContainer>
-
-    );
+);
 
 }
 

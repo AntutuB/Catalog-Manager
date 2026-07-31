@@ -1,4 +1,10 @@
-function Input({
+function Select({
+
+    value,
+
+    onChange,
+
+    children,
 
     className = "",
 
@@ -8,11 +14,14 @@ function Input({
 
     return (
 
-        <input
+        <select
+
+            value={value}
+
+            onChange={onChange}
 
             className={`
                 h-11
-                w-full
                 rounded-xl
                 border
                 border-[#E7E5E1]
@@ -20,7 +29,6 @@ function Input({
                 px-4
                 text-sm
                 text-[#1C1B1A]
-                placeholder:text-[#9A958C]
                 outline-none
                 transition-colors
 
@@ -35,10 +43,14 @@ function Input({
 
             {...props}
 
-        />
+        >
+
+            {children}
+
+        </select>
 
     );
 
 }
 
-export default Input;
+export default Select;

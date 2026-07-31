@@ -2,24 +2,21 @@ import React from "react";
 
 import ReactDOM from "react-dom/client";
 
-import AppRouter from "./router/AppRouter";
+import App from "./App";
 
 import "./styles/globals.css";
 
 
-
 ReactDOM
+.createRoot(
+    document.getElementById("root")
+)
+.render(
 
-    .createRoot(
-        document.getElementById("root")
-    )
+    <React.StrictMode>
 
-    .render(
+        <App />
 
-        <React.StrictMode>
+    </React.StrictMode>
 
-            <AppRouter />
-
-        </React.StrictMode>
-
-    );
+);

@@ -10,39 +10,43 @@ function Button({
 
     type="button",
 
-    icon
+    icon: Icon,
+
+    size="md"
 
 }){
 
 
-    const styles = {
+    const variants = {
 
 
         primary:
         `
-        bg-[#1F4B4D]
+        bg-[#1C1B1A]
         text-white
-        hover:bg-[#163839]
+        border
+        border-[#1C1B1A]
+        hover:bg-[#353330]
         `,
 
 
         secondary:
         `
         bg-white
+        text-[#1C1B1A]
         border
         border-[#E7E5E1]
-        text-[#1C1B1A]
-        hover:bg-[#FAFAF9]
+        hover:bg-[#FAF9F7]
         `,
 
 
         danger:
         `
-        bg-[#F7EBEA]
+        bg-white
+        text-red-600
         border
-        border-[#F0D5D2]
-        text-[#A23B3B]
-        hover:bg-[#F3DEDB]
+        border-red-200
+        hover:bg-red-50
         `,
 
 
@@ -50,10 +54,41 @@ function Button({
         `
         bg-transparent
         text-[#6B6862]
-        hover:bg-[#FAFAF9]
+        hover:bg-[#F5F3EF]
         `
 
     };
+
+
+
+    const sizes = {
+
+
+    sm:
+    `
+    h-8
+    px-4
+    text-xs
+    `,
+
+
+    md:
+    `
+    h-10
+    px-5
+    text-sm
+    `,
+
+
+    lg:
+    `
+    h-12
+    px-6
+    text-sm
+    `
+
+};
+
 
 
 
@@ -73,28 +108,35 @@ function Button({
                 justify-center
                 gap-2
 
-                px-4
-                py-2
-
                 rounded-lg
 
-                text-sm
                 font-medium
 
                 transition-colors
 
+                duration-200
+
                 disabled:opacity-40
                 disabled:pointer-events-none
 
-                ${styles[variant]}
+                ${sizes[size]}
 
+                ${variants[variant]}
             `}
 
         >
 
-            {icon}
+            {
+                Icon && (
+
+                    <Icon size={16}/>
+
+                )
+            }
+
 
             {children}
+
 
         </button>
 

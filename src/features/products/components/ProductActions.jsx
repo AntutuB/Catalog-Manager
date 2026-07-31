@@ -1,4 +1,8 @@
-import Button from "../../../components/ui/Button";
+import {
+    Download,
+    Pencil,
+    Trash2
+} from "lucide-react";
 
 
 function ProductActions({
@@ -16,63 +20,109 @@ function ProductActions({
 
     return (
 
-        <div className="
-            flex
-            items-center
-            gap-2
-        ">
+        <div
+            className="
+                flex
+                items-center
+                justify-end
+                gap-2
+            "
+        >
 
 
-            <Button
+            <button
 
-                variant="secondary"
+                type="button"
 
-                onClick={()=>onEdit(product)}
-
-            >
-
-                Editar
-
-            </Button>
-
-
-
-            <Button
-
-                variant="danger"
-
-                onClick={()=>onDelete(product.id)}
-
-            >
-
-                Eliminar
-
-            </Button>
-
-
-
-            <Button
-
-                variant="ghost"
+                title="Exportar PNG"
 
                 onClick={()=>onExportStory(product)}
 
+                className="
+                    h-9
+                    w-9
+                    rounded-lg
+                    border
+                    border-gray-200
+                    bg-white
+                    text-gray-600
+                    flex
+                    items-center
+                    justify-center
+                    hover:bg-gray-50
+                    transition
+                "
+
             >
 
-                PNG Story
+                <Download size={16}/>
 
-            </Button>
+            </button>
 
 
-            <Button
 
-                variant="ghost"
+
+            <button
+
+                type="button"
+
+                title="Editar"
+
+                onClick={()=>onEdit(product)}
+
+                className="
+                    h-9
+                    w-9
+                    rounded-lg
+                    border
+                    border-gray-200
+                    bg-white
+                    text-gray-600
+                    flex
+                    items-center
+                    justify-center
+                    hover:bg-gray-50
+                    transition
+                "
 
             >
 
-                PNG Post
+                <Pencil size={16}/>
 
-            </Button>
+            </button>
+
+
+
+
+
+            <button
+
+                type="button"
+
+                title="Eliminar"
+
+                onClick={()=>onDelete(product.id)}
+
+                className="
+                    h-9
+                    w-9
+                    rounded-lg
+                    border
+                    border-red-100
+                    bg-red-50
+                    text-red-600
+                    flex
+                    items-center
+                    justify-center
+                    hover:bg-red-100
+                    transition
+                "
+
+            >
+
+                <Trash2 size={16}/>
+
+            </button>
 
 
         </div>

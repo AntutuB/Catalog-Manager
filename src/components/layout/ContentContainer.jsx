@@ -1,25 +1,28 @@
-function PageContainer({
+function ContentContainer({
+
     children,
+
     className = ""
+
 }){
 
     return (
 
-        <div
+        <main
             className={`
-                min-h-screen
                 w-full
-                bg-[#F9F7F3]
+                px-20
+                py-20
                 ${className}
             `}
         >
 
             {children}
 
-        </div>
+        </main>
 
     );
 
 }
 
-export default PageContainer;
+export default ContentContainer;
