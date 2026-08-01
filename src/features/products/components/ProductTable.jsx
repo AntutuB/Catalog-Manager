@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
-
 import ProductToolbar from "./ProductToolbar";
-
-import ProductActions from "./ProductActions";
-
 import ProductTableView from "./table/ProductTableView";
+
+import useProductFilters from "../hooks/useProductFilters";
+import useProductSelection from "../hooks/useProductSelection";
+import useProductsWithImages from "../hooks/useProductsWithImages";
 
 
 function ProductTable({
@@ -26,436 +25,115 @@ function ProductTable({
 }){
 
 
-    const [
-
-        productsWithImages,
-
-        setProductsWithImages
-
-    ] = useState([]);
+    const productsWithImages =
+        useProductsWithImages(products);
 
 
 
-
-    const [
+    const {
 
         search,
-
-        setSearch
-
-    ] = useState("");
-
-
-
-
-    const [
+        setSearch,
 
         categoryFilter,
-
-        setCategoryFilter
-
-    ] = useState("all");
-
-
-
-
-    const [
+        setCategoryFilter,
 
         typeFilter,
-
-        setTypeFilter
-
-    ] = useState("all");
-
-
-
-
-    const [
+        setTypeFilter,
 
         sortBy,
+        setSortBy,
 
-        setSortBy
+        categories,
+        types,
 
-    ] = useState("name");
+        filteredProducts
 
+    } = useProductFilters(productsWithImages);
 
 
 
+    const {
 
-    function toggleProductSelection(id){
+        toggleProductSelection,
 
+        toggleAllProducts,
 
-        if(selectedProducts.includes(id)){
+        clearSelection
 
+    } = useProductSelection(
 
-            setSelectedProducts(
+        selectedProducts,
 
-                selectedProducts.filter(
+        setSelectedProducts,
 
-                    productId => productId !== id
+        filteredProducts
 
-                )
+    );
 
-            );
 
 
-        }else{
+    return (
 
+        <div
+            className="
+                w-full
+                space-y-6
+            "
+        >
 
-            setSelectedProducts([
+            <ProductToolbar
 
-                ...selectedProducts,
+                search={search}
 
-                id
+                setSearch={setSearch}
 
-            ]);
+                categoryFilter={categoryFilter}
 
+                setCategoryFilter={setCategoryFilter}
 
-        }
+                typeFilter={typeFilter}
 
+                setTypeFilter={setTypeFilter}
 
-    }
+                sortBy={sortBy}
 
+                setSortBy={setSortBy}
 
+                categories={categories}
 
+                types={types}
 
+                selectedCount={selectedProducts.length}
 
-    function toggleAllProducts(){
+                onDeleteSelected={onDeleteSelected}
 
+                onClearSelection={clearSelection}
 
-        if(
+            />
 
-            selectedProducts.length === filteredProducts.length
 
-        ){
+            <ProductTableView
 
+                products={filteredProducts}
 
-            setSelectedProducts([]);
+                selectedProducts={selectedProducts}
 
+                toggleProductSelection={toggleProductSelection}
 
-        }else{
+                toggleAllProducts={toggleAllProducts}
 
+                onEdit={onEdit}
 
-            setSelectedProducts(
+                onDelete={onDelete}
 
-                filteredProducts.map(
+                onExportStory={onExportStory}
 
-                    product => product.id
+            />
 
-                )
+        </div>
 
-            );
-
-
-        }
-
-
-    }
-
-
-
-
-
-    useEffect(()=>{
-
-
-        const data = products.map(product=>{
-
-
-            let imageUrl = null;
-
-
-
-            if(product.image){
-
-
-                imageUrl = URL.createObjectURL(
-
-                    product.image
-
-                );
-
-
-            }
-
-
-
-            return {
-
-                ...product,
-
-                imageUrl
-
-            };
-
-
-        });
-
-
-
-        setProductsWithImages(data);
-
-
-
-
-        return ()=>{
-
-
-            data.forEach(product=>{
-
-
-                if(product.imageUrl){
-
-
-                    URL.revokeObjectURL(
-
-                        product.imageUrl
-
-                    );
-
-
-                }
-
-
-            });
-
-
-        };
-
-
-    },[products]);
-
-
-
-
-
-    const categories = useMemo(()=>{
-
-
-        return [
-
-            "all",
-
-            ...new Set(
-
-                productsWithImages
-
-                    .map(product=>product.categoryName)
-
-                    .filter(Boolean)
-
-            )
-
-        ];
-
-
-    },[productsWithImages]);
-
-
-
-
-
-    const types = useMemo(()=>{
-
-
-        return [
-
-            "all",
-
-            ...new Set(
-
-                productsWithImages
-
-                    .map(product=>product.type)
-
-                    .filter(Boolean)
-
-            )
-
-        ];
-
-
-    },[productsWithImages]);
-
-
-
-
-
-    const filteredProducts = useMemo(()=>{
-
-
-        let data = [
-
-            ...productsWithImages
-
-        ];
-
-
-
-        if(search.trim()){
-
-
-            const value = search.toLowerCase();
-
-
-
-            data = data.filter(product=>
-
-                product.name
-                    ?.toLowerCase()
-                    .includes(value)
-
-                ||
-
-                product.brand
-                    ?.toLowerCase()
-                    .includes(value)
-
-            );
-
-
-        }
-
-
-
-
-        if(categoryFilter !== "all"){
-
-
-            data = data.filter(product=>
-
-                product.categoryName === categoryFilter
-
-            );
-
-
-        }
-
-
-
-
-        if(typeFilter !== "all"){
-
-
-            data = data.filter(product=>
-
-                product.type === typeFilter
-
-            );
-
-
-        }
-
-
-
-
-        if(sortBy === "price"){
-
-
-            data.sort((a,b)=>
-
-                Number(a.price)-Number(b.price)
-
-            );
-
-
-        }else{
-
-
-            data.sort((a,b)=>
-
-                a.name.localeCompare(b.name)
-
-            );
-
-
-        }
-
-
-
-        return data;
-
-
-
-    },[
-
-        productsWithImages,
-
-        search,
-
-        categoryFilter,
-
-        typeFilter,
-
-        sortBy
-
-    ]);
-
-                return (
-
-    <div
-        className="
-            w-full
-            space-y-6
-        "
-    >
-
-        <ProductToolbar
-
-            search={search}
-
-            setSearch={setSearch}
-
-            categoryFilter={categoryFilter}
-
-            setCategoryFilter={setCategoryFilter}
-
-            typeFilter={typeFilter}
-
-            setTypeFilter={setTypeFilter}
-
-            sortBy={sortBy}
-
-            setSortBy={setSortBy}
-
-            categories={categories}
-
-            types={types}
-
-            selectedCount={selectedProducts.length}
-
-            onDeleteSelected={onDeleteSelected}
-
-            onClearSelection={() =>
-                setSelectedProducts([])
-            }
-
-        />
-
-
-        <ProductTableView
-
-            products={filteredProducts}
-
-            selectedProducts={selectedProducts}
-
-            toggleProductSelection={toggleProductSelection}
-
-            toggleAllProducts={toggleAllProducts}
-
-            onEdit={onEdit}
-
-            onDelete={onDelete}
-
-            onExportStory={onExportStory}
-
-        />
-
-
-    </div>
-
-);
-
+    );
 
 }
 

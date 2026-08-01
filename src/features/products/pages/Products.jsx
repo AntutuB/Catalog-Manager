@@ -15,17 +15,14 @@ import Categories from "../../categories/pages/Categories";
 import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../../categories/hooks/useCategories";
 import { useExporter } from "../../export/hooks/useExporter";
+import useProductModal from "../hooks/useProductModal";
+import useBulkDelete from "../hooks/useBulkDelete";
+import useProductExport from "../hooks/useProductExport";
 
 
 function Products(){
 
     const [activeTab,setActiveTab] = useState("products");
-
-
-    const [
-        selectedProducts,
-        setSelectedProducts
-    ] = useState([]);
 
 
 
@@ -39,22 +36,44 @@ function Products(){
 
 
     const {
+
+    selectedProducts,
+
+    setSelectedProducts,
+
+    deleteSelectedProducts
+
+    } = useBulkDelete(removeProduct);
+
+
+
+    const {
+
+        isModalOpen,
+
+        editingProduct,
+
+        openCreate,
+
+        openEdit,
+
+        closeModal
+
+    } = useProductModal();
+
+
+
+    const {
+
+    pdfSettings
+
+    } = useProductExport();
+
+
+
+    const {
         categories
     } = useCategories();
-
-
-
-    const [
-        isModalOpen,
-        setIsModalOpen
-    ] = useState(false);
-
-
-
-    const [
-        editingProduct,
-        setEditingProduct
-    ] = useState(null);
 
 
 
@@ -68,83 +87,6 @@ function Products(){
         ExportRenderer,
         PdfExportRenderer
     } = useExporter();
-
-
-
-
-    const now = new Date();
-
-
-    const publicationDate = now
-        .toLocaleDateString("es-ES",{
-            month:"long",
-            year:"numeric"
-        })
-        .toUpperCase();
-
-
-
-    const pdfSettings = {
-
-        brandName:"CATÁLOGO",
-
-        publicationDate,
-
-        city:"HABANA, CUBA",
-
-        description:
-            "Una selección curada de monturas ópticas y de sol, fotografiadas sobre blanco puro para que cada silueta se sostenga por sí sola."
-
-    };
-
-
-
-
-    function openCreate(){
-
-        setEditingProduct(null);
-
-        setIsModalOpen(true);
-
-    }
-
-
-
-    function openEdit(product){
-
-        setEditingProduct(product);
-
-        setIsModalOpen(true);
-
-    }
-
-
-
-    function closeModal(){
-
-        setEditingProduct(null);
-
-        setIsModalOpen(false);
-
-    }
-
-
-
-
-    async function deleteSelectedProducts(){
-
-        for(const id of selectedProducts){
-
-            await removeProduct(id);
-
-        }
-
-
-        setSelectedProducts([]);
-
-    }
-
-
 
 
 

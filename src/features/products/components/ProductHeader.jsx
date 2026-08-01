@@ -1,6 +1,5 @@
-import Button from "../../../components/ui/Button";
-
-import ProductStats from "./stats/ProductStats";
+import ProductStats from "./header/ProductStats";
+import ProductActions from "./header/ProductActions";
 
 
 function ProductHeader({
@@ -26,45 +25,16 @@ function ProductHeader({
             "
         >
 
-
             <ProductStats />
 
 
+            <ProductActions
 
-            <div
-                className="
-                    flex
-                    gap-3
-                "
-            >
+                onCreate={onCreate}
 
+                onExport={onExport}
 
-                <Button
-
-                    onClick={onCreate}
-
-                >
-
-                    Nuevo producto
-
-                </Button>
-
-
-
-                <Button
-
-                    variant="secondary"
-
-                    onClick={onExport}
-
-                >
-
-                    Exportar PDF
-
-                </Button>
-
-
-            </div>
+            />
 
 
         </div>
