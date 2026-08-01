@@ -1,4 +1,5 @@
 import { Search } from "lucide-react";
+import Input from "../../../../components/ui/Input";
 
 
 function ProductSearch({
@@ -35,40 +36,13 @@ function ProductSearch({
             />
 
 
-            <input
-
+            <Input
                 type="text"
-
                 placeholder="Buscar producto..."
-
                 value={search}
-
-                onChange={(e)=>
-                    setSearch(e.target.value)
-                }
-
-                className="
-                    h-11
-                    w-full
-                    rounded-xl
-                    border
-                    border-[#E7E5E1]
-                    bg-white
-                    pl-10
-                    pr-4
-                    text-sm
-                    text-[#1C1B1A]
-                    placeholder:text-[#9A958C]
-                    outline-none
-                    transition-colors
-                    hover:border-[#D6D3CE]
-                    focus:border-black
-                    focus:ring-2
-                    focus:ring-black/5
-                "
-
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10"
             />
-
         </div>
 
     );

@@ -1,3 +1,6 @@
+import Input from "../../../../components/ui/Input";
+import Select from "../../../../components/ui/Select";
+
 function ProductFields({
 
     form,
@@ -17,7 +20,7 @@ function ProductFields({
 
         <>
 
-            <input
+            <Input
 
                 name="name"
 
@@ -30,7 +33,7 @@ function ProductFields({
             />
 
 
-            <input
+            <Input
 
                 name="brand"
 
@@ -43,7 +46,7 @@ function ProductFields({
             />
 
 
-            <select
+            <Select
 
                 name="categoryId"
 
@@ -77,11 +80,11 @@ function ProductFields({
                 }
 
 
-            </select>
+            </Select>
 
 
 
-            <input
+            <Input
 
                 name="type"
 
@@ -95,7 +98,7 @@ function ProductFields({
 
 
 
-            <input
+            <Input
 
                 name="price"
 

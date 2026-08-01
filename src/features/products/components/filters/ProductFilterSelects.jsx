@@ -1,3 +1,5 @@
+import Select from "../../../../components/ui/Select";
+
 function ProductFilterSelects({
 
     categoryFilter,
@@ -19,30 +21,13 @@ function ProductFilterSelects({
 }){
 
 
-    const selectClass = `
-        h-11
-        rounded-xl
-        border
-        border-[#E7E5E1]
-        bg-white
-        px-4
-        text-sm
-        text-[#1C1B1A]
-        outline-none
-        hover:border-[#D6D3CE]
-        focus:border-black
-        focus:ring-2
-        focus:ring-black/5
-    `;
-
-
-
+   
     return (
 
         <>
 
 
-            <select
+            <Select
 
                 value={categoryFilter}
 
@@ -78,12 +63,12 @@ function ProductFilterSelects({
                     ))
                 }
 
-            </select>
+            </Select>
 
 
 
 
-            <select
+            <Select
 
                 value={typeFilter}
 
@@ -119,12 +104,12 @@ function ProductFilterSelects({
                     ))
                 }
 
-            </select>
+            </Select>
 
 
 
 
-            <select
+            <Select
 
                 value={sortBy}
 
@@ -132,7 +117,6 @@ function ProductFilterSelects({
                     setSortBy(e.target.value)
                 }
 
-                className={selectClass}
 
             >
 
@@ -146,7 +130,7 @@ function ProductFilterSelects({
                 </option>
 
 
-            </select>
+            </Select>
 
 
         </>
