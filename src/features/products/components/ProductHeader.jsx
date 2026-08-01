@@ -36,7 +36,6 @@ function ProductHeader({
 
             />
 
-
         </div>
 
     );

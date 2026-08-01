@@ -43,7 +43,6 @@ function ProductToolbar({
             "
         >
 
-
             <div
                 className="
                     flex
@@ -54,7 +53,6 @@ function ProductToolbar({
                 "
             >
 
-
                 <ProductSearch
 
                     search={search}
@@ -62,7 +60,6 @@ function ProductToolbar({
                     setSearch={setSearch}
 
                 />
-
 
 
                 <ProductFilterSelects
@@ -85,9 +82,7 @@ function ProductToolbar({
 
                 />
 
-
             </div>
-
 
 
 
