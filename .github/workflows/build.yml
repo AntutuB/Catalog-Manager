@@ -27,7 +27,7 @@ jobs:
 
 
       - name: Build Windows installer
-  run: npm run dist -- --publish never
+        run: npm run dist -- --publish never
 
 
       - name: Upload Windows build
@@ -35,6 +35,7 @@ jobs:
         with:
           name: EVOTEC-Windows
           path: release/**
+
 
 
   mac:
@@ -59,7 +60,7 @@ jobs:
 
 
       - name: Build Mac installer
-  run: npm run dist -- --publish never
+        run: npm run dist -- --publish never
 
 
       - name: Upload Mac build
