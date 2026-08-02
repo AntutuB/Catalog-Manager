@@ -27,7 +27,7 @@ jobs:
 
 
       - name: Build Windows installer
-        run: npm run dist
+  run: npm run dist -- --publish never
 
 
       - name: Upload Windows build
@@ -59,7 +59,7 @@ jobs:
 
 
       - name: Build Mac installer
-        run: npm run dist
+  run: npm run dist -- --publish never
 
 
       - name: Upload Mac build
