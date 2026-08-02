@@ -1,4 +1,5 @@
 import Button from "../../../../components/ui/Button";
+import ActionGroup from "../../../../components/ui/ActionGroup";
 
 
 function ProductActions({
@@ -12,11 +13,13 @@ function ProductActions({
 
     return (
 
-        <div
+        <ActionGroup
+
             className="
-                flex
-                gap-3
+                pt-1
+                pr-2
             "
+
         >
 
             <Button
@@ -44,7 +47,7 @@ function ProductActions({
             </Button>
 
 
-        </div>
+        </ActionGroup>
 
     );
 

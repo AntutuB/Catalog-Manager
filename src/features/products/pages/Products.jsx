@@ -25,7 +25,6 @@ function Products(){
     const [activeTab,setActiveTab] = useState("products");
 
 
-
     const {
         products,
         addProduct,
@@ -37,11 +36,11 @@ function Products(){
 
     const {
 
-    selectedProducts,
+        selectedProducts,
 
-    setSelectedProducts,
+        setSelectedProducts,
 
-    deleteSelectedProducts
+        deleteSelectedProducts
 
     } = useBulkDelete(removeProduct);
 
@@ -65,7 +64,7 @@ function Products(){
 
     const {
 
-    pdfSettings
+        pdfSettings
 
     } = useProductExport();
 
@@ -92,73 +91,142 @@ function Products(){
 
     return (
 
-    <PageContainer>
+        <PageContainer>
 
-        <Header />
-
-        <ContentContainer>
-
-            <ProductHeader
-
-                onCreate={openCreate}
-
-                onExport={() =>
-                    exportCatalogPDF(
-                        products,
-                        pdfSettings
-                    )
-                }
-
-            />
+            <Header />
 
 
-            <Tabs
+            <ContentContainer>
 
-                tabs={[
-                    {
-                        id:"products",
-                        label:"Productos"
-                    },
-                    {
-                        id:"categories",
-                        label:"Categorías"
+
+                <ProductHeader
+
+                    onCreate={openCreate}
+
+                    onExport={() =>
+                        exportCatalogPDF(
+                            products,
+                            pdfSettings
+                        )
                     }
-                ]}
 
-                active={activeTab}
-
-                onChange={setActiveTab}
-
-            />
+                />
 
 
-            <div className="mt-6">
+
+                <Tabs
+
+                    tabs={[
+                        {
+                            id:"products",
+                            label:"Productos"
+                        },
+                        {
+                            id:"categories",
+                            label:"Categorías"
+                        }
+                    ]}
+
+                    active={activeTab}
+
+                    onChange={setActiveTab}
+
+                />
+
+
+
+                <div
+                    className="
+                        mt-6
+                        flex-1
+                        min-h-0
+                        flex
+                        flex-col
+                        overflow-hidden
+                    "
+                >
+
+                    {
+                        activeTab === "products" && (
+
+                            <ProductTable
+
+                                className="
+                                    flex-1
+                                    min-h-0
+                                "
+
+                                products={products}
+
+                                selectedProducts={selectedProducts}
+
+                                setSelectedProducts={setSelectedProducts}
+
+                                onDelete={removeProduct}
+
+                                onDeleteSelected={deleteSelectedProducts}
+
+                                onEdit={openEdit}
+
+                                onExportStory={(product)=>
+
+                                    exportProductPNG(
+                                        product,
+                                        "instagram-story"
+                                    )
+
+                                }
+
+                            />
+
+                        )
+                    }
+
+
+
+                    {
+                        activeTab === "categories" && (
+
+                            <Categories />
+
+                        )
+                    }
+
+
+                </div>
+
+
+
+                <ProductModal
+
+                    isOpen={isModalOpen}
+
+                    onClose={closeModal}
+
+                    categories={categories}
+
+                    onAdd={addProduct}
+
+                    onEdit={editProduct}
+
+                    editingProduct={editingProduct}
+
+                    cancelEdit={closeModal}
+
+                />
+
+
 
                 {
-                    activeTab === "products" && (
+                    exportData && (
 
-                        <ProductTable
+                        <ExportRenderer
 
-                            products={products}
+                            ref={exportRef}
 
-                            selectedProducts={selectedProducts}
+                            template={exportData.template}
 
-                            setSelectedProducts={setSelectedProducts}
-
-                            onDelete={removeProduct}
-
-                            onDeleteSelected={deleteSelectedProducts}
-
-                            onEdit={openEdit}
-
-                            onExportStory={(product) =>
-
-                                exportProductPNG(
-                                    product,
-                                    "instagram-story"
-                                )
-
-                            }
+                            product={exportData.product}
 
                         />
 
@@ -166,75 +234,30 @@ function Products(){
                 }
 
 
-                {
-                    activeTab === "categories" && (
 
-                        <Categories />
+                {
+                    pdfData && (
+
+                        <PdfExportRenderer
+
+                            ref={pdfRef}
+
+                            products={pdfData.products}
+
+                            settings={pdfData.settings}
+
+                        />
 
                     )
                 }
 
-            </div>
+
+            </ContentContainer>
 
 
-            <ProductModal
+        </PageContainer>
 
-                isOpen={isModalOpen}
-
-                onClose={closeModal}
-
-                categories={categories}
-
-                onAdd={addProduct}
-
-                onEdit={editProduct}
-
-                editingProduct={editingProduct}
-
-                cancelEdit={closeModal}
-
-            />
-
-
-            {
-                exportData && (
-
-                    <ExportRenderer
-
-                        ref={exportRef}
-
-                        template={exportData.template}
-
-                        product={exportData.product}
-
-                    />
-
-                )
-            }
-
-
-            {
-                pdfData && (
-
-                    <PdfExportRenderer
-
-                        ref={pdfRef}
-
-                        products={pdfData.products}
-
-                        settings={pdfData.settings}
-
-                    />
-
-                )
-            }
-
-
-        </ContentContainer>
-
-    </PageContainer>
-
-);
+    );
 
 }
 

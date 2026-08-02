@@ -4,6 +4,7 @@ import ProductTableView from "./table/ProductTableView";
 import useProductFilters from "../hooks/useProductFilters";
 import useProductSelection from "../hooks/useProductSelection";
 import useProductsWithImages from "../hooks/useProductsWithImages";
+import usePagination from "../hooks/usePagination";
 
 
 function ProductTable({
@@ -33,23 +34,52 @@ function ProductTable({
     const {
 
         search,
+
         setSearch,
 
         categoryFilter,
+
         setCategoryFilter,
 
         typeFilter,
+
         setTypeFilter,
 
         sortBy,
+
         setSortBy,
 
         categories,
+
         types,
 
         filteredProducts
 
     } = useProductFilters(productsWithImages);
+
+
+
+    const {
+
+        currentPage,
+
+        totalPages,
+
+        paginatedItems,
+
+        nextPage,
+
+        previousPage,
+
+        setCurrentPage
+
+    } = usePagination(
+
+        filteredProducts,
+
+        10
+
+    );
 
 
 
@@ -67,7 +97,7 @@ function ProductTable({
 
         setSelectedProducts,
 
-        filteredProducts
+        paginatedItems
 
     );
 
@@ -77,8 +107,11 @@ function ProductTable({
 
         <div
             className="
+                flex
+                h-full
+                min-h-0
                 w-full
-                space-y-6
+                flex-col
             "
         >
 
@@ -113,23 +146,46 @@ function ProductTable({
             />
 
 
-            <ProductTableView
 
-                products={filteredProducts}
+            <div
+                className="
+                    flex-1
+                    min-h-0
+                "
+            >
 
-                selectedProducts={selectedProducts}
+                <ProductTableView
 
-                toggleProductSelection={toggleProductSelection}
+                    products={paginatedItems}
 
-                toggleAllProducts={toggleAllProducts}
+                    selectedProducts={selectedProducts}
 
-                onEdit={onEdit}
+                    toggleProductSelection={toggleProductSelection}
 
-                onDelete={onDelete}
+                    toggleAllProducts={toggleAllProducts}
 
-                onExportStory={onExportStory}
+                    onEdit={onEdit}
 
-            />
+                    onDelete={onDelete}
+
+                    onExportStory={onExportStory}
+
+                    currentPage={currentPage}
+
+                    totalPages={totalPages}
+
+                    onNextPage={nextPage}
+
+                    onPreviousPage={previousPage}
+
+                    onChangePage={setCurrentPage}
+
+                    totalProducts={filteredProducts.length}
+
+                />
+
+            </div>
+
 
         </div>
 

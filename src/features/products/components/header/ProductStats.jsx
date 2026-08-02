@@ -23,7 +23,7 @@ function ProductStats(){
     const cards = [
 
         {
-            label:"Total de productos",
+            label:"Productos",
             value:products.length
         },
 
@@ -33,7 +33,7 @@ function ProductStats(){
         },
 
         {
-            label:"Última actualización",
+            label:"Actualización",
             value:lastUpdate
         }
 
@@ -45,45 +45,45 @@ function ProductStats(){
 
         <div
             className="
-                grid
-                grid-cols-1
+                flex
+                flex-wrap
                 gap-3
-                sm:grid-cols-3
             "
         >
 
             {
-                cards.map(card=>(
+                cards.map(card => (
 
                     <div
                         key={card.label}
                         className="
+                            flex
+                            h-11
+                            items-center
+                            gap-2
                             rounded-xl
                             border
                             border-[#E7E5E1]
                             bg-white
-                            px-5
-                            py-4
-                            min-w-[180px]
+                            px-4
                         "
                     >
 
-                        <p
+                        <span
                             className="
-                                text-xs
+                                text-sm
                                 text-[#6B6862]
                             "
                         >
 
                             {card.label}
 
-                        </p>
+                        </span>
 
 
-                        <p
+                        <span
                             className="
-                                mt-1
-                                text-xl
+                                text-sm
                                 font-semibold
                                 text-[#1C1B1A]
                             "
@@ -91,7 +91,7 @@ function ProductStats(){
 
                             {card.value}
 
-                        </p>
+                        </span>
 
 
                     </div>

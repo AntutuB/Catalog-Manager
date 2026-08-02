@@ -7,9 +7,14 @@ function PageContainer({
 
         <div
             className={`
-                min-h-screen
+                flex
+                h-screen
                 w-full
+                flex-col
+                overflow-hidden
+
                 bg-[#F9F7F3]
+
                 ${className}
             `}
         >

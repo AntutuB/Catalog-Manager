@@ -1,4 +1,7 @@
+import { ChevronDown } from "lucide-react";
+
 import Select from "../../../../components/ui/Select";
+
 
 function ProductFilterSelects({
 
@@ -21,21 +24,81 @@ function ProductFilterSelects({
 }){
 
 
-   
+    const selectClass = `
+        pr-10
+        appearance-none
+    `;
+
+
+
+    function SelectWrapper({
+
+        children,
+
+        value,
+
+        onChange
+
+    }){
+
+        return (
+
+            <div
+                className="
+                    relative
+                "
+            >
+
+                <Select
+
+                    value={value}
+
+                    onChange={onChange}
+
+                    className={selectClass}
+
+                >
+
+                    {children}
+
+                </Select>
+
+
+                <ChevronDown
+
+                    size={16}
+
+                    className="
+                        pointer-events-none
+                        absolute
+                        right-3
+                        top-1/2
+                        -translate-y-1/2
+                        text-[#6B6862]
+                    "
+
+                />
+
+            </div>
+
+        );
+
+    }
+
+
+
     return (
 
         <>
 
 
-            <Select
+            <SelectWrapper
 
                 value={categoryFilter}
 
                 onChange={(e)=>
                     setCategoryFilter(e.target.value)
                 }
-
-                
 
             >
 
@@ -63,20 +126,18 @@ function ProductFilterSelects({
                     ))
                 }
 
-            </Select>
+            </SelectWrapper>
 
 
 
 
-            <Select
+            <SelectWrapper
 
                 value={typeFilter}
 
                 onChange={(e)=>
                     setTypeFilter(e.target.value)
                 }
-
-                
 
             >
 
@@ -104,19 +165,18 @@ function ProductFilterSelects({
                     ))
                 }
 
-            </Select>
+            </SelectWrapper>
 
 
 
 
-            <Select
+            <SelectWrapper
 
                 value={sortBy}
 
                 onChange={(e)=>
                     setSortBy(e.target.value)
                 }
-
 
             >
 
@@ -130,7 +190,7 @@ function ProductFilterSelects({
                 </option>
 
 
-            </Select>
+            </SelectWrapper>
 
 
         </>

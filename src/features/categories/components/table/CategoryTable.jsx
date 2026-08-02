@@ -1,8 +1,8 @@
-import CategoryTableView from "./table/CategoryTableView";
-import CategoryToolbar from "./CategoryToolbar";
+import CategoryToolbar from "../CategoryToolbar";
+import CategoryTableView from "./CategoryTableView";
 
-import useCategoryFilters from "../hooks/useCategoryFilters";
-import useCategoryPagination from "../hooks/useCategoryPagination";
+import useCategoryFilters from "../../hooks/useCategoryFilters";
+import useCategoryPagination from "../../hooks/useCategoryPagination";
 
 
 function CategoryTable({
@@ -11,9 +11,7 @@ function CategoryTable({
 
     onEdit,
 
-    onDelete,
-
-    onCreate
+    onDelete
 
 }){
 
@@ -59,6 +57,7 @@ function CategoryTable({
                 flex
                 h-full
                 min-h-0
+                w-full
                 flex-col
             "
         >
@@ -69,9 +68,8 @@ function CategoryTable({
 
                 setSearch={setSearch}
 
-                onCreate={onCreate}
-
             />
+
 
 
             <div

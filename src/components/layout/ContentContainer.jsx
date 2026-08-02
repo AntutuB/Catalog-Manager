@@ -10,9 +10,20 @@ function ContentContainer({
 
         <main
             className={`
+                flex
+                flex-1
+                min-h-0
+                flex-col
+                overflow-hidden
+
                 w-full
-                px-20
-                py-20
+
+                px-8
+                py-4
+
+                lg:px-12
+                lg:py-6
+
                 ${className}
             `}
         >

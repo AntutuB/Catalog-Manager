@@ -1,27 +1,24 @@
 import Modal from "../../../components/ui/Modal";
 import Button from "../../../components/ui/Button";
 
-import ProductForm from "./ProductForm";
+import CategoryForm from "./CategoryForm";
 import ActionGroup from "../../../components/ui/ActionGroup";
 
 
-function ProductModal({
+function CategoryModal({
 
     isOpen,
 
     onClose,
 
-    categories,
-
     onAdd,
 
     onEdit,
 
-    editingProduct,
-
-    cancelEdit
+    editingCategory
 
 }){
+
 
     return (
 
@@ -32,24 +29,22 @@ function ProductModal({
             onClose={onClose}
 
             title={
-                editingProduct
-                    ? "Editar producto"
-                    : "Nuevo producto"
+                editingCategory
+                    ? "Editar categoría"
+                    : "Nueva categoría"
             }
 
         >
 
-            <ProductForm
-
-                categories={categories}
+            <CategoryForm
 
                 onAdd={onAdd}
 
                 onEdit={onEdit}
 
-                editingProduct={editingProduct}
+                editingCategory={editingCategory}
 
-                cancelEdit={cancelEdit}
+                onClose={onClose}
 
             />
 
@@ -75,21 +70,18 @@ function ProductModal({
                 </Button>
 
 
-
                 <Button
 
                     type="submit"
 
-                    form="product-form"
+                    form="category-form"
 
                 >
 
                     {
-
-                        editingProduct
-                            ? "Actualizar producto"
-                            : "Crear producto"
-
+                        editingCategory
+                            ? "Actualizar categoría"
+                            : "Crear categoría"
                     }
 
                 </Button>
@@ -105,4 +97,4 @@ function ProductModal({
 }
 
 
-export default ProductModal;
+export default CategoryModal;

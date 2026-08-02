@@ -1,7 +1,6 @@
 import ProductStats from "./header/ProductStats";
 import ProductActions from "./header/ProductActions";
 
-
 function ProductHeader({
 
     onCreate,
@@ -10,23 +9,19 @@ function ProductHeader({
 
 }){
 
-
     return (
 
         <div
             className="
-                mb-8
+                mb-6
                 flex
-                flex-col
-                gap-6
-                lg:flex-row
-                lg:items-end
-                lg:justify-between
+                items-start
+                justify-between
+                gap-8
             "
         >
 
             <ProductStats />
-
 
             <ProductActions
 
@@ -41,6 +36,5 @@ function ProductHeader({
     );
 
 }
-
 
 export default ProductHeader;

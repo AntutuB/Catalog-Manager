@@ -1,5 +1,6 @@
 import ProductTableHeader from "./ProductTableHeader";
 import ProductTableRow from "./ProductTableRow";
+import Surface from "../../../../components/ui/Surface";
 
 
 function ProductTableView({
@@ -29,14 +30,16 @@ function ProductTableView({
 
     return (
 
-        <div
+        <Surface
+
             className="
+                flex
+                h-full
+                min-h-0
+                flex-col
                 overflow-hidden
-                rounded-xl
-                border
-                border-[#E7E5E1]
-                bg-white
             "
+
         >
 
             {
@@ -64,68 +67,151 @@ function ProductTableView({
 
                 (
 
-                    <table
-                        className="
-                            w-full
-                            table-fixed
-                            border-collapse
-                        "
-                    >
+                    <>
 
-                        <ProductTableHeader
+                        <div
+                            className="
+                                min-h-0
+                                flex-1
+                                overflow-y-auto
+                            "
+                        >
 
-                            allSelected={allSelected}
+                            <table
+                                className="
+                                    w-full
+                                    table-fixed
+                                    border-collapse
+                                "
+                            >
 
-                            onToggleAll={toggleAllProducts}
+                                <ProductTableHeader
 
-                        />
+                                    allSelected={allSelected}
 
+                                    onToggleAll={toggleAllProducts}
 
-                        <tbody>
-
-                            {
-                                products.map(product => (
-
-                                    <ProductTableRow
-
-                                        key={product.id}
-
-                                        product={product}
-
-                                        selected={
-                                            selectedProducts.includes(
-                                                product.id
-                                            )
-                                        }
-
-                                        onSelect={() =>
-                                            toggleProductSelection(
-                                                product.id
-                                            )
-                                        }
-
-                                        onEdit={onEdit}
-
-                                        onDelete={onDelete}
-
-                                        onExportStory={onExportStory}
-
-                                    />
-
-                                ))
-                            }
-
-                        </tbody>
+                                />
 
 
-                    </table>
+                                <tbody>
+
+                                    {
+                                        products.map(product => (
+
+                                            <ProductTableRow
+
+                                                key={product.id}
+
+                                                product={product}
+
+                                                selected={
+                                                    selectedProducts.includes(
+                                                        product.id
+                                                    )
+                                                }
+
+                                                onSelect={() =>
+                                                    toggleProductSelection(
+                                                        product.id
+                                                    )
+                                                }
+
+                                                onEdit={onEdit}
+
+                                                onDelete={onDelete}
+
+                                                onExportStory={onExportStory}
+
+                                            />
+
+                                        ))
+                                    }
+
+                                </tbody>
+
+
+                            </table>
+
+
+                        </div>
+
+
+
+                        <div
+                            className="
+                                flex
+                                shrink-0
+                                items-center
+                                justify-between
+                                border-t
+                                border-[#E7E5E1]
+                                px-6
+                                py-3
+                                text-sm
+                                text-[#6B6862]
+                            "
+                        >
+
+                            <span>
+
+                                Mostrando {products.length} productos
+
+                            </span>
+
+
+                            <div
+                                className="
+                                    flex
+                                    items-center
+                                    gap-2
+                                "
+                            >
+
+                                <button
+                                    className="
+                                        rounded-lg
+                                        border
+                                        border-[#E7E5E1]
+                                        px-3
+                                        py-1.5
+                                    "
+                                >
+
+                                    Anterior
+
+                                </button>
+
+
+                                <button
+                                    className="
+                                        rounded-lg
+                                        border
+                                        border-[#E7E5E1]
+                                        px-3
+                                        py-1.5
+                                    "
+                                >
+
+                                    Siguiente
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </>
 
                 )
 
             }
 
 
-        </div>
+        </Surface>
 
     );
 

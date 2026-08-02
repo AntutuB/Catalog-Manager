@@ -2,6 +2,7 @@ import Input from "../../../../components/ui/Input";
 import Select from "../../../../components/ui/Select";
 import Textarea from "../../../../components/ui/Textarea";
 
+
 function ProductFields({
 
     form,
@@ -19,7 +20,11 @@ function ProductFields({
 
     return (
 
-        <>
+        <div
+            className="
+                space-y-4
+            "
+        >
 
             <Input
 
@@ -55,6 +60,10 @@ function ProductFields({
 
                 onChange={handleChange}
 
+                className="
+                    w-full
+                "
+
             >
 
                 <option value="">
@@ -63,7 +72,7 @@ function ProductFields({
 
 
                 {
-                    categories.map(category=>(
+                    categories.map(category => (
 
                         <option
 
@@ -158,7 +167,7 @@ function ProductFields({
             }
 
 
-        </>
+        </div>
 
     );
 

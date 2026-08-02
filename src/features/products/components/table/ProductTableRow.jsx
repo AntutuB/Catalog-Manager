@@ -35,7 +35,6 @@ function ProductTableRow({
             <td
                 className="
                     px-6
-                    py-5
                 "
             >
 
@@ -56,43 +55,26 @@ function ProductTableRow({
             <td
                 className="
                     px-6
-                    py-5
                 "
             >
 
                 {
                     product.imageUrl && (
 
-                        <div
+                        <img
+
+                            src={product.imageUrl}
+
+                            alt={product.name}
+
                             className="
-                                flex
                                 h-20
                                 w-20
-                                items-center
-                                justify-center
-                                overflow-hidden
                                 rounded-lg
-                                border
-                                border-[#E7E5E1]
-                                bg-[#FAF9F7]
+                                object-contain
                             "
-                        >
 
-                            <img
-
-                                src={product.imageUrl}
-
-                                alt={product.name}
-
-                                className="
-                                    max-h-full
-                                    max-w-full
-                                    object-contain
-                                "
-
-                            />
-
-                        </div>
+                        />
 
                     )
                 }
@@ -108,51 +90,32 @@ function ProductTableRow({
                 "
             >
 
-                <div className="space-y-1">
+                <div
+                    className="
+                        font-medium
+                        text-[#1C1B1A]
+                    "
+                >
 
-                    <div
-                        className="
-                            truncate
-                            font-medium
-                            text-[#1C1B1A]
-                        "
-                    >
-
-                        {product.name}
-
-                    </div>
-
-
-                    <div
-                        className="
-                            text-sm
-                            text-[#6B6862]
-                        "
-                    >
-
-                        {product.brand}
-
-                    </div>
-
-
-                    {
-                        product.categoryName && (
-
-                            <div
-                                className="
-                                    text-xs
-                                    text-[#9A958C]
-                                "
-                            >
-
-                                {product.categoryName}
-
-                            </div>
-
-                        )
-                    }
+                    {product.name}
 
                 </div>
+
+
+            </td>
+
+
+
+            <td
+                className="
+                    px-6
+                    py-5
+                    text-sm
+                    text-[#6B6862]
+                "
+            >
+
+                {product.categoryName || "-"}
 
             </td>
 
@@ -220,20 +183,30 @@ function ProductTableRow({
                 className="
                     px-6
                     py-5
+                    text-left
                 "
             >
 
-                <ProductActions
+                <div
+                    className="
+                        flex
+                        justify-start
+                    "
+                >
 
-                    product={product}
+                    <ProductActions
 
-                    onEdit={onEdit}
+                        product={product}
 
-                    onDelete={onDelete}
+                        onEdit={onEdit}
 
-                    onExportStory={onExportStory}
+                        onDelete={onDelete}
 
-                />
+                        onExportStory={onExportStory}
+
+                    />
+
+                </div>
 
             </td>
 

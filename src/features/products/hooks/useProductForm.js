@@ -66,12 +66,14 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
             value
         } = e.target;
 
-
         setForm({
 
             ...form,
 
-            [name]:value
+            [name]:
+                name === "categoryId"
+                    ? Number(value)
+                    : value
 
         });
 

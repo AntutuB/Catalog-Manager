@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function Button({
 
     children,
@@ -12,7 +14,9 @@ function Button({
 
     icon: Icon,
 
-    size="md"
+    size="md",
+
+    ...props
 
 }){
 
@@ -64,30 +68,33 @@ function Button({
     const sizes = {
 
 
-    sm:
-    `
-    h-8
-    px-4
-    text-xs
-    `,
+        sm:
+        `
+        h-8
+        min-w-fit
+        !px-4
+        text-xs
+        `,
 
 
-    md:
-    `
-    h-10
-    px-5
-    text-sm
-    `,
+        md:
+        `
+        h-11
+        min-w-fit
+        !px-6
+        text-sm
+        `,
 
 
-    lg:
-    `
-    h-12
-    px-6
-    text-sm
-    `
+        lg:
+        `
+        h-12
+        min-w-fit
+        !px-7
+        text-sm
+        `
 
-};
+    };
 
 
 
@@ -102,13 +109,18 @@ function Button({
 
             onClick={onClick}
 
+            {...props}
+
             className={`
                 inline-flex
                 items-center
                 justify-center
+
                 gap-2
 
-                rounded-lg
+                rounded-xl
+
+                whitespace-nowrap
 
                 font-medium
 

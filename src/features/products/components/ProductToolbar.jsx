@@ -38,8 +38,8 @@ function ProductToolbar({
 
         <div
             className="
-                mb-6
-                space-y-4
+                mb-4
+                space-y-2
             "
         >
 
@@ -47,40 +47,60 @@ function ProductToolbar({
                 className="
                     flex
                     flex-col
-                    gap-3
+                    gap-2
                     lg:flex-row
                     lg:items-center
                 "
             >
 
-                <ProductSearch
+                <div
+                    className="
+                        flex-1
+                    "
+                >
 
-                    search={search}
+                    <ProductSearch
 
-                    setSearch={setSearch}
+                        search={search}
 
-                />
+                        setSearch={setSearch}
+
+                    />
+
+                </div>
 
 
-                <ProductFilterSelects
 
-                    categoryFilter={categoryFilter}
+                <div
+                    className="
+                        flex
+                        shrink-0
+                        gap-3
+                    "
+                >
 
-                    setCategoryFilter={setCategoryFilter}
+                    <ProductFilterSelects
 
-                    typeFilter={typeFilter}
+                        categoryFilter={categoryFilter}
 
-                    setTypeFilter={setTypeFilter}
+                        setCategoryFilter={setCategoryFilter}
 
-                    sortBy={sortBy}
+                        typeFilter={typeFilter}
 
-                    setSortBy={setSortBy}
+                        setTypeFilter={setTypeFilter}
 
-                    categories={categories}
+                        sortBy={sortBy}
 
-                    types={types}
+                        setSortBy={setSortBy}
 
-                />
+                        categories={categories}
+
+                        types={types}
+
+                    />
+
+                </div>
+
 
             </div>
 

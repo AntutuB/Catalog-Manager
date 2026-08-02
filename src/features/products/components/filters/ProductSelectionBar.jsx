@@ -1,3 +1,6 @@
+import Surface from "../../../../components/ui/Surface";
+import ActionGroup from "../../../../components/ui/ActionGroup";
+
 function ProductSelectionBar({
 
     selectedCount,
@@ -19,18 +22,16 @@ function ProductSelectionBar({
 
     return (
 
-        <div
+        <Surface
+
             className="
                 flex
                 items-center
                 justify-between
-                rounded-xl
-                border
-                border-[#E7E5E1]
-                bg-white
                 px-5
                 py-3
             "
+
         >
 
             <span
@@ -46,12 +47,10 @@ function ProductSelectionBar({
 
 
 
-            <div
-                className="
-                    flex
-                    items-center
-                    gap-3
-                "
+            <ActionGroup
+
+                align="start"
+
             >
 
                 <button
@@ -100,10 +99,10 @@ function ProductSelectionBar({
                 </button>
 
 
-            </div>
+            </ActionGroup>
 
 
-        </div>
+        </Surface>
 
     );
 

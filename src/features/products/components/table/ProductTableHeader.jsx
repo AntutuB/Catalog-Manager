@@ -10,12 +10,15 @@ function ProductTableHeader({
     return (
 
         <thead
-            className="
-                border-b
-                border-[#E7E5E1]
-                bg-[#FAF9F7]
-            "
-        >
+    className="
+        sticky
+        top-0
+        z-10
+        border-b
+        border-[#E7E5E1]
+        bg-[#FAF9F7]
+    "
+>
 
             <tr>
 
@@ -101,27 +104,7 @@ function ProductTableHeader({
                     "
                 >
 
-                    Marca
-
-                </th>
-
-
-
-                <th
-                    className="
-                        w-40
-                        px-6
-                        py-5
-                        text-left
-                        text-xs
-                        font-semibold
-                        uppercase
-                        tracking-wide
-                        text-[#6B6862]
-                    "
-                >
-
-                    Tipo
+                    Categoría
 
                 </th>
 
@@ -141,6 +124,46 @@ function ProductTableHeader({
                     "
                 >
 
+                    Marca
+
+                </th>
+
+
+
+                <th
+                    className="
+                        w-32
+                        px-6
+                        py-5
+                        text-left
+                        text-xs
+                        font-semibold
+                        uppercase
+                        tracking-wide
+                        text-[#6B6862]
+                    "
+                >
+
+                    Tipo
+
+                </th>
+
+
+
+                <th
+                    className="
+                        w-28
+                        px-6
+                        py-5
+                        text-left
+                        text-xs
+                        font-semibold
+                        uppercase
+                        tracking-wide
+                        text-[#6B6862]
+                    "
+                >
+
                     Precio
 
                 </th>
@@ -149,7 +172,7 @@ function ProductTableHeader({
 
                 <th
                     className="
-                        w-72
+                        w-64
                         px-6
                         py-5
                         text-left
