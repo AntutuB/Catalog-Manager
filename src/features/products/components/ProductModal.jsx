@@ -1,3 +1,6 @@
+import Modal from "../../../components/ui/Modal";
+import Button from "../../../components/ui/Button";
+
 import ProductForm from "./ProductForm";
 
 
@@ -17,110 +20,57 @@ function ProductModal({
 
     cancelEdit
 
-}) {
-
-
-    if(!isOpen){
-
-        return null;
-
-    }
-
-
+}){
 
     return (
 
-        <div
+        <Modal
 
-            style={{
+            isOpen={isOpen}
 
-                position:"fixed",
+            onClose={onClose}
 
-                top:0,
-
-                left:0,
-
-                width:"100%",
-
-                height:"100%",
-
-                background:"rgba(0,0,0,0.5)",
-
-                display:"flex",
-
-                justifyContent:"center",
-
-                alignItems:"center",
-
-                zIndex:1000
-
-            }}
+            title={
+                editingProduct
+                    ? "Editar producto"
+                    : "Nuevo producto"
+            }
 
         >
 
+            <ProductForm
 
-            <div
+                categories={categories}
 
-                style={{
+                onAdd={onAdd}
 
-                    background:"#fff",
+                onEdit={onEdit}
 
-                    padding:"24px",
+                editingProduct={editingProduct}
 
-                    width:"500px",
+                cancelEdit={() => {
 
-                    maxHeight:"90vh",
+                    cancelEdit();
 
-                    overflowY:"auto"
+                    onClose();
 
                 }}
 
+            />
+
+
+            <div
+                className="
+                    mt-6
+                    flex
+                    justify-end
+                    gap-3
+                "
             >
 
+                <Button
 
-                <h2>
-
-                    {
-
-                        editingProduct
-
-                        ?
-
-                        "Editar producto"
-
-                        :
-
-                        "Nuevo producto"
-
-                    }
-
-                </h2>
-
-
-
-                <ProductForm
-
-                    categories={categories}
-
-                    onAdd={onAdd}
-
-                    onEdit={onEdit}
-
-                    editingProduct={editingProduct}
-
-                    cancelEdit={()=>{
-
-                        cancelEdit();
-
-                        onClose();
-
-                    }}
-
-                />
-
-
-
-                <button
+                    variant="secondary"
 
                     onClick={onClose}
 
@@ -128,14 +78,33 @@ function ProductModal({
 
                     Cancelar
 
-                </button>
+                </Button>
 
+
+
+                <Button
+
+                    type="submit"
+
+                    form="product-form"
+
+                >
+
+                    {
+
+                        editingProduct
+                            ? "Actualizar producto"
+                            : "Crear producto"
+
+                    }
+
+                </Button>
 
 
             </div>
 
 
-        </div>
+        </Modal>
 
     );
 

@@ -1,5 +1,6 @@
 import Input from "../../../../components/ui/Input";
 import Select from "../../../../components/ui/Select";
+import Textarea from "../../../../components/ui/Textarea";
 
 function ProductFields({
 
@@ -114,7 +115,7 @@ function ProductFields({
 
 
 
-            <textarea
+            <Textarea
 
                 name="description"
 

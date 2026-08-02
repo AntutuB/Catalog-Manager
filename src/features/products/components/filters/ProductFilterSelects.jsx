@@ -35,7 +35,7 @@ function ProductFilterSelects({
                     setCategoryFilter(e.target.value)
                 }
 
-                className={selectClass}
+                
 
             >
 
@@ -76,7 +76,7 @@ function ProductFilterSelects({
                     setTypeFilter(e.target.value)
                 }
 
-                className={selectClass}
+                
 
             >
 

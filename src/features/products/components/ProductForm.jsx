@@ -48,6 +48,8 @@ function ProductForm({
 
         <form
 
+            id="product-form"
+
             onSubmit={handleSubmit}
 
         >
@@ -69,26 +71,7 @@ function ProductForm({
 
 
 
-            <button
-
-                type="submit"
-
-            >
-
-                {
-                    editingProduct
-
-                    ?
-
-                    "Actualizar producto"
-
-                    :
-
-                    "Crear producto"
-                }
-
-
-            </button>
+            
 
 
 
