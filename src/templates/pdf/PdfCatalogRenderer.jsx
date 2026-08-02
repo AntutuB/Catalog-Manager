@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import TemplateRenderer from "../components/TemplateRenderer";
 
@@ -12,7 +12,9 @@ export default function PdfCatalogRenderer({
 
     products = [],
 
-    settings = {}
+    settings = {},
+
+    onPagesGenerated
 
 }){
 
@@ -26,13 +28,29 @@ export default function PdfCatalogRenderer({
 
     const pages =
 
-        PageBuilder.build(
+            PageBuilder.build(
 
-            normalizedProducts,
+                normalizedProducts,
 
-            manifest
+                manifest
 
+            );
+
+
+        useEffect(()=>{
+
+    if(onPagesGenerated){
+
+        onPagesGenerated(
+            pages.length
         );
+
+    }
+
+},[
+    pages.length,
+    onPagesGenerated
+]);
 
     return(
 

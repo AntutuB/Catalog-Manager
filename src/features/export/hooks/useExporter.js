@@ -132,7 +132,9 @@ const exportProduct = {
 
     products,
 
-    settings
+    settings,
+
+    othersServices=[]
 
 ){
 
@@ -140,7 +142,9 @@ const exportProduct = {
 
         products,
 
-        settings
+        settings,
+
+        othersServices
 
     });
 

@@ -21,6 +21,9 @@ import useProductModal from "../hooks/useProductModal";
 import useBulkDelete from "../hooks/useBulkDelete";
 import useProductExport from "../hooks/useProductExport";
 
+import { useOthersServices }
+from "../../others-services/hooks/useOthersServices";
+
 
 function Products(){
 
@@ -77,6 +80,12 @@ function Products(){
     } = useCategories();
 
 
+    const {
+
+        othersServices
+
+    } = useOthersServices();
+
 
     const {
         exportRef,
@@ -108,7 +117,8 @@ function Products(){
                     onExport={() =>
                         exportCatalogPDF(
                             products,
-                            pdfSettings
+                            pdfSettings,
+                            othersServices
                         )
                     }
 
@@ -260,6 +270,8 @@ function Products(){
                             products={pdfData.products}
 
                             settings={pdfData.settings}
+
+                            othersServices={pdfData.othersServices}
 
                         />
 
