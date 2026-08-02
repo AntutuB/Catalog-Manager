@@ -1,11 +1,16 @@
 import ProductTableHeader from "./ProductTableHeader";
 import ProductTableRow from "./ProductTableRow";
 import Surface from "../../../../components/ui/Surface";
+import EmptyState from "../../../../components/ui/EmptyState";
 
 
 function ProductTableView({
 
     products,
+
+    totalProducts,
+
+    totalFilteredProducts,
 
     selectedProducts,
 
@@ -49,17 +54,27 @@ function ProductTableView({
 
                 (
 
-                    <div
-                        className="
-                            p-10
-                            text-center
-                            text-gray-500
-                        "
-                    >
+                    totalProducts === 0
 
-                        No hay productos registrados.
+                    ?
 
-                    </div>
+                    <EmptyState
+
+                        title="No hay productos registrados"
+
+                        description="Crea tu primer producto para comenzar el catálogo."
+
+                    />
+
+                    :
+
+                    <EmptyState
+
+                        title="No encontramos productos"
+
+                        description="Prueba cambiando los filtros o la búsqueda."
+
+                    />
 
                 )
 
@@ -78,11 +93,13 @@ function ProductTableView({
                         >
 
                             <table
+
                                 className="
                                     w-full
                                     table-fixed
                                     border-collapse
                                 "
+
                             >
 
                                 <ProductTableHeader
@@ -139,6 +156,7 @@ function ProductTableView({
 
 
                         <div
+
                             className="
                                 flex
                                 shrink-0
@@ -151,6 +169,7 @@ function ProductTableView({
                                 text-sm
                                 text-[#6B6862]
                             "
+
                         >
 
                             <span>
@@ -161,14 +180,17 @@ function ProductTableView({
 
 
                             <div
+
                                 className="
                                     flex
                                     items-center
                                     gap-2
                                 "
+
                             >
 
                                 <button
+
                                     className="
                                         rounded-lg
                                         border
@@ -176,6 +198,7 @@ function ProductTableView({
                                         px-3
                                         py-1.5
                                     "
+
                                 >
 
                                     Anterior
@@ -184,6 +207,7 @@ function ProductTableView({
 
 
                                 <button
+
                                     className="
                                         rounded-lg
                                         border
@@ -191,6 +215,7 @@ function ProductTableView({
                                         px-3
                                         py-1.5
                                     "
+
                                 >
 
                                     Siguiente

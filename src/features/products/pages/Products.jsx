@@ -7,11 +7,11 @@ import ContentContainer from "../../../components/layout/ContentContainer";
 
 import Tabs from "../../../components/ui/Tabs";
 import PageContainer from "../../../components/ui/PageContainer";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
 
 import Header from "../../../components/layout/Header";
 
 import Categories from "../../categories/pages/Categories";
-
 import OthersServices from "../../others-services/pages/OthersServices";
 
 import { useProducts } from "../hooks/useProducts";
@@ -20,6 +20,8 @@ import { useExporter } from "../../export/hooks/useExporter";
 import useProductModal from "../hooks/useProductModal";
 import useBulkDelete from "../hooks/useBulkDelete";
 import useProductExport from "../hooks/useProductExport";
+
+import useConfirmModal from "../../../hooks/useConfirmModal";
 
 import {
     useOthersServices
@@ -31,12 +33,28 @@ function Products(){
     const [activeTab,setActiveTab] = useState("products");
 
 
+    const {
+
+        isOpen: confirmOpen,
+
+        config: confirmConfig,
+
+        openConfirm,
+
+        closeConfirm
+
+    } = useConfirmModal();
+
+
 
     const {
 
         products,
+
         addProduct,
+
         editProduct,
+
         removeProduct
 
     } = useProducts();
@@ -52,6 +70,53 @@ function Products(){
         deleteSelectedProducts
 
     } = useBulkDelete(removeProduct);
+
+
+
+    function handleDeleteProduct(id){
+
+        openConfirm({
+
+            title: "Eliminar producto",
+
+            message:
+                "Esta acción no se puede deshacer.",
+
+            onConfirm(){
+
+                removeProduct(id);
+
+                closeConfirm();
+
+            }
+
+        });
+
+    }
+
+
+
+    function handleDeleteSelectedProducts(){
+
+        openConfirm({
+
+            title:
+                "Eliminar productos seleccionados",
+
+            message:
+                "Se eliminarán los productos seleccionados. Esta acción no se puede deshacer.",
+
+            onConfirm(){
+
+                deleteSelectedProducts();
+
+                closeConfirm();
+
+            }
+
+        });
+
+    }
 
 
 
@@ -178,6 +243,7 @@ function Products(){
 
 
                 <div
+
                     className="
                         mt-6
                         flex-1
@@ -186,6 +252,7 @@ function Products(){
                         flex-col
                         overflow-hidden
                     "
+
                 >
 
 
@@ -202,9 +269,9 @@ function Products(){
 
                                 setSelectedProducts={setSelectedProducts}
 
-                                onDelete={removeProduct}
+                                onDelete={handleDeleteProduct}
 
-                                onDeleteSelected={deleteSelectedProducts}
+                                onDeleteSelected={handleDeleteSelectedProducts}
 
                                 onEdit={openEdit}
 
@@ -309,6 +376,23 @@ function Products(){
 
                     )
                 }
+
+
+
+
+                <ConfirmModal
+
+                    isOpen={confirmOpen}
+
+                    title={confirmConfig?.title}
+
+                    message={confirmConfig?.message}
+
+                    onCancel={closeConfirm}
+
+                    onConfirm={confirmConfig?.onConfirm}
+
+                />
 
 
 

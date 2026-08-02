@@ -4,7 +4,7 @@ import categoryPage from "./category-page.json";
 
 import theme from "./theme";
 
-import logo from "./assets/logo.png";
+import logo from "../../../assets/Evotec.svg";
 
 
 export default {

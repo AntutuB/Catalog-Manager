@@ -164,6 +164,10 @@ function ProductTable({
 
                     selectedProducts={selectedProducts}
 
+                    totalFilteredProducts={filteredProducts.length}
+
+                    totalProducts={products.length} 
+
                     toggleProductSelection={toggleProductSelection}
 
                     toggleAllProducts={toggleAllProducts}

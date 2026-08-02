@@ -4,6 +4,9 @@ import OthersServicesModal from "../components/OthersServicesModal";
 import { useOthersServices } from "../hooks/useOthersServices";
 import useOthersServicesModal from "../hooks/useOthersServicesModal";
 
+import ConfirmModal from "../../../components/ui/ConfirmModal";
+import useConfirmModal from "../../../hooks/useConfirmModal";
+
 
 function OthersServices(){
 
@@ -38,6 +41,43 @@ function OthersServices(){
 
 
 
+    const {
+
+        isOpen: confirmOpen,
+
+        config: confirmConfig,
+
+        openConfirm,
+
+        closeConfirm
+
+    } = useConfirmModal();
+
+
+
+    function handleDeleteOthersService(id){
+
+        openConfirm({
+
+            title:"Eliminar servicio",
+
+            message:
+                "Esta acción no se puede deshacer.",
+
+            onConfirm(){
+
+                removeOthersService(id);
+
+                closeConfirm();
+
+            }
+
+        });
+
+    }
+
+
+
     return (
 
         <div
@@ -57,9 +97,10 @@ function OthersServices(){
 
                 onEdit={openEdit}
 
-                onDelete={removeOthersService}
+                onDelete={handleDeleteOthersService}
 
             />
+
 
 
             <OthersServicesModal
@@ -73,6 +114,22 @@ function OthersServices(){
                 onEdit={editOthersService}
 
                 editingItem={editingItem}
+
+            />
+
+
+
+            <ConfirmModal
+
+                isOpen={confirmOpen}
+
+                title={confirmConfig?.title}
+
+                message={confirmConfig?.message}
+
+                onCancel={closeConfirm}
+
+                onConfirm={confirmConfig?.onConfirm}
 
             />
 

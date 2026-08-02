@@ -1,6 +1,8 @@
 import cover from "./cover.json";
 import categoryPage from "./category-page.json";
 
+import logo from "../../../assets/Evotec.svg";
+
 
 export default {
 
@@ -10,13 +12,18 @@ export default {
 
     version:"1.0.0",
 
+
     canvas:{
         width:794,
         height:1123
     },
 
+
+    background:"#FFFFFF",
+
+
     assets:{
-        logo:"./assets/logo.png"
+        logo
     },
 
 
@@ -26,3 +33,5 @@ export default {
     ]
 
 };
+
+
