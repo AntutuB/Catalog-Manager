@@ -17,11 +17,14 @@ import OthersServices from "../../others-services/pages/OthersServices";
 import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../../categories/hooks/useCategories";
 import { useExporter } from "../../export/hooks/useExporter";
+
 import useProductModal from "../hooks/useProductModal";
 import useBulkDelete from "../hooks/useBulkDelete";
 import useProductExport from "../hooks/useProductExport";
-
 import useConfirmModal from "../../../hooks/useConfirmModal";
+
+import Toast from "../../../components/ui/Toast";
+import useToast from "../../../hooks/useToast";
 
 import {
     useOthersServices
@@ -30,7 +33,15 @@ import {
 
 function Products(){
 
-    const [activeTab,setActiveTab] = useState("products");
+
+    const [
+
+        activeTab,
+
+        setActiveTab
+
+    ] = useState("products");
+
 
 
     const {
@@ -49,6 +60,17 @@ function Products(){
 
     const {
 
+        toast,
+
+        showToast
+
+    } = useToast();
+
+
+
+
+    const {
+
         products,
 
         addProduct,
@@ -58,6 +80,7 @@ function Products(){
         removeProduct
 
     } = useProducts();
+
 
 
 
@@ -73,50 +96,95 @@ function Products(){
 
 
 
+
+
     function handleDeleteProduct(id){
+
 
         openConfirm({
 
-            title: "Eliminar producto",
+            title:"Eliminar producto",
 
             message:
                 "Esta acción no se puede deshacer.",
 
+
             onConfirm(){
+
 
                 removeProduct(id);
 
+
+                showToast({
+
+                    type:"success",
+
+                    message:
+                        "Producto eliminado correctamente."
+
+                });
+
+
                 closeConfirm();
+
 
             }
 
+
         });
+
 
     }
 
 
 
+
+
+
     function handleDeleteSelectedProducts(){
+
 
         openConfirm({
 
             title:
                 "Eliminar productos seleccionados",
 
+
             message:
                 "Se eliminarán los productos seleccionados. Esta acción no se puede deshacer.",
 
+
+
             onConfirm(){
+
 
                 deleteSelectedProducts();
 
+
+                showToast({
+
+                    type:"success",
+
+                    message:
+                        "Productos eliminados correctamente."
+
+                });
+
+
+
                 closeConfirm();
+
 
             }
 
+
         });
 
+
     }
+
+
+
 
 
 
@@ -136,11 +204,15 @@ function Products(){
 
 
 
+
+
     const {
 
         pdfSettings
 
     } = useProductExport();
+
+
 
 
 
@@ -152,11 +224,15 @@ function Products(){
 
 
 
+
+
     const {
 
         othersServices
 
     } = useOthersServices();
+
+
 
 
 
@@ -183,6 +259,9 @@ function Products(){
 
 
 
+
+
+
     return (
 
         <PageContainer>
@@ -200,15 +279,23 @@ function Products(){
 
                     onCreate={openCreate}
 
-                    onExport={() =>
+                    onExport={()=>
+
                         exportCatalogPDF(
+
                             products,
+
                             pdfSettings,
+
                             othersServices
+
                         )
+
                     }
 
                 />
+
+
 
 
 
@@ -233,11 +320,14 @@ function Products(){
 
                     ]}
 
+
                     active={activeTab}
+
 
                     onChange={setActiveTab}
 
                 />
+
 
 
 
@@ -256,58 +346,92 @@ function Products(){
                 >
 
 
+
                     {
+
                         activeTab === "products" && (
+
 
                             <ProductTable
 
+
                                 products={products}
+
 
                                 categories={categories}
 
+
                                 selectedProducts={selectedProducts}
 
-                                setSelectedProducts={setSelectedProducts}
 
-                                onDelete={handleDeleteProduct}
+                                setSelectedProducts={
+                                    setSelectedProducts
+                                }
 
-                                onDeleteSelected={handleDeleteSelectedProducts}
+
+                                onDelete={
+                                    handleDeleteProduct
+                                }
+
+
+                                onDeleteSelected={
+                                    handleDeleteSelectedProducts
+                                }
+
 
                                 onEdit={openEdit}
+
+
 
                                 onExportStory={(product)=>
 
                                     exportProductPNG(
+
                                         product,
+
                                         "instagram-story"
+
                                     )
 
                                 }
 
+
                             />
 
                         )
+
                     }
 
 
 
+
+
                     {
+
                         activeTab === "others-services" && (
+
 
                             <OthersServices />
 
+
                         )
+
                     }
 
 
 
 
+
                     {
+
                         activeTab === "categories" && (
+
 
                             <Categories />
 
+
                         )
+
                     }
 
 
@@ -318,21 +442,35 @@ function Products(){
 
 
 
+
+
                 <ProductModal
+
 
                     isOpen={isModalOpen}
 
+
                     onClose={closeModal}
+
 
                     categories={categories}
 
+
                     onAdd={addProduct}
+
 
                     onEdit={editProduct}
 
+
                     editingProduct={editingProduct}
 
+
                     cancelEdit={closeModal}
+
+
+
+                    onSuccess={showToast}
+
 
                 />
 
@@ -340,57 +478,109 @@ function Products(){
 
 
 
+
+
+
                 {
+
                     exportData && (
+
 
                         <ExportRenderer
 
+
                             ref={exportRef}
+
 
                             template={exportData.template}
 
+
                             product={exportData.product}
+
 
                         />
 
+
                     )
+
                 }
+
+
+
+
 
 
 
 
                 {
+
                     pdfData && (
+
 
                         <PdfExportRenderer
 
+
                             ref={pdfRef}
+
 
                             products={pdfData.products}
 
+
                             settings={pdfData.settings}
 
-                            othersServices={pdfData.othersServices}
+
+                            othersServices={
+                                pdfData.othersServices
+                            }
+
 
                         />
 
+
                     )
+
                 }
+
+
+
 
 
 
 
                 <ConfirmModal
 
+
                     isOpen={confirmOpen}
+
 
                     title={confirmConfig?.title}
 
+
                     message={confirmConfig?.message}
+
 
                     onCancel={closeConfirm}
 
-                    onConfirm={confirmConfig?.onConfirm}
+
+                    onConfirm={
+                        confirmConfig?.onConfirm
+                    }
+
+
+                />
+
+
+
+
+
+                <Toast
+
+
+                    type={toast?.type}
+
+
+                    message={toast?.message}
+
 
                 />
 
@@ -402,6 +592,7 @@ function Products(){
         </PageContainer>
 
     );
+
 
 }
 

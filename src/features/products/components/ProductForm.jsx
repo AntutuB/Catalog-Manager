@@ -12,7 +12,9 @@ function ProductForm({
 
     editingProduct,
 
-    cancelEdit
+    cancelEdit,
+
+    onSuccess
 
 }){
 
@@ -37,7 +39,9 @@ function ProductForm({
 
         onEdit,
 
-        cancelEdit
+        cancelEdit,
+
+        onSuccess
 
     );
 
@@ -53,7 +57,6 @@ function ProductForm({
 
         >
 
-
             <ProductFields
 
                 form={form}
@@ -67,7 +70,6 @@ function ProductForm({
                 handleImageChange={handleImageChange}
 
             />
-
 
         </form>
 

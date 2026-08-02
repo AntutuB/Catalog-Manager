@@ -19,7 +19,9 @@ function ProductModal({
 
     editingProduct,
 
-    cancelEdit
+    cancelEdit,
+
+    onSuccess
 
 }){
 
@@ -50,6 +52,8 @@ function ProductModal({
                 editingProduct={editingProduct}
 
                 cancelEdit={cancelEdit}
+
+                onSuccess={onSuccess}
 
             />
 

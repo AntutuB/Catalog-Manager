@@ -13,7 +13,20 @@ const initialState = {
 };
 
 
-function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
+
+function useProductForm(
+
+    editingProduct,
+
+    onAdd,
+
+    onEdit,
+
+    cancelEdit,
+
+    onSuccess
+
+){
 
 
     const [form,setForm] = useState(initialState);
@@ -31,11 +44,17 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
             setForm({
 
                 name: editingProduct.name || "",
+
                 brand: editingProduct.brand || "",
+
                 categoryId: editingProduct.categoryId || "",
+
                 type: editingProduct.type || "",
+
                 price: editingProduct.price || "",
+
                 description: editingProduct.description || "",
+
                 image: editingProduct.image || null
 
             });
@@ -44,13 +63,34 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
 
             if(editingProduct.image){
 
+
                 setImagePreview(
+
                     URL.createObjectURL(
+
                         editingProduct.image
+
                     )
+
                 );
 
+
+            } else {
+
+
+                setImagePreview(null);
+
+
             }
+
+
+        } else {
+
+
+            setForm(initialState);
+
+            setImagePreview(null);
+
 
         }
 
@@ -59,25 +99,39 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
 
 
 
+
+
     function handleChange(e){
 
+
         const {
+
             name,
+
             value
+
         } = e.target;
 
-        setForm({
 
-            ...form,
+
+        setForm(previous => ({
+
+            ...previous,
 
             [name]:
+
                 name === "categoryId"
+
                     ? Number(value)
+
                     : value
 
-        });
+        }));
+
 
     }
+
+
 
 
 
@@ -87,23 +141,34 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
         const file = e.target.files[0];
 
 
-        if(!file) return;
+        if(!file){
+
+            return;
+
+        }
 
 
-        setForm({
 
-            ...form,
+        setForm(previous => ({
+
+            ...previous,
 
             image:file
 
-        });
+        }));
+
 
 
         setImagePreview(
+
             URL.createObjectURL(file)
+
         );
 
+
     }
+
+
 
 
 
@@ -113,21 +178,41 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
         e.preventDefault();
 
 
-        if(!form.name.trim()) return;
+
+        if(!form.name.trim()){
+
+
+            onSuccess?.(
+
+                "El nombre del producto es obligatorio."
+
+            );
+
+
+            return;
+
+
+        }
 
 
 
         const productData = {
 
+
             ...form,
 
+
             price:Number(form.price)
+
 
         };
 
 
 
+
+
         if(editingProduct){
+
 
 
             await onEdit(
@@ -135,17 +220,31 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
                 editingProduct.id,
 
                 {
+
                     ...productData,
+
                     updatedAt:new Date()
+
                 }
 
             );
 
 
+
+            onSuccess?.(
+
+                "Producto actualizado correctamente."
+
+            );
+
+
+
             cancelEdit();
 
 
-        }else{
+
+        } else {
+
 
 
             await onAdd({
@@ -157,7 +256,17 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
             });
 
 
+
+            onSuccess?.(
+
+                "Producto creado correctamente."
+
+            );
+
+
         }
+
+
 
 
 
@@ -170,7 +279,10 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
 
 
 
+
+
     return {
+
 
         form,
 
@@ -182,9 +294,12 @@ function useProductForm(editingProduct, onAdd, onEdit, cancelEdit){
 
         handleSubmit
 
+
     };
 
+
 }
+
 
 
 export default useProductForm;
