@@ -1,5 +1,5 @@
 import {
-    BrowserRouter,
+    HashRouter,
     Routes,
     Route,
     Navigate
@@ -13,30 +13,44 @@ function AppRouter(){
 
     return (
 
-        <BrowserRouter>
+        <HashRouter>
 
             <Routes>
 
                 <Route
+
                     path="/"
+
                     element={
+
                         <Navigate
+
                             to="/products"
+
                             replace
+
                         />
+
                     }
+
                 />
 
+
                 <Route
+
                     path="/products"
+
                     element={
+
                         <Products />
+
                     }
+
                 />
 
             </Routes>
 
-        </BrowserRouter>
+        </HashRouter>
 
     );
 
