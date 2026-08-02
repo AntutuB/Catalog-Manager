@@ -21,8 +21,9 @@ import useProductModal from "../hooks/useProductModal";
 import useBulkDelete from "../hooks/useBulkDelete";
 import useProductExport from "../hooks/useProductExport";
 
-import { useOthersServices }
-from "../../others-services/hooks/useOthersServices";
+import {
+    useOthersServices
+} from "../../others-services/hooks/useOthersServices";
 
 
 function Products(){
@@ -30,11 +31,14 @@ function Products(){
     const [activeTab,setActiveTab] = useState("products");
 
 
+
     const {
+
         products,
         addProduct,
         editProduct,
         removeProduct
+
     } = useProducts();
 
 
@@ -76,8 +80,11 @@ function Products(){
 
 
     const {
+
         categories
+
     } = useCategories();
+
 
 
     const {
@@ -87,16 +94,27 @@ function Products(){
     } = useOthersServices();
 
 
+
     const {
+
         exportRef,
+
         pdfRef,
+
         exportData,
+
         pdfData,
+
         exportProductPNG,
+
         exportCatalogPDF,
+
         ExportRenderer,
+
         PdfExportRenderer
+
     } = useExporter();
+
 
 
 
@@ -104,10 +122,13 @@ function Products(){
 
         <PageContainer>
 
+
             <Header />
 
 
+
             <ContentContainer>
+
 
 
                 <ProductHeader
@@ -129,18 +150,22 @@ function Products(){
                 <Tabs
 
                     tabs={[
+
                         {
                             id:"products",
                             label:"Productos"
                         },
+
                         {
                             id:"others-services",
                             label:"Otros y Servicios"
                         },
+
                         {
                             id:"categories",
                             label:"Categorías"
                         }
+
                     ]}
 
                     active={activeTab}
@@ -148,6 +173,7 @@ function Products(){
                     onChange={setActiveTab}
 
                 />
+
 
 
 
@@ -162,17 +188,15 @@ function Products(){
                     "
                 >
 
+
                     {
                         activeTab === "products" && (
 
                             <ProductTable
 
-                                className="
-                                    flex-1
-                                    min-h-0
-                                "
-
                                 products={products}
+
+                                categories={categories}
 
                                 selectedProducts={selectedProducts}
 
@@ -198,6 +222,8 @@ function Products(){
                         )
                     }
 
+
+
                     {
                         activeTab === "others-services" && (
 
@@ -218,7 +244,10 @@ function Products(){
                     }
 
 
+
                 </div>
+
+
 
 
 
@@ -242,6 +271,8 @@ function Products(){
 
 
 
+
+
                 {
                     exportData && (
 
@@ -257,6 +288,7 @@ function Products(){
 
                     )
                 }
+
 
 
 
@@ -277,6 +309,7 @@ function Products(){
 
                     )
                 }
+
 
 
             </ContentContainer>

@@ -26,11 +26,11 @@ function Button({
 
         primary:
         `
-        bg-[#1C1B1A]
+        bg-[#2F3786]
         text-white
         border
-        border-[#1C1B1A]
-        hover:bg-[#353330]
+        border-[#2F3786]
+        hover:bg-[#252C6B]
         `,
 
 

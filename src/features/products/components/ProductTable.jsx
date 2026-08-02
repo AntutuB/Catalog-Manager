@@ -11,6 +11,8 @@ function ProductTable({
 
     products,
 
+    categories: databaseCategories,
+
     selectedProducts,
 
     setSelectedProducts,
@@ -34,19 +36,15 @@ function ProductTable({
     const {
 
         search,
-
         setSearch,
 
         categoryFilter,
-
         setCategoryFilter,
 
         typeFilter,
-
         setTypeFilter,
 
         sortBy,
-
         setSortBy,
 
         categories,
@@ -55,7 +53,13 @@ function ProductTable({
 
         filteredProducts
 
-    } = useProductFilters(productsWithImages);
+    } = useProductFilters(
+
+        productsWithImages,
+
+        databaseCategories
+
+    );
 
 
 

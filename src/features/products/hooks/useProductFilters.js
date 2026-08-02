@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 
-function useProductFilters(products) {
+function useProductFilters(products, externalCategories = []) {
 
     const [search, setSearch] = useState("");
 
@@ -12,17 +12,49 @@ function useProductFilters(products) {
     const [sortBy, setSortBy] = useState("name");
 
 
-    const categories = useMemo(() => [
 
-        "all",
+    const categories = useMemo(() => {
 
-        ...new Set(
-            products
-                .map(product => product.categoryName)
-                .filter(Boolean)
-        )
+        const sourceCategories = externalCategories.length
 
-    ], [products]);
+            ? externalCategories.map(category =>
+                typeof category === "string"
+                    ? category
+                    : category.name
+            )
+
+            : products
+                .map(product => product.categoryName);
+
+
+
+        return [
+
+            "all",
+
+            ...new Set(
+
+                sourceCategories
+
+                    .filter(Boolean)
+
+                    .filter(category =>
+                        typeof category === "string"
+                    )
+
+            )
+
+        ];
+
+
+    }, [
+
+        products,
+
+        externalCategories
+
+    ]);
+
 
 
     const types = useMemo(() => [
@@ -30,12 +62,17 @@ function useProductFilters(products) {
         "all",
 
         ...new Set(
+
             products
+
                 .map(product => product.type)
+
                 .filter(Boolean)
+
         )
 
     ], [products]);
+
 
 
     const filteredProducts = useMemo(() => {
@@ -43,9 +80,11 @@ function useProductFilters(products) {
         let data = [...products];
 
 
+
         if (search.trim()) {
 
             const value = search.toLowerCase();
+
 
             data = data.filter(product =>
 
@@ -56,6 +95,7 @@ function useProductFilters(products) {
             );
 
         }
+
 
 
         if (categoryFilter !== "all") {
@@ -69,6 +109,7 @@ function useProductFilters(products) {
         }
 
 
+
         if (typeFilter !== "all") {
 
             data = data.filter(
@@ -80,26 +121,32 @@ function useProductFilters(products) {
         }
 
 
+
         if (sortBy === "price") {
 
             data.sort(
 
-                (a, b) => Number(a.price) - Number(b.price)
+                (a, b) =>
+                    Number(a.price) - Number(b.price)
 
             );
+
 
         } else {
 
             data.sort(
 
-                (a, b) => a.name.localeCompare(b.name)
+                (a, b) =>
+                    a.name.localeCompare(b.name)
 
             );
 
         }
 
 
+
         return data;
+
 
     }, [
 
@@ -114,6 +161,7 @@ function useProductFilters(products) {
         sortBy
 
     ]);
+
 
 
     return {

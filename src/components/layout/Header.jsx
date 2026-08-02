@@ -1,4 +1,4 @@
-import { Package2 } from "lucide-react";
+import logo from "../../assets/Evotec.svg";
 
 
 function Header(){
@@ -32,9 +32,14 @@ function Header(){
                     "
                 >
 
-                    <Package2
-                        size={22}
-                        className="text-gray-700"
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="
+                            h-6
+                            w-auto
+                            object-contain
+                        "
                     />
 
 
