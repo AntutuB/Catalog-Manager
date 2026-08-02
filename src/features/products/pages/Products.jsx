@@ -12,6 +12,8 @@ import Header from "../../../components/layout/Header";
 
 import Categories from "../../categories/pages/Categories";
 
+import OthersServices from "../../others-services/pages/OthersServices";
+
 import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../../categories/hooks/useCategories";
 import { useExporter } from "../../export/hooks/useExporter";
@@ -122,6 +124,10 @@ function Products(){
                             label:"Productos"
                         },
                         {
+                            id:"others-services",
+                            label:"Otros y Servicios"
+                        },
+                        {
                             id:"categories",
                             label:"Categorías"
                         }
@@ -181,6 +187,15 @@ function Products(){
 
                         )
                     }
+
+                    {
+                        activeTab === "others-services" && (
+
+                            <OthersServices />
+
+                        )
+                    }
+
 
 
 
