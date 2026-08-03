@@ -61,7 +61,9 @@ class CatalogNormalizer {
 
 
                 type:
-                    product.type || "Otros",
+                    product.categoryName ||
+                    product.type ||
+                    "Otros",
 
 
                 typeDescription:

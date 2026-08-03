@@ -150,7 +150,7 @@ export default function PdfProductRow({
 
                 >
 
-                    {product.type || ""}
+                    {product.originalType || ""}
 
                 </div>
 
